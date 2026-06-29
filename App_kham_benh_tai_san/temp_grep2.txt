@@ -1,9 +1,0 @@
-6933: alert('Lỗi đọc file JSON: ' + err.message);
-7057: const PROFILES = {
-7155: sage: {
-7237: if (hasPh1 && hasPh2 && hasPh3 && n >= 3) return 'sage';
-7249: if (hasPh1 && hasPh2 && hasPh3 && n >= 3 && debtR < 0.65 && totalCF > -20) return 'sage';
-8298: label: 'DNA Nhà Đầu Tư', b: PROFILES[B.profile].icon + ' ' + PROFILES[B.profile].name,
-8302: a: PROFILES[A.profile].icon + ' ' + PROFILES[A.profile].name,
-8578: const pCfg = PROFILES[profKey];
-10085: const pCfg = PROFILES[profKey];

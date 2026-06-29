@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoang Viet Asset Architect - Phân tích Lợi nhuận Chuyên sâu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="root">
+    <h1>Hoang Viet Asset Architect — Phân tích Lợi nhuận</h1>
+    <div class="sr-only">Mô hình tính toán đầu tư BĐS chuyên sâu — Tập trung vào hiệu quả sử dụng vốn (ROE)</div>
+
+    <!-- Phân tích Lãi suất ẩn -->
+    <button id="toggleHiddenRate" style="width: 100%; background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); padding: 16px; border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--color-primary); display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 1rem; transition: background 0.2s;">
+        <span>🔍 BÓC TÁCH LÃI SUẤT ẨN (SO SÁNH VAY & TTS)</span>
+        <span id="toggleIcon" style="font-size: 12px;">▼ MỞ RA</span>
+    </button>
+
+    <div id="hiddenRateSection" class="accordion-wrapper">
+        <div class="accordion-inner">
+            <div class="card" style="margin-bottom: 2rem;">
+        <div class="sl-row">
+            <span class="sl-label">Giá mua phương án VAY (Tỷ)</span>
+            <input type="range" id="pVay" min="0.5" max="50" step="0.1" value="10.0">
+            <div class="sl-val">
+                <input type="number" id="pVayI" class="sl-input" step="0.1" value="10.0">
+                <span class="sl-unit">tỷ</span>
+            </div>
+        </div>
+        <div class="sl-row">
+            <span class="sl-label">Giá mua phương án TTS (Tỷ)</span>
+            <input type="range" id="pTts" min="0.5" max="50" step="0.1" value="9.0">
+            <div class="sl-val">
+                <input type="number" id="pTtsI" class="sl-input" step="0.1" value="9.0">
+                <span class="sl-unit">tỷ</span>
+            </div>
+        </div>
+        <div class="sl-row">
+            <span class="sl-label">Tỷ lệ vay hỗ trợ lãi suất (%)</span>
+            <input type="range" id="loanPct" min="10" max="100" step="5" value="70">
+            <div class="sl-val">
+                <input type="number" id="loanPctI" class="sl-input" step="5" value="70">
+                <span class="sl-unit">%</span>
+            </div>
+        </div>
+        <div class="sl-row">
+            <span class="sl-label">Thời gian HTLS (tháng)</span>
+            <input type="range" id="htlsMonths" min="6" max="60" step="1" value="24">
+            <div class="sl-val">
+                <input type="number" id="htlsMonthsI" class="sl-input" step="1" value="24">
+                <span class="sl-unit">th</span>
+            </div>
+        </div>
+
+        <div id="hiddenRateVerdict" style="margin-top: 24px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Sliders -->
+    <div class="sec">Thông số đầu tư</div>
+    <div class="card">
+        <div class="sl-row"><span class="sl-label">Tổng giá mua (Tỷ, đã có VAT)</span><input type="range" id="price" min="0.5" max="50" step="0.1" value="5.5"><div class="sl-val"><input type="number" id="priceI" class="sl-input" step="0.1" value="5.5"><span class="sl-unit">tỷ</span><div id="priceUnitInfo"></div></div></div>
+        <div class="sl-row"><span class="sl-label">Diện tích căn hộ (m²)</span><input type="range" id="area" min="25" max="300" step="1" value="90"><div class="sl-val"><input type="number" id="areaI" class="sl-input" step="1" value="90"><span class="sl-unit">m²</span></div></div>
+        <div class="sl-row"><span class="sl-label">Nhận nhà sau bao nhiêu tháng</span><input type="range" id="delivery" min="0" max="60" step="1" value="28"><div class="sl-val"><input type="number" id="deliveryI" class="sl-input" step="1" value="28"><span class="sl-unit">th</span></div></div>
+        <div class="sl-row"><span class="sl-label">Tiền tự có bỏ vào (%)</span><input type="range" id="equityPct" min="0" max="100" step="5" value="30"><div class="sl-val"><input type="number" id="equityPctI" class="sl-input" step="5" value="30"><span class="sl-unit">%</span></div></div>
+        <div class="sl-row"><span class="sl-label">Lãi suất vay (%/năm)</span><input type="range" id="rate" min="0" max="15" step="0.5" value="0"><div class="sl-val"><input type="number" id="rateI" class="sl-input" step="0.5" value="0"><span class="sl-unit">%/năm</span></div></div>
+        <div class="sl-row"><span class="sl-label">Ân hạn Gốc Lãi (tháng)</span><input type="range" id="graceLS" min="0" max="60" step="6" value="24"><div class="sl-val"><input type="number" id="graceLSI" class="sl-input" step="6" value="24"><span class="sl-unit">th</span></div></div>
+        <div class="sl-row"><span class="sl-label">Cho thuê ròng (tr/tháng)</span><input type="range" id="rent" min="0" max="200" step="1" value="20"><div class="sl-val"><input type="number" id="rentI" class="sl-input" step="1" value="20"><span class="sl-unit">tr/th</span></div></div>
+        <div class="sl-row"><span class="sl-label">Tăng giá BĐS mỗi năm (%)</span><input type="range" id="appr" min="0" max="100" step="1" value="20"><div class="sl-val"><input type="number" id="apprI" class="sl-input" step="1" value="20"><span class="sl-unit">%/năm</span></div></div>
+        <div class="sl-row"><span class="sl-label">Bán nhà sau bao nhiêu năm</span><input type="range" id="hold" min="1" max="20" step="1" value="5"><div class="sl-val"><input type="number" id="holdI" class="sl-input" step="1" value="5"><span class="sl-unit">năm</span></div></div>
+    </div>
+
+    <!-- Kết quả -->
+    <div class="sec">Kết quả tổng hợp</div>
+    <div class="g3" id="bigMetrics"></div>
+
+    <div class="sec">Bảng chi tiết thu chi tài chính</div>
+    <div class="card" style="padding: 0;">
+        <table id="breakdownTable">
+            <thead>
+                <tr>
+                    <th>Hạng mục đầu tư</th>
+                    <th style="text-align: right;">Giá trị (Triệu/Tỷ)</th>
+                </tr>
+            </thead>
+            <tbody id="breakdownBody"></tbody>
+        </table>
+    </div>
+
+    <div class="sec">Kết luận &amp; Tín hiệu đầu tư</div>
+    <div id="verdict"></div>
+
+    <div class="note">* Giả định: (1) Lãi suất cố định. (2) Phí môi giới &amp; thủ tục ~1.5%. (3) Thuế TNCN khi bán 2% giá trị giao dịch.</div>
+</div>
+
+<script src="calculator.js"></script>
+</body>
+</html>

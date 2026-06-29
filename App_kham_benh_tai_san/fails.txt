@@ -1,1 +1,0 @@
-| 23 | 3 căn hộ cho thuê Ph3=100%, debtR=30% → Người Giữ Kho (không có Ph1) | `guardian` | `ruler` | ❌ got:`guardian` |

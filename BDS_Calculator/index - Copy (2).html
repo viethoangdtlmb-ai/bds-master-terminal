@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoang Viet Asset Architect - Phân tích Lợi nhuận Chuyên sâu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="root">
+    <h1>Hoang Viet Asset Architect — Phân tích Lợi nhuận</h1>
+    <div class="sr-only">Mô hình tính toán đầu tư BĐS chuyên sâu — Tập trung vào hiệu quả sử dụng vốn (ROE)</div>
+
+    <!-- ===== SECTION 1: CHON DU AN & CAN HO ===== -->
+    <div class="sec">① Chọn nhanh Dự án & Căn hộ</div>
+    <div class="card">
+        <!-- Row 1: Chon du an -->
+        <div class="picker-row">
+            <label class="picker-label">Dự án</label>
+            <select id="projectPreset" class="picker-select" onchange="onProjectChange()">
+                <option value="">— Chọn dự án —</option>
+                <option value="imperia-sky-park">Imperia Sky Park</option>
+                <option value="custom">Tùy chỉnh thông số tay</option>
+            </select>
+        </div>
+
+        <!-- Row 2: Bo loc can (chi hien khi chon du an co data) -->
+        <div id="inventorySection" class="hidden">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>Số PN</label>
+                    <select id="filterPN" onchange="renderInventoryDropdown()">
+                        <option value="">Tất cả</option>
+                        <option value="1PN">1PN</option>
+                        <option value="2PN">2PN</option>
+                        <option value="2PN+1">2PN+1</option>
+                        <option value="3PN">3PN</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Tòa</label>
+                    <select id="filterToa" onchange="renderInventoryDropdown()">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Trạng thái</label>
+                    <select id="filterStatus" onchange="renderInventoryDropdown()">
+                        <option value="">Tất cả</option>
+                        <option value="available">Còn hàng</option>
+                        <option value="dat_coc">Đặt cọc</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="picker-row" style="margin-top:12px;">
+                <label class="picker-label">Chọn mã căn</label>
+                <select id="canSelect" class="picker-select" onchange="onCanChange()">
+                    <option value="">— Chọn căn hộ —</option>
+                </select>
+            </div>
+
+            <!-- Card thong tin can da chon -->
+            <div id="canInfoCard" class="can-info-card hidden">
+                <div class="can-info-grid">
+                    <div class="can-info-item"><span class="ci-label">Mã căn</span><span class="ci-val" id="ci-maCan">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Tòa / Tầng</span><span class="ci-val" id="ci-toaTang">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Diện tích TT</span><span class="ci-val" id="ci-dt">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Số PN</span><span class="ci-val" id="ci-pn">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Giá niêm yết (có VAT)</span><span class="ci-val" id="ci-giaVat">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Đơn giá (chưa VAT)</span><span class="ci-val" id="ci-donGia">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Gói bàn giao</span><span class="ci-val" id="ci-goiBG">—</span></div>
+                    <div class="can-info-item"><span class="ci-label">Trạng thái</span><span class="ci-val" id="ci-status">—</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SECTION 2: CHINH SACH BAN HANG ===== -->
+    <div id="policySection" class="hidden">
+        <div class="sec">② Phương thức Thanh toán (CSBH)</div>
+        <div class="card">
+            <div class="picker-row">
+                <label class="picker-label">Chọn phương án TT</label>
+                <select id="policySelect" class="picker-select" onchange="onPolicyChange()">
+                    <option value="">— Chọn phương thức TT —</option>
+                </select>
+            </div>
+            <div id="policyInfoCard" class="policy-info-card hidden">
+                <div class="policy-header">
+                    <span class="policy-badge">CSBH</span>
+                    <span id="pi-ten" class="policy-ten">—</span>
+                </div>
+                <p id="pi-mota" class="policy-mota">—</p>
+                <div class="policy-tags" id="pi-tags"></div>
+                <div class="policy-auto-note">
+                    <i>⚡ Các thông số bên dưới đã được tự động điền theo phương án này. Anh có thể điều chỉnh thêm.</i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SECTION 3: THONG SO TINH TOAN ===== -->
+    <div class="sec">③ Thông tin căn hộ &amp; kế hoạch đầu tư</div>
+    <div class="card">
+        <div class="sl-row"><span class="sl-label">Diện tích căn hộ (m²)</span><input type="range" id="area" min="25" max="300" step="1" value="90"><span class="sl-val" id="areaV">90 m²</span></div>
+        <div class="sl-row"><span class="sl-label">Giá mua (triệu/m², chưa VAT)</span><input type="range" id="price" min="30" max="250" step="1" value="82"><span class="sl-val" id="priceV">82 tr/m²</span></div>
+        <div class="sl-row"><span class="sl-label">Nhận nhà sau bao nhiêu tháng</span><input type="range" id="delivery" min="0" max="60" step="1" value="28"><span class="sl-val" id="deliveryV">28 th</span></div>
+        <div class="sl-row"><span class="sl-label">Tiền tự có bỏ vào (%)</span><input type="range" id="equityPct" min="0" max="100" step="5" value="30"><span class="sl-val" id="equityPctV">30%</span></div>
+        <div class="sl-row"><span class="sl-label">Lãi suất vay (%/năm)</span><input type="range" id="rate" min="0" max="15" step="0.5" value="0"><span class="sl-val" id="rateV">0%/năm</span></div>
+        <div class="sl-row"><span class="sl-label">Ân hạn Gốc Lãi (tháng)</span><input type="range" id="graceLS" min="0" max="60" step="6" value="24"><span class="sl-val" id="graceLSV">24 th</span></div>
+        <div class="sl-row"><span class="sl-label">Cho thuê ròng (tr/tháng)</span><input type="range" id="rent" min="0" max="200" step="1" value="20"><span class="sl-val" id="rentV">20 tr/th</span></div>
+        <div class="sl-row"><span class="sl-label">Tăng giá BĐS mỗi năm (%)</span><input type="range" id="appr" min="0" max="100" step="1" value="12"><span class="sl-val" id="apprV">12%/năm</span></div>
+        <div class="sl-row"><span class="sl-label">Bán nhà sau bao nhiêu năm</span><input type="range" id="hold" min="1" max="20" step="1" value="5"><span class="sl-val" id="holdV">5 năm</span></div>
+    </div>
+
+    <!-- ===== SECTION 4: KET QUA ===== -->
+    <div class="sec">④ Kết quả tổng hợp</div>
+    <div class="g3" id="bigMetrics"></div>
+
+    <div class="sec">Bảng chi tiết thu chi tài chính</div>
+    <div class="card" style="padding: 0;">
+        <table id="breakdownTable">
+            <thead>
+                <tr>
+                    <th>Hạng mục đầu tư</th>
+                    <th style="text-align: right;">Giá trị (Triệu/Tỷ)</th>
+                </tr>
+            </thead>
+            <tbody id="breakdownBody"></tbody>
+        </table>
+    </div>
+
+    <div class="sec">Kết luận &amp; Tín hiệu đầu tư</div>
+    <div id="verdict"></div>
+
+    <div class="note">* Giả định: (1) Tính toán dựa trên lãi suất cố định. (2) Phí môi giới &amp; thủ tục ~1.5%. (3) Thuế TNCN khi bán 2% giá trị giao dịch. (4) Giá tính theo diện tích thông thủy, chưa VAT.</div>
+</div>
+
+<script src="bang_hang_data.js"></script>
+<script src="calculator.js"></script>
+</body>
+</html>
