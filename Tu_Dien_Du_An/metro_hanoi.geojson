@@ -1,0 +1,69 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuyến số 3 (Nhổn - Ga Hà Nội)",
+        "type": "Metro Line",
+        "status": "In operation / Construction",
+        "color": "#0052cc"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [105.7335, 21.0348],
+          [105.7485, 21.0368],
+          [105.7609, 21.0381],
+          [105.7725, 21.0384],
+          [105.7838, 21.0378],
+          [105.7946, 21.0369],
+          [105.8038, 21.0360],
+          [105.8118, 21.0322],
+          [105.8234, 21.0298],
+          [105.8306, 21.0282],
+          [105.8361, 21.0268],
+          [105.8413, 21.0253]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tuyến 2A (Cát Linh - Hà Đông)",
+        "type": "Metro Line",
+        "status": "In operation",
+        "color": "#00d2ff"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [105.8258, 21.0276],
+          [105.8208, 21.0234],
+          [105.8164, 21.0163],
+          [105.8155, 21.0068],
+          [105.8118, 21.0016],
+          [105.8016, 20.9934],
+          [105.7895, 20.9859],
+          [105.7801, 20.9785],
+          [105.7720, 20.9723],
+          [105.7601, 20.9658],
+          [105.7483, 20.9575],
+          [105.7410, 20.9501]
+        ]
+      }
+    },
+    { "type": "Feature", "properties": { "name": "Ga Nhổn" }, "geometry": { "type": "Point", "coordinates": [105.7335, 21.0348] } },
+    { "type": "Feature", "properties": { "name": "Ga Minh Khai" }, "geometry": { "type": "Point", "coordinates": [105.7485, 21.0368] } },
+    { "type": "Feature", "properties": { "name": "Ga Phú Diễn" }, "geometry": { "type": "Point", "coordinates": [105.7609, 21.0381] } },
+    { "type": "Feature", "properties": { "name": "Ga Cầu Diễn" }, "geometry": { "type": "Point", "coordinates": [105.7725, 21.0384] } },
+    { "type": "Feature", "properties": { "name": "Ga Lê Đức Thọ" }, "geometry": { "type": "Point", "coordinates": [105.7838, 21.0378] } },
+    { "type": "Feature", "properties": { "name": "Ga Đại học Quốc gia" }, "geometry": { "type": "Point", "coordinates": [105.7946, 21.0369] } },
+    { "type": "Feature", "properties": { "name": "Ga Chùa Hà" }, "geometry": { "type": "Point", "coordinates": [105.8038, 21.0360] } },
+    { "type": "Feature", "properties": { "name": "Ga Cầu Giấy" }, "geometry": { "type": "Point", "coordinates": [105.8118, 21.0322] } },
+    { "type": "Feature", "properties": { "name": "Ga Kim Mã" }, "geometry": { "type": "Point", "coordinates": [105.8234, 21.0298] } },
+    { "type": "Feature", "properties": { "name": "Ga Cát Linh" }, "geometry": { "type": "Point", "coordinates": [105.8306, 21.0282] } },
+    { "type": "Feature", "properties": { "name": "Ga Văn Miếu" }, "geometry": { "type": "Point", "coordinates": [105.8361, 21.0268] } },
+    { "type": "Feature", "properties": { "name": "Ga Hà Nội" }, "geometry": { "type": "Point", "coordinates": [105.8413, 21.0253] } }
+  ]
+}

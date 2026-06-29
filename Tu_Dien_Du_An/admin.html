@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>🗺️ Admin Map - Chỉnh Sửa Tọa Độ Dự Án</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* Sidebar */
+        #sidebar {
+            width: 360px;
+            min-width: 360px;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+        }
+        #sidebar-header {
+            padding: 16px;
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+        }
+        #sidebar-header h1 { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+        #sidebar-header p { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+        .badge-count { 
+            display: inline-block; background: #ef4444; color: white; 
+            font-size: 11px; border-radius: 999px; padding: 2px 8px; margin-left: 8px; font-weight: 600;
+        }
+
+        /* Search & Filter */
+        #controls { padding: 12px 16px; border-bottom: 1px solid #334155; display: flex; gap: 8px; flex-direction: column; }
+        #search { 
+            width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #334155;
+            background: #0f172a; color: #e2e8f0; font-size: 13px; outline: none;
+        }
+        #search:focus { border-color: #3b82f6; }
+        .filter-row { display: flex; gap: 8px; }
+        .filter-btn {
+            flex: 1; padding: 6px 10px; border-radius: 6px; border: 1px solid #334155;
+            background: #0f172a; color: #94a3b8; font-size: 12px; cursor: pointer; transition: all 0.2s;
+        }
+        .filter-btn.active { background: #1d4ed8; color: white; border-color: #1d4ed8; }
+
+        /* Project List */
+        #project-list { flex: 1; overflow-y: auto; padding: 8px; }
+        #project-list::-webkit-scrollbar { width: 4px; }
+        #project-list::-webkit-scrollbar-track { background: transparent; }
+        #project-list::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+
+        .proj-item {
+            padding: 10px 12px; border-radius: 8px; cursor: pointer; margin-bottom: 4px;
+            border: 1px solid transparent; transition: all 0.15s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .proj-item:hover { background: #263348; border-color: #334155; }
+        .proj-item.active { background: #1d4ed8; border-color: #3b82f6; }
+        .proj-item.selected { background: #166534; border-color: #22c55e; }
+        .proj-item.duplicate { border-left: 3px solid #ef4444 !important; }
+
+        .proj-dot {
+            width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+            background: #3b82f6; border: 2px solid #1e3a5f;
+        }
+        .proj-dot.no-coords { background: #6b7280; }
+        .proj-dot.duplicate { background: #ef4444; }
+        .proj-dot.ok { background: #22c55e; }
+
+        .proj-info { flex: 1; min-width: 0; }
+        .proj-name { font-size: 13px; font-weight: 500; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .proj-loc { font-size: 11px; color: #64748b; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .proj-coords { font-size: 10px; color: #475569; font-family: monospace; }
+
+        /* Status Panel */
+        #status-panel {
+            padding: 12px 16px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            font-size: 12px;
+        }
+        #status-text { color: #94a3b8; }
+        #status-text.success { color: #22c55e; }
+        #status-text.error { color: #ef4444; }
+        #status-text.info { color: #60a5fa; }
+
+        /* Map */
+        #map { flex: 1; }
+
+        /* Instructions overlay */
+        #instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #3b82f6;
+            border-radius: 10px;
+            padding: 12px 20px;
+            z-index: 1000;
+            font-size: 13px;
+            color: #bfdbfe;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            display: none;
+            /* pointer-events: none; - Bỏ cái này để click được vào ô input */
+        }
+        #instructions.visible { display: block; }
+        #instructions strong { color: #60a5fa; }
+
+        /* Legend */
+        #legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+            backdrop-filter: blur(8px);
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: #94a3b8; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .metro-tooltip {
+            background: rgba(15, 23, 42, 0.9);
+            color: #00d2ff;
+            border: 1px solid #00d2ff;
+            font-weight: 600;
+            font-size: 11px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <div id="sidebar-header">
+        <h1>🗺️ Admin Map Tool <span class="badge-count" id="count-badge">0</span></h1>
+        <p>Click vào dự án → Click lên bản đồ để ghim vị trí đúng</p>
+    </div>
+    <div id="controls">
+        <input type="text" id="search" placeholder="🔍 Tìm kiếm tên dự án..." />
+        <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">Tất cả</button>
+            <button class="filter-btn" data-filter="unverified" style="color: #fca5a5;">❌ Chưa Verify</button>
+            <button class="filter-btn" data-filter="ok">✅ Đã Verify</button>
+        </div>
+    </div>
+    <div id="project-list"></div>
+    <div id="status-panel">
+        <div id="status-text">Đang tải dữ liệu...</div>
+    </div>
+</div>
+
+<!-- Map Wrapper -->
+<div id="map-wrapper" style="flex: 1; position: relative; display: flex; flex-direction: column;">
+    <div id="map" style="flex: 1; height: 100%;"></div>
+    <div id="instructions">
+        <strong>📍 Đang chỉnh sửa:</strong> <span id="editing-name">...</span><br>
+        Click vào vị trí chính xác trên bản đồ để ghim
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2);">
+            Hoặc dán Link Google Maps (chứa tọa độ @lat,lng) vào đây:<br>
+            <input type="text" id="gmap-link" placeholder="VD: https://www.google.com/maps/...@21.0,105.8,15z" style="width: 100%; padding: 6px; margin-top: 4px; background: rgba(0,0,0,0.5); color: white; border: 1px solid #334155; border-radius: 4px; font-size: 12px; outline: none;" oninput="parseGoogleMapsLink(this.value)">
+        </div>
+    </div>
+    <div id="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Đã Verify</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> Trùng tọa độ</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Bình thường</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div> Chưa có tọa độ</div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="edit-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+    <div style="background: #1e293b; padding: 20px; border-radius: 8px; width: 400px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <h2 style="font-size: 16px; margin-bottom: 15px; color: white;">✏️ Chỉnh sửa Dự án</h2>
+        <input type="hidden" id="edit-id">
+        <div style="margin-bottom: 10px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Tên dự án</label>
+            <input type="text" id="edit-name" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #334155; background: #0f172a; color: white;">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Vị trí</label>
+            <input type="text" id="edit-location" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #334155; background: #0f172a; color: white;">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Chủ đầu tư</label>
+            <input type="text" id="edit-developer" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #334155; background: #0f172a; color: white;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Trạng thái</label>
+            <input type="text" id="edit-status" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #334155; background: #0f172a; color: white;">
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button onclick="closeEditModal()" style="padding: 8px 12px; border: none; background: #334155; color: white; border-radius: 4px; cursor: pointer;">Hủy</button>
+            <button onclick="saveProjectDetails()" style="padding: 8px 12px; border: none; background: #22c55e; color: white; border-radius: 4px; cursor: pointer; font-weight: 500;">Lưu thay đổi</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+    const API_BASE = 'http://localhost:8001';
+    let projects = [];
+    let markers = {};
+    let editingProject = null;
+    let editedIds = new Set();
+    let currentFilter = 'all';
+
+    // Init Map - TẮT double-click zoom để tránh xung đột với chức năng ghim tọa độ
+    const googleStreets = L.tileLayer('https://mt1.google.com/vt/lyrs=m&hl=vi&gl=VN&x={x}&y={y}&z={z}', {
+        maxZoom: 20, attribution: '© Google Maps'
+    });
+    const googleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&hl=vi&gl=VN&x={x}&y={y}&z={z}', {
+        maxZoom: 20, attribution: '© Google Maps'
+    });
+
+    const map = L.map('map', { 
+        doubleClickZoom: false,
+        layers: [googleHybrid] // Mặc định mở bản đồ vệ tinh thực địa
+    }).setView([21.0285, 105.8048], 11);
+
+    const baseMaps = {
+        "Bản đồ Vệ tinh (Thực địa)": googleHybrid,
+        "Bản đồ Đường phố": googleStreets
+    };
+    const layerControl = L.control.layers(baseMaps, null, {position: 'bottomright'}).addTo(map);
+    map.doubleClickZoom.disable(); // Đảm bảo tắt hoàn toàn
+
+    // Status helper
+    function setStatus(msg, type = '') {
+        const el = document.getElementById('status-text');
+        el.textContent = msg;
+        el.className = type;
+    }
+
+    // Detect duplicate coordinates
+    function getDuplicateCoords(projs) {
+        const coordMap = {};
+        projs.forEach(p => {
+            if (p.lat && p.lng) {
+                const key = `${p.lat.toFixed(4)},${p.lng.toFixed(4)}`;
+                if (!coordMap[key]) coordMap[key] = [];
+                coordMap[key].push(p.id);
+            }
+        });
+        const dupIds = new Set();
+        Object.values(coordMap).forEach(ids => {
+            if (ids.length > 1) ids.forEach(id => dupIds.add(id));
+        });
+        return dupIds;
+    }
+
+    // Load projects
+    async function loadProjects() {
+        try {
+            const resp = await fetch(`${API_BASE}/api/projects`);
+            if (!resp.ok) throw new Error('Server không phản hồi');
+            projects = await resp.json();
+            document.getElementById('count-badge').textContent = projects.length;
+            projects.forEach(p => { if (p.verified) editedIds.add(p.id); });
+            renderList();
+            renderMarkers();
+            setStatus(`✅ Đã tải ${projects.length} dự án (API). Click vào tên dự án để bắt đầu.`, 'success');
+        } catch(e) {
+            setStatus(`❌ Lỗi: ${e.message}. Hãy đảm bảo admin_server.py đang chạy!`, 'error');
+        }
+    }
+
+    // Create icon
+    function makeIcon(color) {
+        return L.divIcon({
+            className: '',
+            html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 0 6px rgba(0,0,0,0.5)"></div>`,
+            iconSize: [14, 14], iconAnchor: [7, 7]
+        });
+    }
+
+    // Render markers
+    function renderMarkers() {
+        const dupIds = getDuplicateCoords(projects);
+        // Clear old markers
+        Object.values(markers).forEach(m => map.removeLayer(m));
+        markers = {};
+
+        projects.forEach(p => {
+            if (!p.lat || !p.lng) return;
+            let color = '#3b82f6';
+            if (editedIds.has(p.id)) color = '#22c55e';
+            else if (dupIds.has(p.id)) color = '#ef4444';
+
+            const m = L.marker([p.lat, p.lng], { icon: makeIcon(color) }).addTo(map);
+            m.bindTooltip(p.name, { direction: 'top', offset: [0, -8] });
+            m.on('click', () => selectProject(p.id));
+            markers[p.id] = m;
+        });
+    }
+
+    // Render sidebar list
+    function renderList() {
+        const search = document.getElementById('search').value.toLowerCase();
+        const dupIds = getDuplicateCoords(projects);
+        const list = document.getElementById('project-list');
+        list.innerHTML = '';
+
+        const filtered = projects.filter(p => {
+            const matchSearch = p.name.toLowerCase().includes(search) || (p.location||'').toLowerCase().includes(search);
+            if (!matchSearch) return false;
+            if (currentFilter === 'unverified') return !editedIds.has(p.id);
+            if (currentFilter === 'ok') return editedIds.has(p.id);
+            return true;
+        });
+
+        filtered.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'proj-item' + (dupIds.has(p.id) ? ' duplicate' : '');
+            div.dataset.id = p.id;
+
+            let dotClass = 'proj-dot';
+            if (editedIds.has(p.id)) dotClass += ' ok';
+            else if (dupIds.has(p.id)) dotClass += ' duplicate';
+            else if (!p.lat) dotClass += ' no-coords';
+
+            const coordText = p.lat ? `${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}` : 'Chưa có tọa độ';
+
+            const isVerified = editedIds.has(p.id);
+            const verifyBtnHtml = isVerified 
+                ? `<span style="background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; border-radius: 4px; font-size: 12px; padding: 4px 8px; color: #4ade80; display: inline-block;">✅ Đã Verify</span>`
+                : `<button onclick="verifyProjectData(event, '${p.id}')" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; border-radius: 4px; cursor: pointer; font-size: 12px; padding: 4px 8px; color: white;" title="Xác nhận đúng vị trí">Verify</button>`;
+
+            div.innerHTML = `
+                <div class="${dotClass}"></div>
+                <div class="proj-info">
+                    <div class="proj-name">${p.name}</div>
+                    <div class="proj-loc">${p.location || ''}</div>
+                    <div class="proj-coords">${coordText}</div>
+                </div>
+                <div class="proj-actions" style="display: flex; gap: 6px; align-items: center;">
+                    ${verifyBtnHtml}
+                    <button onclick="openEditModal(event, '${p.id}')" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; border-radius: 4px; cursor: pointer; font-size: 12px; padding: 4px; color: white;" title="Sửa thông tin">✏️</button>
+                    <button onclick="deleteProjectData(event, '${p.id}')" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; border-radius: 4px; cursor: pointer; font-size: 12px; padding: 4px; color: white;" title="Xóa dự án">🗑️</button>
+                </div>
+            `;
+            div.addEventListener('click', () => selectProject(p.id));
+            list.appendChild(div);
+        });
+    }
+
+    // Select project to edit
+    function selectProject(projId) {
+        const proj = projects.find(p => p.id === projId);
+        if (!proj) return;
+
+        editingProject = proj;
+        
+        // Update active state
+        document.querySelectorAll('.proj-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.id === projId);
+        });
+
+        // Fly to marker
+        if (proj.lat && proj.lng) {
+            map.flyTo([proj.lat, proj.lng], 15, { duration: 0.8 });
+        }
+
+        // Show instructions
+        document.getElementById('instructions').classList.add('visible');
+        document.getElementById('editing-name').textContent = proj.name;
+
+        setStatus(`📍 Đang chỉnh sửa: "${proj.name}". Click lên bản đồ để ghim vị trí mới.`, 'info');
+    }
+
+    // Parse Google Maps Link
+    async function parseGoogleMapsLink(url) {
+        if (!url || !editingProject) return;
+        
+        let lat, lng;
+        
+        // Ưu tiên 1: Lấy chính xác tọa độ của điểm Ghim (Pin) trong dải data (!3d... !4d...)
+        let exactMatch = url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
+        if (exactMatch) {
+            lat = parseFloat(exactMatch[1]);
+            lng = parseFloat(exactMatch[2]);
+        } 
+        // Ưu tiên 2: Lấy tọa độ trung tâm màn hình (@lat,lng) nếu không có ghim
+        else {
+            let match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+            if (match) {
+                lat = parseFloat(match[1]);
+                lng = parseFloat(match[2]);
+            } else {
+                // Ưu tiên 3: Lấy tọa độ từ query search (?q=lat,lng)
+                match = url.match(/q=(-?\d+\.\d+),(-?\d+\.\d+)/) || url.match(/ll=(-?\d+\.\d+),(-?\d+\.\d+)/);
+                if (match) {
+                    lat = parseFloat(match[1]);
+                    lng = parseFloat(match[2]);
+                }
+            }
+        }
+        
+        if (lat && lng) {
+            document.getElementById('gmap-link').value = ''; // clear input
+            
+            const proj = editingProject;
+            try {
+                const resp = await fetch(`${API_BASE}/api/update_coords`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: proj.id, lat, lng })
+                });
+
+                if (resp.ok) {
+                    proj.lat = lat;
+                    proj.lng = lng;
+                    
+                    let color = '#3b82f6';
+                    if (editedIds.has(proj.id)) color = '#22c55e';
+
+                    if (markers[proj.id]) map.removeLayer(markers[proj.id]);
+                    const m = L.marker([lat, lng], { icon: makeIcon(color) }).addTo(map);
+                    m.bindTooltip(proj.name, { direction: 'top', offset: [0, -8] });
+                    m.on('click', () => selectProject(proj.id));
+                    markers[proj.id] = m;
+
+                    renderList();
+                    map.flyTo([lat, lng], 16);
+
+                    setStatus(`✅ Đã lưu tọa độ từ Link Google Maps cho "${proj.name}"`, 'success');
+                    document.getElementById('instructions').classList.remove('visible');
+                    editingProject = null;
+                } else {
+                    setStatus('❌ Lỗi khi lưu tọa độ. Kiểm tra lại server!', 'error');
+                }
+            } catch(e) {
+                setStatus('❌ Không kết nối được server. Kiểm tra admin_server.py!', 'error');
+            }
+        }
+    }
+
+    // Click on map to update coords
+    map.on('click', async (e) => {
+        if (!editingProject) return;
+
+        const { lat, lng } = e.latlng;
+        const proj = editingProject;
+
+        try {
+            const resp = await fetch(`${API_BASE}/api/update_coords`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: proj.id, lat, lng })
+            });
+
+            if (resp.ok) {
+                // Update local data
+                proj.lat = lat;
+                proj.lng = lng;
+                
+                // Update marker color (keep it blue/red unless it's already verified)
+                let color = '#3b82f6';
+                if (editedIds.has(proj.id)) color = '#22c55e';
+
+                if (markers[proj.id]) map.removeLayer(markers[proj.id]);
+                const m = L.marker([lat, lng], { icon: makeIcon(color) }).addTo(map);
+                m.bindTooltip(proj.name, { direction: 'top', offset: [0, -8] });
+                m.on('click', () => selectProject(proj.id));
+                markers[proj.id] = m;
+
+                // Update sidebar
+                renderList();
+
+                setStatus(`✅ Đã lưu tọa độ mới cho "${proj.name}": ${lat.toFixed(6)}, ${lng.toFixed(6)}`, 'success');
+                document.getElementById('instructions').classList.remove('visible');
+                editingProject = null;
+            } else {
+                setStatus('❌ Lỗi khi lưu. Kiểm tra lại server!', 'error');
+            }
+        } catch(e) {
+            setStatus('❌ Không kết nối được server. Kiểm tra admin_server.py!', 'error');
+        }
+    });
+
+    // Edit Modal Functions
+    function openEditModal(e, projId) {
+        e.stopPropagation();
+        const proj = projects.find(p => p.id === projId);
+        if(!proj) return;
+        document.getElementById('edit-id').value = proj.id;
+        document.getElementById('edit-name').value = proj.name || '';
+        document.getElementById('edit-location').value = proj.location || '';
+        document.getElementById('edit-developer').value = proj.developer || '';
+        document.getElementById('edit-status').value = proj.status || '';
+        document.getElementById('edit-modal').style.display = 'flex';
+    }
+
+    function closeEditModal() {
+        document.getElementById('edit-modal').style.display = 'none';
+    }
+
+    async function saveProjectDetails() {
+        const id = document.getElementById('edit-id').value;
+        const name = document.getElementById('edit-name').value;
+        const location = document.getElementById('edit-location').value;
+        const developer = document.getElementById('edit-developer').value;
+        const status = document.getElementById('edit-status').value;
+        
+        try {
+            const resp = await fetch(`${API_BASE}/api/update_project`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name, location, developer, status })
+            });
+            if(resp.ok) {
+                const proj = projects.find(p => p.id === id);
+                if(proj) {
+                    proj.name = name;
+                    proj.location = location;
+                    proj.developer = developer;
+                    proj.status = status;
+                }
+                renderList();
+                renderMarkers();
+                closeEditModal();
+                setStatus(`✅ Đã cập nhật thông tin dự án "${name}"`, 'success');
+            } else {
+                setStatus('❌ Lỗi cập nhật thông tin. Vui lòng kiểm tra server.', 'error');
+            }
+        } catch(e) {
+            setStatus('❌ Lỗi kết nối server', 'error');
+        }
+    }
+
+    async function deleteProjectData(e, projId) {
+        e.stopPropagation();
+        if(!confirm('⚠️ Bạn có chắc chắn muốn xóa hoàn toàn dự án này khỏi dữ liệu không? Hành động này không thể hoàn tác!')) return;
+        
+        try {
+            const resp = await fetch(`${API_BASE}/api/delete_project`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: projId })
+            });
+            if(resp.ok) {
+                projects = projects.filter(p => p.id !== projId);
+                document.getElementById('count-badge').textContent = projects.length;
+                renderList();
+                renderMarkers();
+                setStatus('✅ Đã xóa dự án thành công', 'success');
+                if (editingProject && editingProject.id === projId) {
+                    editingProject = null;
+                    document.getElementById('instructions').classList.remove('visible');
+                }
+            } else {
+                setStatus('❌ Lỗi xóa dự án. Vui lòng kiểm tra server.', 'error');
+            }
+        } catch(e) {
+            setStatus('❌ Lỗi kết nối server', 'error');
+        }
+    }
+    async function verifyProjectData(e, id) {
+        e.stopPropagation();
+        if(!confirm('Xác nhận tọa độ hiện tại của dự án này đã CHUẨN 100%?')) return;
+
+        try {
+            const resp = await fetch(`${API_BASE}/api/verify_project`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+
+            if (resp.ok) {
+                const proj = projects.find(p => p.id === id);
+                if (proj) proj.verified = true;
+                editedIds.add(id); // Thêm vào danh sách đã Verify
+                renderList();
+                renderMarkers();
+                setStatus('✅ Đã Verify thành công! Tọa độ này sẽ được đánh dấu vĩnh viễn.', 'success');
+            } else {
+                setStatus('❌ Lỗi khi Verify dự án!', 'error');
+            }
+        } catch(err) {
+            setStatus('❌ Lỗi kết nối tới server', 'error');
+        }
+    }
+
+    // Search & Filter events
+    document.getElementById('search').addEventListener('input', renderList);
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            renderList();
+        });
+    });
+
+    // Press Escape to cancel editing
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            editingProject = null;
+            document.getElementById('instructions').classList.remove('visible');
+            document.querySelectorAll('.proj-item').forEach(el => el.classList.remove('active'));
+            setStatus('Đã huỷ chỉnh sửa. Click vào dự án khác để tiếp tục.', '');
+        }
+    });
+
+    // Load on start
+    loadProjects();
+</script>
+</body>
+</html>

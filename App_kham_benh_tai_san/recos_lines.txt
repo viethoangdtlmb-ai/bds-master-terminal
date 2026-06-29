@@ -1,0 +1,60 @@
+30:   <link rel="preconnect" href="https://fonts.googleapis.com">
+2465:       #rx-preview {
+2530:       #rx-empty {
+2548:       #rx-preview {
+2554:       #rx-preview * {
+2573:       #rx-preview table {
+2579:       #rx-preview .rx-section {
+2586:       #rx-preview svg {
+2596:       #rx-preview .rx-section:nth-child(5) {
+4212:         <!-- Đơn Thuốc Tái Cơ Cấu -->
+4213:         <div id="diag-recos" style="margin-bottom:20px"></div>
+4948:             <button class="btn btn-primary" onclick="window.print()" id="rx-print-btn" style="display:none">🖨️ In /
+4993:               <input class="form-input" id="rx-client-name" placeholder="Nguyễn Văn A">
+5009:               <input class="form-input" id="rx-client-phone" placeholder="0912 345 678">
+5025:               <input class="form-input" id="rx-consultant" placeholder="Hoàng Việt" value="Hoàng Việt">
+5041:               <input class="form-input" id="rx-note" placeholder="Mục tiêu: tái cơ cấu danh mục Q2/2026">
+5061:         <div id="rx-empty" style="text-align:center;padding:40px;color:var(--text-3)">
+5117:       <div id="rx-preview" style="display:none"></div>
+7077:         rx: 'Tiếp tục thâu tóm Pha 1 — Chính sách, Hạ Tầng để không ai thay thế đế chế. Consolidate & Expand.',
+7101:         rx: 'Chuyển 20–30% danh mục sang Pha 1 để tăng hệ số nhân vốn. Giữ Pha 3 làm lõi phòng thủ.',
+7125:         rx: 'Cần ít nhất 1 tài sản Pha 3 tạo "máu" nuôi đòn bẩy. Cân bằng offense với defense.',
+7149:         rx: 'CẤP CỨU: Cắt ngay tài sản gánh lãi nặng nhất. Giải phóng dòng tiền — thoát khỏi bẫy trước khi quá muộn.',
+7163:         rx: 'Chuyển đổi 1–2 tài sản sang cơ cấu tích sản Pha 4: căn hộ dịch vụ dài hạn, nền đất sinh lời tự động, hoặc quỹ BDS lợi tức ổn định. Mục tiêu: hệ thống tự chạy.',
+7175:         rx: 'Phân bổ 20–30% danh mục sang 1–2 tài sản Pha 1 có căn cứ quy hoạch rõ ràng. Dùng dòng tiền Pha 3 làm "nhiên liệu" nuôi kèo tăng trưởng.',
+8601:       const clientName = document.getElementById('rx-client-name')?.value || '_______________';
+8605:       const clientPhone = document.getElementById('rx-client-phone')?.value || '_______________';
+8609:       const consultant = document.getElementById('rx-consultant')?.value || 'Hoàng Việt';
+8613:       const rxNote = document.getElementById('rx-note')?.value || '';
+8673:       // Recommendations
+8681:       const recos = [];
+8689:         recos.push(`CẮT HOẠI TỬ: "${sorted[0].a.name}" — đang đốt ${Math.abs(sorted[0].c.cashflow).toFixed(0)} Tr/tháng. Thoát trong 0–3 tháng.`);
+8697:         recos.push('BƠM MÁU: Chưa có tài sản Pha 3 dòng tiền. Ưu tiên mua 1 tài sản cho thuê ổn định trong 6 tháng tới.');
+8701:       recos.push(pCfg.rx);
+9064:       <div><span style="font-size:10px;color:#9CA3AF;text-transform:uppercase">Mục Tiêu Buổi Khám</span><br><span style="font-size:12px;color:#D1D5DB">${rxNote || 'Chẩn đoán & tái cơ cấu danh mục'}</span></div>
+9192:         <p style="margin:0;font-size:11px;color:#059669"><strong>💊 Toa thuốc:</strong> ${pCfg.rx}</p>
+9462:   <!-- PRESCRIPTION / RECOS -->
+9470:     <div style="font-size:13px;font-weight:700;color:#15803D;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">💊 VII. TOA THUỐC TÁI CƠ CẤU</div>
+9474:     ${recos.map((r, i) => `<div style="padding:8px 12px;margin-bottom:8px;background:#fff;border-left:3px solid #10B981;border-radius:0 6px 6px 0;font-size:12px;color:#1C1C2E">
+9554:       const preview = document.getElementById('rx-preview');
+9558:       const empty = document.getElementById('rx-empty');
+9562:       const printBtn = document.getElementById('rx-print-btn');
+10131:           💊 <strong>Tỏa thuốc:</strong> ${pCfg.rx}
+10211:         alerts.push({ type: 'danger', icon: '🩸', msg: `<strong>Dòng tiền ròng: ${totalCF.toFixed(0)} Tr/tháng</strong> — Danh mục đang đốt tiền nặng. Cần tái cơ cấu ngay.` });
+10279:       // ── Auto Recommendations ──────────────────────────────────────────────
+10303:         const recos = [];
+10311:           recos.push(`🔴 <strong>Cắt hoại tử:</strong> "${worst.a.name}" — đang đốt <strong>${Math.abs(worst.c.cashflow).toFixed(1)} Tr/tháng</strong>. Ưu tiên thoát trong Cửa sổ 0–3 tháng.`);
+10319:           recos.push(`🟢 <strong>Giữ vững:</strong> "${bestCF.a.name}" — dòng tiền dương <strong>+${bestCF.c.cashflow.toFixed(1)} Tr/tháng</strong>. Đây là mạch máu của hệ thống.`);
+10331:           recos.push(`⚡ <strong>Bơm máu:</strong> Chưa có tài sản Pha 3 — Dòng tiền. Cần tái cơ cấu ngay để tạo nguồn thu ổn định.`);
+10343:           recos.push(`🚀 <strong>Mở rộng:</strong> Chưa có tài sản Pha 1 — Chính sách, Hạ Tầng. Xem xét phân bổ 20–30% vốn vào khu vực Cycle thấp đang đầu chu kỳ.`);
+10347:         if (recos.length === 0)
+10351:           recos.push(`✅ Danh mục đang cân bằng tốt. Tiếp tục duy trì cấu trúc hiện tại và theo dõi Cycle Index hàng tháng.`);
+10355:         document.getElementById('diag-recos').innerHTML = recos.length === 0 ? '' :
+10357:          <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px">💊 Đơn Thuốc Tái Cơ Cấu</div>
+10358:          ${recos.map(r => `<div style="font-size:12px;color:var(--text-2);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04)">${r}</div>`).join('')}
+11152:           id: 'refi', icon: '🏦', title: 'Kịch Bản C — Tái Cơ Cấu Lãi',
+11172:             { id: 'sc-fee', label: 'Phí tái cơ cấu (Triệu)', type: 'number', step: 5, def: 30 }
+11240:               { label: 'HV phí tái cơ cấu', val: `${breakeven.toFixed(1)} tháng`, color: breakeven <= 12 ? 'var(--emerald)' : 'var(--yellow)' },
+11244:               { label: 'CF sau tái cơ cấu', val: `${newCF >= 0 ? '+' : ''}${newCF.toFixed(1)} Tr/th`, color: newCF >= 0 ? 'var(--emerald)' : 'var(--red)' },
+11480:       // Simple recommendation: which scenario gives best net return
+11584:       💡 <strong style="color:var(--text-1)">Hướng dẫn:</strong> So sánh “Thu về thực tế” giữa A và B để biết nên bán ngay hay chờ. So sánh “CF sau tái cơ cấu” (C) với hiện tại để biết có đáng thương lượng lãi không.

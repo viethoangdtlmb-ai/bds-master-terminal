@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Đồ Dự Án & Quy Hoạch - Asset Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+    <div class="layout-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="header-brand">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>Asset Architect</h2>
+                        <span class="badge">VIP</span>
+                    </div>
+                </div>
+                <p class="header-subtitle">Danh mục Đầu tư & Quy hoạch</p>
+            </div>
+            
+            <div class="search-box-container">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchProject" placeholder="Tìm kiếm tên, vị trí..." class="search-input">
+                </div>
+                <div class="filters">
+                    <select id="filterDeveloper" class="filter-select">
+                        <option value="">Chủ đầu tư</option>
+                        <!-- Options sẽ được render động bằng JS -->
+                    </select>
+                    <select id="filterDistrict" class="filter-select">
+                        <option value="">Quận / Huyện</option>
+                        <!-- Options sẽ được render động bằng JS -->
+                    </select>
+                </div>
+            </div>
+
+            <ul class="project-list" id="projectList">
+                <!-- Danh sách render bằng JS -->
+            </ul>
+        </aside>
+
+        <!-- Main Map Area -->
+        <div id="map" style="flex: 1; height: 100vh; position: relative; z-index: 1;">
+            
+            <!-- Sidebar Toggle Button -->
+            <button id="toggleSidebarBtn" style="position: absolute; top: 10px; left: 60px; z-index: 1000; padding: 8px 12px; border-radius: 6px; background: white; border: 1px solid #cbd5e1; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 16px;">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <!-- Map Overlay Controls overlaying Leaflet -->
+            <div id="mapControls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <select id="planningDistrict" class="map-control-btn" style="cursor: pointer; border-color: #cbd5e1; outline: none; padding: 8px;">
+                        <option value="all">Tất cả Hà Nội</option>
+                        <option value="BacTuLiem">Bắc Từ Liêm</option>
+                        <option value="CauGiay">Cầu Giấy</option>
+                        <option value="DanPhuong">Đan Phượng</option>
+                        <option value="DongAnh">Đông Anh</option>
+                        <option value="GiaLam">Gia Lâm</option>
+                        <option value="HaDong">Hà Đông</option>
+                        <option value="HoaiDuc">Hoài Đức</option>
+                        <option value="HoangMai">Hoàng Mai</option>
+                        <option value="LongBien">Long Biên</option>
+                        <option value="NamTuLiem">Nam Từ Liêm</option>
+                        <option value="QuocOai">Quốc Oai</option>
+                        <option value="TayHo">Tây Hồ</option>
+                        <option value="ThachThat">Thạch Thất</option>
+                        <option value="ThanhTri">Thanh Trì</option>
+                        <option value="ThanhXuan">Thanh Xuân</option>
+                    </select>
+                    <button id="togglePlanningBtn" class="map-control-btn">
+                        <i class="fa-solid fa-layer-group"></i> Bật Quy Hoạch
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label for="opacitySlider" style="font-size: 13px; font-weight: 600; color: #1e293b;">Độ đậm nhạt:</label>
+                    <input type="range" id="opacitySlider" min="0" max="1" step="0.05" value="1" style="cursor: pointer; flex: 1;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="data.js?v=15"></script>
+    <script src="app.js?v=15"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+7057:     const PROFILES = {
+7058: 
+7059: 
+7060: 
+7061:       ruler: {
+7062: 
+7063: 
+7064: 
+7065:         icon: '👑', name: 'NGƯỜI CAI TRỊ', eng: 'The Ruler', color: 'var(--gold)',
+7066: 
+7067: 
+7068: 
+7069:         desc: 'Tài sản đa dạng, đòn bẩy kiểm soát tốt. Pha 3 — Dòng tiền đang nuôi cả hệ thống.',
+7070: 
+7071: 
+7072: 
+7073:         weakness: 'Sự trì trệ thế hệ kế cận, cấu trúc quản trị cũ lỗi thời.',
+7074: 
+7075: 
+7076: 
+7077:         rx: 'Tiếp tục thâu tóm Pha 1 — Chính sách, Hạ Tầng để không ai thay thế đế chế. Consolidate & Expand.',
+7078: 
+7079: 
+7080: 
+7081:       },
+7082: 
+7083: 
+7084: 
+7085:       guardian: {
+7086: 
+7087: 
+7088: 
+7089:         icon: '🏗️', name: 'NGƯỜI GIỮ KHO', eng: 'The Steward', color: 'var(--emerald)',
+7090: 
+7091: 
+7092: 
+7093:         desc: 'Bảo toàn vốn tốt, ít rủi ro. Tiền đang "ngủ yên" — tăng trưởng chậm hơn tiềm năng.',
+7094: 
+7095: 
+7096: 
+7097:         weakness: 'Lạm phát âm thầm ăn mòn sức mua. Thiếu tài sản tăng trưởng.',
+7098: 
+7099: 
+7100: 
+7101:         rx: 'Chuyển 20–30% danh mục sang Pha 1 để tăng hệ số nhân vốn. Giữ Pha 3 làm lõi phòng thủ.',
+7102: 
+7103: 
+7104: 
+7105:       },
+7106: 
+7107: 
+7108: 
+7109:       predator: {
+7110: 
+7111: 
+7112: 
+7113:         icon: '🐺', name: 'KẺ SĂN MỒI', eng: 'The Predator', color: 'var(--blue,#3B82F6)',
+7114: 
+7115: 
+7116: 
+7117:         desc: 'Cấu trúc tấn công. Đặt cược vào tăng trưởng Pha 1/2. Dòng tiền chưa phải ưu tiên.',
+7118: 
+7119: 
+7120: 
+7121:         weakness: 'FOMO ngược — sợ bỏ lỡ kèo thập kỷ. Dễ vỡ nếu thị trường đứng yên > 18 tháng.',
+7122: 
+7123: 
+7124: 
+7125:         rx: 'Cần ít nhất 1 tài sản Pha 3 tạo "máu" nuôi đòn bẩy. Cân bằng offense với defense.',
+7126: 
+7127: 
+7128: 
+7129:       },
+7130: 
+7131: 
+7132: 
+7133:       prey: {
+7134: 
+7135: 
+7136: 
+7137:         icon: '🐑', name: 'CON MỒI', eng: 'The Prey', color: 'var(--red)',
+7138: 
+7139: 
+7140: 
+7141:         desc: 'Cảnh báo nguy hiểm. Dòng tiền âm nặng, đòn bẩy cao — đang là "nhiên liệu" cho ngân hàng.',
+7142: 
+7143: 
+7144: 
+7145:         weakness: 'Sự ngoan cố và hối tiếc quá khứ. Nguy cơ vỡ nợ kỹ thuật.',
+7146: 
+7147: 
+7148: 
+7149:         rx: 'CẤP CỨU: Cắt ngay tài sản gánh lãi nặng nhất. Giải phóng dòng tiền — thoát khỏi bẫy trước khi quá muộn.',
+7150: 
+7151: 
+7152: 
+7153:       },
+7154: 
+7155:       sage: {
+7156: 
+7157:         icon: '🦉', name: 'NHÀ THÔNG THÁI', eng: 'The Sage', color: '#A855F7',
+7158: 
+7159:         desc: 'Danh mục đa pha hoàn chỉnh — có Pha 1 tăng trưởng, Pha 2 giá trị, Pha 3 dòng tiền. Cấu trúc hiếm thấy, nhưng chưa xây dựng được tài sản Pha 4 tích sản thế hệ.',
+7160: 
+7161:         weakness: 'Danh mục vẫn đòi hỏi quản trị chủ động. Chưa có hệ thống tài sản tự sinh lời không cần sự hiện diện của chủ nhân.',
+7162: 
+7163:         rx: 'Chuyển đổi 1–2 tài sản sang cơ cấu tích sản Pha 4: căn hộ dịch vụ dài hạn, nền đất sinh lời tự động, hoặc quỹ BDS lợi tức ổn định. Mục tiêu: hệ thống tự chạy.',
+7164: 
+7165:       },
+7166: 
+7167:       planter: {
+7168: 
+7169:         icon: '🌱', name: 'NGƯỜI GIEO HẠT', eng: 'The Planter', color: '#10B981',
+7170: 
+7171:         desc: 'Đã có Pha 2 tạo giá trị và Pha 3 dòng tiền — nền tảng vững chắc, thu nhập ổn định. Nhưng chưa có tài sản Pha 1 — chưa có hạt giống tăng trưởng đột phá theo hạ tầng, quy hoạch.',
+7172: 
+7173:         weakness: 'Lạm phát âm thầm bào mòn sức mua dài hạn. Không có kèo thập kỷ — bỏ lỡ các làn sóng tăng trưởng đại trà.',
+7174: 
+7175:         rx: 'Phân bổ 20–30% danh mục sang 1–2 tài sản Pha 1 có căn cứ quy hoạch rõ ràng. Dùng dòng tiền Pha 3 làm "nhiên liệu" nuôi kèo tăng trưởng.',
+7176: 
+7177:       },
+7178: 
+7179:     };

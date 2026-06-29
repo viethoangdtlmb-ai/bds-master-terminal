@@ -1,0 +1,3 @@
+8298: label: 'DNA Nhà Đầu Tư', b: PROFILES[B.profile].icon + ' ' + PROFILES[B.profile].name,
+9149: <div style="font-size:13px;font-weight:700;color:#1C1C2E;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">II. DNA NHÀ ĐẦU TƯ</div>
+10101: <span class="card-title">🧬 DNA Nhà Đầu Tư</span>

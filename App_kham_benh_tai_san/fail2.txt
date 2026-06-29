@@ -1,0 +1,1 @@
+| 12 | CF -16Tr, avgLoan=60>55, ph3=0 → Kẻ Cờ Bạc (step 1) | `prey` | `predator` | ❌ got:`prey` |

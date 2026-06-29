@@ -1,0 +1,29 @@
+23209:     const TEMPLATES = {
+23210: 
+23211: 
+23212: 
+23213:       chungcu: { name: 'Chung Cư Tiết Kiệm', type: 'chung-cu', district: 'Hà Đông', area: 68, year: 2020, cost: 3.2, market: 3.8, goal: 'cho-thue', loanpct: 70, debt: 1.8, rate: 7.5, prefmonths: 2, floatrate: 12.5, grace: 0, loanterm: 20, rentstatus: 'dang-thue', rent: 12, mgmt: 2, maint: 8, delivery: 0, rentExpected: 0 },
+23214: 
+23215: 
+23216: 
+23217:       shophouse: { name: 'Shophouse Làng Vân', type: 'shophouse', district: 'Hoài Đức', area: 80, year: 2022, cost: 9, market: 8.5, goal: 'cho-thue', loanpct: 60, debt: 4.8, rate: 8.5, prefmonths: 6, floatrate: 13, grace: 8, loanterm: 18, rentstatus: 'dang-thue', rent: 20, mgmt: 3.5, maint: 15, delivery: 0, rentExpected: 0 },
+23218: 
+23219: 
+23220: 
+23221:       bietthu: { name: 'Biệt Thự Vườn', type: 'biet-thu', district: 'Nam Từ Liêm', area: 200, year: 2019, cost: 15, market: 22, goal: 'tu-o', loanpct: 50, debt: 5, rate: 8.0, prefmonths: 0, floatrate: 13, grace: 0, loanterm: 15, rentstatus: 'trong', rent: 0, mgmt: 5, maint: 20, delivery: 0, rentExpected: 0 },
+23222: 
+23223: 
+23224: 
+23225:       datnen: { name: 'Đất Nền Bắc Quốc Oai', type: 'dat-nen', district: 'Thạch Thất', area: 120, year: 2021, cost: 3.5, market: 3.2, goal: 'tang-gia', loanpct: 50, debt: 1.5, rate: 9, prefmonths: 3, floatrate: 13.5, grace: 0, loanterm: 15, rentstatus: 'trong', rent: 0, mgmt: 0, maint: 5, delivery: 0, rentExpected: 0 },
+23226: 
+23227: 
+23228: 
+23229:       nghiduong: { name: 'Villa Biển Nghỉ Dưỡng', type: 'biet-thu', district: '', area: 250, year: 2018, cost: 12, market: 11, goal: 'cho-thue', loanpct: 60, debt: 6, rate: 8.5, prefmonths: 0, floatrate: 14, grace: 0, loanterm: 10, rentstatus: 'dang-thue', rent: 35, mgmt: 12, maint: 30, delivery: 0, rentExpected: 0 },
+23230: 
+23231: 
+23232: 
+23233:       vanphong: { name: 'Sàn Văn Phòng HH', type: 'nha-rieng', district: 'Cầu Giấy', area: 150, year: 2016, cost: 8, market: 10, goal: 'cho-thue', loanpct: 40, debt: 1.5, rate: 9, prefmonths: 0, floatrate: 12.5, grace: 0, loanterm: 10, rentstatus: 'dang-thue', rent: 45, mgmt: 8, maint: 15, delivery: 0, rentExpected: 0 }
+23234: 
+23235: 
+23236: 
+23237:     };

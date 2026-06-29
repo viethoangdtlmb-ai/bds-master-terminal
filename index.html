@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Architect OS - Super App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>Asset Architect</span>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="nav-item active" data-target="app-report">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Báo Cáo Master</span>
+                </a>
+                <a href="#" class="nav-item" data-target="app-kham-benh">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    <span>Khám Bệnh Tài Sản</span>
+                </a>
+                <a href="#" class="nav-item" data-target="app-tu-dien">
+                    <i class="fa-solid fa-book-atlas"></i>
+                    <span>Từ Điển Dự Án</span>
+                </a>
+                <a href="#" class="nav-item" data-target="app-calculator">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Máy Tính Đầu Tư</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="details">
+                        <span class="name">VIP Consultant</span>
+                        <span class="role">System Admin</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="current-module-title">
+                    <h1 id="module-title">Báo Cáo Master</h1>
+                </div>
+                <div class="actions">
+                    <button class="action-btn" title="Làm mới" onclick="refreshIframe()">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                    <button class="action-btn" title="Mở toàn màn hình" onclick="openFullscreen()">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="iframe-container">
+                <div class="loading-overlay" id="loading-overlay">
+                    <div class="spinner"></div>
+                    <p>Đang tải hệ thống...</p>
+                </div>
+                <iframe id="app-report" class="app-frame active" src="../VIP_Report/BAO_CAO_MASTER.html" frameborder="0" allowfullscreen></iframe>
+                <iframe id="app-kham-benh" class="app-frame" src="../App_kham_benh_tai_san/index.html" frameborder="0" allowfullscreen></iframe>
+                <iframe id="app-tu-dien" class="app-frame" src="../Tu_Dien_Du_An/index.html" frameborder="0" allowfullscreen></iframe>
+                <iframe id="app-calculator" class="app-frame" src="../BDS_Calculator/index.html" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

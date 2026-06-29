@@ -1,0 +1,95 @@
+10429:     /* ── HYBRID SLIDER ─────────────────────────────── */
+10433:     .slider-wrap {
+10465:     .slider-top {
+10489:     .slider-top .form-input {
+10517:     .slider-top .input-unit-label {
+10537:     .range-slider {
+10605:     .range-slider::-webkit-slider-runnable-track {
+10629:     .range-slider::-webkit-slider-thumb {
+10681:     .range-slider::-webkit-slider-thumb:hover,
+10685:     .range-slider::-webkit-slider-thumb:active {
+10705:     .range-slider::-moz-range-thumb {
+10741:     .range-slider::-moz-range-track {
+10765:     .range-slider.warn::-webkit-slider-thumb {
+10785:     .range-slider.warn::-moz-range-thumb {
+10801:     .range-slider.danger::-webkit-slider-thumb {
+10821:     .range-slider.danger::-moz-range-thumb {
+10837:     .range-labels {
+10873:     /* SLIDER POINTER EVENTS OVERRIDE */
+10877:     .range-slider,
+10881:     .range-slider::-webkit-slider-thumb {
+10897:     /* ── SLIDER ROW (standalone, no interference) ── */
+10901:     .slider-row {
+10921:     .slider-row .range-slider {
+10941:     .slider-row .range-labels {
+12695:               <div class="slider-row">
+12699:                 <input type="range" class="range-slider" id="sl-qs-buy" min="0" max="50" step="0.5" value="0">
+12703:                 <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
+12823:               <div class="slider-row">
+12827:                 <input type="range" class="range-slider" id="sl-qs-now" min="0" max="50" step="0.5" value="0">
+12831:                 <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
+12951:               <div class="slider-row">
+12955:                 <input type="range" class="range-slider" id="sl-qs-loan" min="0" max="100" step="1" value="0">
+12959:                 <div class="range-labels"><span>0%</span><span>50%</span><span>100%</span></div>
+13809:               <div class="slider-row">
+13813:                 <input type="range" class="range-slider" id="sl-area" min="0" max="500" step="1" value="0">
+13817:                 <div class="range-labels"><span>0</span><span>250</span><span>500m²</span></div>
+14405:                 <div class="slider-row">
+14409:                   <input type="range" class="range-slider" id="sl-cost" min="0" max="50" step="0.5" value="0">
+14413:                   <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
+14453:                 <div class="slider-row">
+14457:                   <input type="range" class="range-slider" id="sl-market" min="0" max="50" step="0.5" value="0">
+14461:                   <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
+14502:                 <div class="slider-row">
+14506:                   <input type="range" class="range-slider" id="sl-loanpct" min="0" max="100" step="1" value="0">
+14510:                   <div class="range-labels"><span>0%</span><span>50%</span><span>100%</span></div>
+14550:                 <div class="slider-row">
+14554:                   <input type="range" class="range-slider" id="sl-loanterm" min="0" max="35" step="1" value="0">
+14558:                   <div class="range-labels"><span>0</span><span>17</span><span>35năm</span></div>
+14603:                 <div class="slider-row">
+14607:                   <input type="range" class="range-slider" id="sl-prefmonths" min="0" max="36" step="1" value="0">
+14611:                   <div class="range-labels"><span>0T</span><span>18T</span><span>36T</span></div>
+14659:                 <div class="slider-row">
+14663:                   <input type="range" class="range-slider" id="sl-rate" min="0" max="20" step="0.5" value="0">
+14667:                   <div class="range-labels"><span>0%</span><span>10%</span><span>20%</span></div>
+14712:                 <div class="slider-row">
+14716:                   <input type="range" class="range-slider" id="sl-grace" min="0" max="36" step="1" value="0">
+14720:                   <div class="range-labels"><span>0</span><span>18</span><span>36T</span></div>
+14768:                 <div class="slider-row">
+14772:                   <input type="range" class="range-slider" id="sl-floatrate" min="0" max="20" step="0.5" value="0">
+14776:                   <div class="range-labels"><span>0%</span><span>10%</span><span>20%</span></div>
+15351:               <div class="slider-row">
+15355:                 <input type="range" class="range-slider" id="sl-rent" min="0" max="150" step="1" value="0">
+15359:                 <div class="range-labels"><span>0</span><span>75</span><span>150Tr</span></div>
+15895:               <div class="slider-row">
+15899:                 <input type="range" class="range-slider" id="sl-mgmt" min="0" max="20" step="0.1" value="0">
+15903:                 <div class="range-labels"><span>0</span><span>10</span><span>20Tr</span></div>
+47052:     // ── SLIDER HELPERS (simple) ────────────────────────────────
+47056:     function _sliderSync(slider) {
+47064:       const min = parseFloat(slider.min) || 0;
+47068:       const max = parseFloat(slider.max) || 100;
+47072:       const val = parseFloat(slider.value) || min;
+47080:       // Color thresholds per slider
+47092:       const warn = warnMap[slider.id];
+47096:       const danger = dangerMap[slider.id];
+47104:       slider.classList.remove('warn', 'danger');
+47108:       if (danger && val >= danger) { fill = '#ef4444'; slider.classList.add('danger'); }
+47112:       else if (warn && val >= warn) { fill = '#f59e0b'; slider.classList.add('warn'); }
+47116:       slider.style.background = `linear-gradient(to right, ${fill} ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
+47128:     function _initSlidersOnLoad() {
+47144:         if (!sl || !inp) { console.warn('Slider not found:', p[0]); return; }
+47152:         // Slider → Number sync
+47164:           _sliderSync(sl);
+47184:         // Number → Slider sync (when user types into number field)
+47196:           _sliderSync(sl);
+47204:         // Init slider position from current input value
+47216:         _sliderSync(sl);
+47236:       document.addEventListener('DOMContentLoaded', _initSlidersOnLoad);
+47240:     } else { _initSlidersOnLoad(); }
+47252:     function _sliderTrackColor(slider, pct, warnT, dangerT, val) {
+47264:       slider.classList.remove('warn', 'danger');
+47268:       if (dangerT && val >= dangerT) { fillColor = '#ef4444'; slider.classList.add('danger'); }
+47272:       else if (warnT && val >= warnT) { fillColor = '#f59e0b'; slider.classList.add('warn'); }
+47276:       slider.style.background = `linear-gradient(to right, ${fillColor} ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
+47288:     // sliders initialized via _initSlidersOnLoad above
+47608:     window.MARKET_DATA = { "updated": "17/04/2026 22:37", "date_range": "2026-04-14 → 2026-04-17", "num_days": 3, "method": "rolling_median_7d", "has_delta": true, "has_delta_gia": true, "districts": [{ "name": "Long Biên", "gia": 275.4, "gia_cc": 85.1, "heat": 26498, "cycle": 85, "views_tin": 16.7, "delta": 6.2, "delta_tin": 6.2, "delta_gia": 1.2, "yoy": 28.0, "cat_lo": 6.7, "tin": 1584, "views": 26498, "potential": 40.0 }, { "name": "Hoàng Mai", "gia": 219.4, "gia_cc": 84.9, "heat": 25864, "cycle": 85, "views_tin": 21.0, "delta": 6.1, "delta_tin": 6.1, "delta_gia": -9.4, "yoy": 44.9, "cat_lo": 10.0, "tin": 1231, "views": 25864, "potential": 40.0 }, { "name": "Đống Đa", "gia": 300.0, "gia_cc": 85.9, "heat": 23626, "cycle": 70, "views_tin": 13.1, "delta": 2.8, "delta_tin": 2.8, "delta_gia": 2.0, "yoy": 7.5, "cat_lo": 3.3, "tin": 1801, "views": 23626, "potential": 52.0 }, { "name": "Cầu Giấy", "gia": 288.9, "gia_cc": 122.8, "heat": 22081, "cycle": 70, "views_tin": 11.7, "delta": 2.8, "delta_tin": 2.8, "delta_gia": 7.6, "yoy": 9.5, "cat_lo": 3.3, "tin": 1888, "views": 22081, "potential": 52.0 }, { "name": "Hai Bà Trưng", "gia": 282.9, "gia_cc": 106.2, "heat": 20352, "cycle": 75, "views_tin": 18.5, "delta": 7.4, "delta_tin": 7.4, "delta_gia": -3.2, "yoy": 8.0, "cat_lo": 10.0, "tin": 1103, "views": 20352, "potential": 48.0 }, { "name": "Hà Đông", "gia": 219.0, "gia_cc": 72.4, "heat": 19424, "cycle": 75, "views_tin": 17.1, "delta": 3.6, "delta_tin": 3.6, "delta_gia": -2.1, "yoy": 18.3, "cat_lo": 13.3, "tin": 1135, "views": 19424, "potential": 48.0 }, { "name": "Thanh Xuân", "gia": 276.1, "gia_cc": 100.9, "heat": 18059, "cycle": 50, "views_tin": 12.9, "delta": 3.7, "delta_tin": 3.7, "delta_gia": 0.8, "yoy": 10.0, "cat_lo": 16.7, "tin": 1402, "views": 18059, "potential": 53.9 }, { "name": "Ba Đình", "gia": 268.6, "gia_cc": 184.3, "heat": 15438, "cycle": 70, "views_tin": 14.5, "delta": 4.6, "delta_tin": 4.6, "delta_gia": -9.6, "yoy": 6.0, "cat_lo": 6.7, "tin": 1068, "views": 15438, "potential": 52.0 }, { "name": "Nam Từ Liêm", "gia": 275.4, "gia_cc": 85.4, "heat": 11772, "cycle": 60, "views_tin": 13.2, "delta": 2.1, "delta_tin": 2.1, "delta_gia": 0.0, "yoy": 12.5, "cat_lo": 13.3, "tin": 891, "views": 11772, "potential": 60.0 }, { "name": "Tây Hồ", "gia": 310.5, "gia_cc": 149.2, "heat": 11372, "cycle": 70, "views_tin": 13.0, "delta": 2.9, "delta_tin": 2.9, "delta_gia": 9.0, "yoy": 8.2, "cat_lo": 3.3, "tin": 873, "views": 11372, "potential": 52.0 }, { "name": "Bắc Từ Liêm", "gia": 264.5, "gia_cc": 96.9, "heat": 10614, "cycle": 60, "views_tin": 14.6, "delta": 2.1, "delta_tin": 2.1, "delta_gia": 6.1, "yoy": 15.0, "cat_lo": 10.0, "tin": 726, "views": 10614, "potential": 60.0 }, { "name": "Thanh Trì", "gia": 162.1, "gia_cc": 78.8, "heat": 7398, "cycle": 65, "views_tin": 20.0, "delta": 4.8, "delta_tin": 4.8, "delta_gia": 9.2, "yoy": 44.1, "cat_lo": 16.0, "tin": 370, "views": 7398, "potential": 56.0 }, { "name": "Hoài Đức", "gia": 164.2, "gia_cc": 78.0, "heat": 6158, "cycle": 75, "views_tin": 19.4, "delta": 2.8, "delta_tin": 2.8, "delta_gia": -1.4, "yoy": 34.0, "cat_lo": 0.0, "tin": 318, "views": 6158, "potential": 48.0 }, { "name": "Văn Giang (HY)", "gia": 133.3, "gia_cc": 61.7, "heat": 3827, "cycle": 20, "views_tin": 1.4, "delta": 0.2, "delta_tin": 0.2, "delta_gia": -8.3, "yoy": 10.0, "cat_lo": 23.3, "tin": 2809, "views": 3827, "potential": 74.7 }, { "name": "Đông Anh", "gia": 110.6, "gia_cc": 92.3, "heat": 2363, "cycle": 85, "views_tin": 20.5, "delta": 4.6, "delta_tin": 4.6, "delta_gia": -10.8, "yoy": 32.5, "cat_lo": 12.0, "tin": 115, "views": 2363, "potential": 40.0 }, { "name": "Hoàn Kiếm", "gia": 370.7, "gia_cc": 102.0, "heat": 2329, "cycle": 65, "views_tin": 19.6, "delta": 3.0, "delta_tin": 3.0, "delta_gia": -22.7, "yoy": 5.0, "cat_lo": 15.0, "tin": 119, "views": 2329, "potential": 56.0 }, { "name": "Gia Lâm", "gia": 130.7, "gia_cc": 66.9, "heat": 2108, "cycle": 75, "views_tin": 17.3, "delta": 3.3, "delta_tin": 3.3, "delta_gia": 3.5, "yoy": 22.0, "cat_lo": 8.0, "tin": 122, "views": 2108, "potential": 48.0 }, { "name": "Từ Sơn (BN)", "gia": 80.6, "gia_cc": 24.8, "heat": 1945, "cycle": 35, "views_tin": 3.7, "delta": 0.6, "delta_tin": 0.6, "delta_gia": -0.1, "yoy": 15.0, "cat_lo": 6.7, "tin": 528, "views": 1945, "potential": 57.9 }, { "name": "Đan Phượng", "gia": 190.4, "gia_cc": 60.0, "heat": 0, "cycle": 25, "views_tin": 0.0, "delta": null, "delta_tin": null, "delta_gia": 1.0, "yoy": 50.0, "cat_lo": 4.8, "tin": 23, "views": 0, "potential": 68.0 }, { "name": "Sóc Sơn", "gia": 38.6, "gia_cc": 79.6, "heat": 0, "cycle": 20, "views_tin": 0.0, "delta": null, "delta_tin": null, "delta_gia": -12.5, "yoy": 25.0, "cat_lo": 10.0, "tin": 20, "views": 0, "potential": 74.0 }, { "name": "Mê Linh", "gia": 78.5, "gia_cc": 25.0, "heat": 0, "cycle": 20, "views_tin": 0.0, "delta": null, "delta_tin": null, "delta_gia": 7.1, "yoy": 30.0, "cat_lo": 10.0, "tin": 25, "views": 0, "potential": 74.0 }, { "name": "Thạch Thất", "gia": 43.0, "gia_cc": 50.1, "heat": 0, "cycle": 25, "views_tin": 0.0, "delta": null, "delta_tin": null, "delta_gia": 38.5, "yoy": 35.0, "cat_lo": 5.0, "tin": 21, "views": 0, "potential": 68.0 }] };

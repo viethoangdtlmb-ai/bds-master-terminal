@@ -1,0 +1,84 @@
+# 💎 BẢN THIẾT KẾ Ý TƯỞNG: ASSET ARCHITECT OS
+*(Hệ điều hành Chẩn đoán & Phẫu thuật Danh mục BĐS dành cho VIP)*
+
+> [!NOTE]
+> **Định vị sản phẩm:** Đây không phải là một công cụ tính toán thông thường. Đây là một "Vũ khí Sale" mang tính sát phạt, được thiết kế theo phong cách giao diện Terminal Tài chính chuyên nghiệp (như Bloomberg Terminal). Mục tiêu là thiết lập **uy quyền tuyệt đối** của người tư vấn trước khách hàng Ultra-High-Net-Worth.
+
+---
+
+## 1. CẤU TRÚC 3 MODULE LÕI (THE BRAIN)
+
+### 🏥 Module 1: Chụp X-Quang Danh Mục (Input & Diagnosis)
+Chỉ tốn 2 phút nhập dữ liệu ngay tại bàn cafe, hệ thống sẽ ánh xạ toàn bộ tài sản của khách hàng lên **Ma Trận 4 Ô**.
+
+*   **Đầu vào:** Nhập nhanh các BĐS khách đang giữ (Ví dụ: Shophouse Làng Vân, 9 tỷ, Vay 40%, Lãi 9.5%, Đang trống trả lãi 20tr/tháng).
+*   **Hiển thị lập tức:**
+    *   **Ma trận tài sản:** Biểu đồ thể hiện bao nhiêu % danh mục đang nằm ở Pha 1 (Bứt tốc), Pha 2 (Cân bằng), Pha 3 (Dòng tiền).
+    *   **Đo lường Máu (Dòng tiền ròng):** Tổng thu cho thuê trừ đi Tổng nợ ngân hàng phải trả hàng tháng (Con số này thường âm, và đó là "vết thương" cần phẫu thuật).
+
+### 🩺 Module 2: Báo Động Đỏ (The Audit)
+Máy tính tự động tính toán và đối chiếu với các "Ngưỡng giới hạn sinh tử", chỉ ra chỗ hoại tử trên cơ thể danh mục:
+
+*   **Chỉ số DSCR (Độ phủ nợ):** Nếu < 0.3 -> Báo động chuẩn bị đứt gãy dòng tiền. Hệ thống hiện màu đỏ.
+*   **Chỉ số MFV (Độ kẹp hàng):** Dựa trên data tự động kéo về từ Crawler (bds-dashboard), hệ thống báo cho khách biết: *"Khu vực anh đang giữ BĐS có tỷ lệ thanh khoản rất thấp. Cứ 100 người rao bán chỉ có 2 lượt xem"*.
+*   **ROE Danh mục:** Lãi suất sinh lời thực tế trên Vốn tự có.
+
+### 🎮 Module 3: Phòng Thí Nghiệm "What-If" (Simulations)
+Tính năng "át chủ bài" để chốt đơn. Cho phép bạn kéo thả thanh trượt để giả lập các thay đổi.
+
+*   **Kịch bản 1 - Cắt Hoại Tử:** Giả định click "Bán cắt lỗ" căn BĐS ở ô Chờ thời. Số tiền thu về đem trả nợ ngân hàng -> Dòng tiền lập tức đảo chiều từ Âm sang Dương. Trạng thái từ Nguy hiểm chuyển sang An Toàn.
+*   **Kịch bản 2 - Bơm Máu Đầu Tư (Upsell):** Giả định dùng dòng tiền đang dư để vay thêm mua 1 sản phẩm Pha 1 (ví dụ sản phẩm của bạn ở Vành đai 3.5). Biểu đồ tổng tài sản 3 năm sau vọt lên mốc X tỷ (Hệ số x2, x3). Khách hàng nhìn thấy rõ tương lai.
+*   **Kịch bản 3 - Stress Test Lãi Suất:** Nếu hết ân hạn, lãi lên 13%, tài sản nào sẽ "chết" trước? Đồ thị dòng tiền gãy cắm xuống đất.
+
+---
+
+## 2. BỘ 10 VŨ KHÍ "SÁT PHẠT TÂM LÝ" CẤP ĐỘ CAO
+
+> [!WARNING]
+> Những tính năng này được thiết kế để tấn công vào Bản ngã, Sự sợ hãi và tính Hiếu thắng của giới Tinh Hoa, ép họ phải đưa ra quyết định tái cơ cấu tài sản ngay lập tức.
+
+1.  **Giao diện Dark Mode quyền lực:** Tone nền đen thẫm, các chỉ báo quan trọng nhấp nháy Đỏ / Xanh Neon. Không có thông tin thừa, màn hình mang dáng dấp của trạm chỉ huy.
+2.  **Biểu đồ Màng Nhện (Radar Chart):** Đo độ lệch lạc của danh mục. Tương tự như radar định vị, chỉ ra "lỗ hổng" phòng thủ của hệ thống tài sản.
+3.  **Tích hợp Cycle Index (Crawler):** Khi khách hỏi điểm rơi mua, bạn cho xem "Bản đồ Mùa" tự động cập nhật hàng đêm.
+4.  **Nút Gạt Kính Lúp (Áp Lạm Phát Thực 8%):** Đánh sập phòng tuyến của khách thích gửi tiết kiệm. Tài sản tiền mặt lao dốc 1 đường thẳng trên mốc sức mua. 
+5.  **Benchmarking (Hệ Thống Thi Đua Ngầm):** Hiện song song 2 cột đồ thị: **"Của Anh (ROE 6%)"** vs **"Chuẩn Chuyên Gia (ROE 18%)"**. Đánh vào tính hiếu thắng của VIP.
+6.  **Đồng Hồ Cát Lãi Vay (Cost of Delay):** Hiển thị bộ đếm thời gian thực: *"Trễ 1 tháng, anh/chị tự đốt đi 45 triệu tiền lãi suất bốc hơi"*. Tạo FOMO ngược.
+7.  **Sóng Thần Đứt Gãy (Timeline Cashflow):** Chỉ ra điểm chết trên trục thời gian. *"Tháng 6 tới đáo hạn gốc, anh sẽ Vỡ nợ kỹ thuật vào đúng tháng đó"*.
+8.  **Thước Đo Thanh Khoản Sinh Tồn:** Vạch mặt "chết khô trên đống tài sản". Nếu 80% tài sản mất trên 6 tháng mới thanh khoản được, hệ thống nháy đèn báo động đỏ khẩn cấp.
+9.  **Máy Tính "Tổn Thất Đóng Băng":** Tính toán số tiền cơ hội bị mất mỗi ngày vì tiếc của giữ lại cục BĐS vướng pháp lý chờ hòa vốn.
+10. **Nút Bấm "Emergency Exit" (Chiến Lược Thoát Hiểm):** Nút giả lập mô phỏng nếu thị trường sập ngay ngày mai, App tự tìm ra căn nào cần bán khẩn lấy oxy, căn nào cần tử thủ.
+
+---
+
+## 3. LỘ TRÌNH VÀ GIẢI PHÁP KỸ THUẬT
+
+> [!IMPORTANT]
+> Phần mềm sẽ được xây dựng sao cho chạy cực nhẹ trên mọi thiết bị (iPad, Laptop) và tự update data mà bạn không tốn thêm bất kỳ công sức hay chi phí server nào.
+
+### Giai đoạn 1: Xây dựng Core System
+*   **Công nghệ:** HTML/CSS/JS thuần (Single Page Application tối giản, load cực nhanh). Layout có Animation cực mượt.
+*   **Logic:** Code thuật toán Phân bổ 3 Pha, tính Spread, DSCR, ROE dựa trên các công thức chuyên môn.
+
+### Giai đoạn 2: Tích hợp Dữ liệu Market Data
+*   **Crawler:** Tận dụng file `auto_crawl_daily.bat` hiện có. Cài đặt **Windows Task Scheduler** ngay trên máy tính của bạn cho phép nó tự động vào 21:00 hàng ngày bắn dữ liệu vào App này.
+
+### Giai đoạn 3: Hoàn thiện tính năng Visual "What-If"
+*   Tạo tính năng kéo thả (Drag & Drop) thông số để biểu đồ sức khỏe nảy số ngay lập tức.
+*   Tính năng In Báo Cáo "Bệnh Án Tài Sản" xuất file PDF sắc nét để khách hàng cầm về tham khảo.
+
+---
+
+## 4. QUY TRÌNH LUÂN CHUYỂN TRONG 1 BUỔI TƯ VẤN THỰC TẾ
+
+```mermaid
+graph TD
+    A[Bật iPad giao diện Dark Mode Bloomberg] --> B[Nhập nhanh 3-5 thông số tài sản của khách]
+    B --> C[Phần mềm cảnh báo: Dòng Tiền Âm & Lỗ Hổng Sinh Tồn]
+    C --> D[Mở Radar Chart & Đồng hồ Cát để dồn ép Tâm lý]
+    D --> E[Kéo thanh trượt Giả lập 'Bán chỗ X - Mua chỗ Y']
+    E --> F[Biểu đồ hiện Tương lai màu Xanh lá & ROE > 15%]
+    F --> G[Nhấn Export Bệnh Án PDF kèm Logo chốt sale ngay tại bàn]
+```
+
+---
+> Mời anh Review toàn bộ siêu vũ khí này. Nếu được duyệt, hệ thống sẽ ngay lập tức bắt đầu đi vào giai đoạn Code!

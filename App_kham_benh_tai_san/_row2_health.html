@@ -1,0 +1,97 @@
+      ${isReadOnly ? `
+      <!-- isReadOnly: [Row1+Row2 LEFT] | [HEALTH RIGHT] + Row3 full-width -->
+      <div style="width:100%;margin-top:10px;padding-top:10px;border-top:1px solid var(--bg-border);display:flex;gap:12px;align-items:stretch">
+
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+
+          <!-- Row 1: Kế Toán -->
+          <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+            <div>
+              <div style="color:var(--text-3);font-size:10px">GIÁ VỐN</div>
+              <div>${a.cost} Tỷ</div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="Vốn thực bỏ ra lúc mua">VỐN TỰ CÓ</div>
+              <div><strong style="color:var(--text-1)">${(a.cost*(1-(a.loanpct||0)/100)).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="Gốc NH đã trả được">GỐC ĐÃ TRẢ</div>
+              <div><strong style="color:var(--emerald)">${Math.max(0,a.cost*(a.loanpct||0)/100-(c_q.autoDebt/1000)).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="Dư nợ gốc còn lại">DƯ NỢ</div>
+              <div><strong style="color:${c_q.autoDebt>0?'var(--yellow)':'var(--text-1)'}">${c_q.autoDebt>0?(c_q.autoDebt/1000).toFixed(2):'0'}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="Lãi NH luỹ kế đã đóng">LÃI ĐÃ ĐÓNG</div>
+              <div><strong style="color:var(--red)">${(c_q.interestPaid||0).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="Giá bán tối thiểu để hòa vốn">GIÁ SÀN</div>
+              <div style="color:${a.market>=c_q.floorPrice?'var(--emerald)':'var(--red)'}">${c_q.floorPrice.toFixed(2)} Tỷ${a.market>=c_q.floorPrice?' ✅':' 🔴'}</div>
+            </div>
+          </div>
+
+          <!-- Row 2: Phân Tích -->
+          <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;padding-top:8px;border-top:1px solid var(--bg-border)">
+            <div>
+              <div style="color:var(--text-3);font-size:10px">GIÁ HIỆN TẠI</div>
+              <div style="color:var(--text-1);font-weight:600">${a.market} Tỷ</div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px">ĐƠN GIÁ</div>
+              <div><strong style="color:var(--text-1)">${c_q.unitPrice>0?c_q.unitPrice.toFixed(1):'?'}</strong> <span style="font-size:10px;color:var(--text-3)">Tr/m²</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px">LÃI VỐN</div>
+              <div style="color:${gainColor}">${gainSign}${gain.toFixed(1)}%</div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="ROE Toàn Khóa">ROE NGẦM</div>
+              <div><strong style="color:${c_q.roeTotal>=0?'var(--emerald)':'var(--red)'}">${c_q.roeTotal.toFixed(1)}%</strong></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px;cursor:help" title="ROE trung bình mỗi năm">ROE/NĂM</div>
+              <div><strong style="color:${c_q.roeAnnual>=15?'var(--emerald)':c_q.roeAnnual>=8?'var(--yellow)':'var(--red)'}">${c_q.roeAnnual.toFixed(1)}%</strong></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px">DÒNG TIỀN</div>
+              <div><strong style="color:${c_q.cashflow>=0?'var(--emerald)':'var(--red)'}">${c_q.cashflow>0?'+':''}${c_q.cashflow.toFixed(1)}</strong> <span style="font-size:10px;color:var(--text-3)">Tr</span></div>
+            </div>
+            <div>
+              <div style="color:var(--text-3);font-size:10px">DSCR</div>
+              <div style="color:${dscrColor}">${dscr}</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- HEALTH column — spans Row 1 + Row 2 -->
+        <div style="min-width:70px;width:70px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:${c_q.health>=65?'rgba(16,185,129,.08)':c_q.health>=40?'rgba(234,179,8,.08)':'rgba(239,68,68,.08)'};border:1px solid ${c_q.health>=65?'rgba(16,185,129,.25)':c_q.health>=40?'rgba(234,179,8,.25)':'rgba(239,68,68,.25)'};border-radius:8px;padding:10px 6px;text-align:center">
+          <div style="font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Health</div>
+          <div style="font-size:26px;font-weight:800;font-family:var(--mono);color:${c_q.health>=65?'var(--emerald)':c_q.health>=40?'var(--yellow)':'var(--red)'};line-height:1">${c_q.health}</div>
+          <div style="font-size:9px;color:var(--text-3)">/100</div>
+          <div style="font-size:13px;margin-top:4px">${c_q.health>=70?'🟢':c_q.health>=45?'🟡':'🔴'}</div>
+        </div>
+
+      </div>
+
+      <!-- Row 3: Verdict — full width -->
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;padding-top:7px;border-top:1px solid var(--bg-border)">
+        <span class="badge ${assetVerdict(a,c_q).cls}" style="font-size:10px;padding:3px 10px">${assetVerdict(a,c_q).label}</span>
+        ${c_q.deliveryNote?`<span style="font-size:11px;color:var(--gold);background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);padding:2px 8px;border-radius:4px">⏳ ${c_q.deliveryNote}</span>`:''}
+        ${(a.grace||0)>0&&(a.grace||0)<=3?`<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:2px 8px;border-radius:4px">💣 Ân hạn gốc còn <strong>${a.grace} tháng</strong></span>`:''}
+        ${(a.prefmonths||0)>0&&(a.prefmonths||0)<=3?`<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:2px 8px;border-radius:4px">⚡ Ưu đãi hết trong <strong>${a.prefmonths} tháng</strong></span>`:''}
+      </div>
+      ` : `
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+        <div>
+          <div style="color:var(--text-3);font-size:10px">GIÁ VỐN</div>
+          <div>${a.cost} Tỷ</div>
+        </div>
+        <div>
+          <div style="color:var(--text-3);font-size:10px">GIÁ HIỆN TẠI</div>
+          <div style="color:var(--text-1);font-weight:600">${a.market} Tỷ</div>
+        </div>
+      </div>
+      `}
