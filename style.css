@@ -23,7 +23,6 @@
     --shadow-glow: 0 0 20px rgba(226, 180, 90, 0.1);
     
     --sidebar-width: 280px;
-    --topbar-height: 80px;
     --border-radius-lg: 24px;
     --border-radius-md: 14px;
     
@@ -235,58 +234,6 @@ body {
     gap: 20px;
 }
 
-/* ================= TOP BAR ================= */
-.top-bar {
-    height: var(--topbar-height);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 36px;
-    background: var(--bg-surface);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-    flex-shrink: 0;
-}
-
-#module-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.actions {
-    display: flex;
-    gap: 16px;
-}
-
-.action-btn {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: var(--text-secondary);
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-}
-
-.action-btn:hover {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border-color: var(--border-highlight);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-}
 
 /* ================= IFRAME CONTAINER ================= */
 /* Styling the container to look like a premium tablet/screen embedded in the dashboard */
@@ -383,4 +330,80 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* ================= MOBILE RESPONSIVE (BOTTOM NAV BAR) ================= */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column-reverse; /* Sidebar moves to bottom */
+        padding: 0;
+        gap: 0;
+    }
+    
+    .sidebar {
+        width: 100vw;
+        height: 70px;
+        flex-direction: row;
+        border-radius: 0;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        z-index: 1000;
+        background: rgba(10, 11, 15, 0.95);
+    }
+    
+    .sidebar-header, .sidebar-footer {
+        display: none; /* Hide logo and user info on mobile */
+    }
+    
+    .nav-links {
+        flex-direction: row;
+        padding: 0;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0;
+    }
+    
+    .nav-item {
+        flex-direction: column;
+        padding: 8px 4px;
+        gap: 6px;
+        flex: 1;
+        justify-content: center;
+        border-radius: 0;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    
+    .nav-item span {
+        font-size: 0.65rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+    
+    .nav-item i {
+        font-size: 1.3rem;
+        width: auto;
+    }
+    
+    .nav-item.active::before {
+        display: none; /* Hide vertical active bar */
+    }
+    
+    .nav-item.active i {
+        transform: translateY(-2px);
+        filter: drop-shadow(0 0 10px rgba(226, 180, 90, 0.6));
+    }
+    
+    .main-content {
+        height: calc(100vh - 70px);
+        gap: 0;
+    }
+    
+    .iframe-container {
+        border-radius: 0;
+        border: none;
+        -webkit-overflow-scrolling: touch; /* Important for iOS smooth scrolling */
+    }
 }

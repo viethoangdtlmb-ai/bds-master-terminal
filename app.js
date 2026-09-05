@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const iframes = document.querySelectorAll('.app-frame');
-    const moduleTitle = document.getElementById('module-title');
     const loadingOverlay = document.getElementById('loading-overlay');
 
     // Remove loading overlay after initial load
@@ -23,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.nav-item.active').classList.remove('active');
             item.classList.add('active');
 
-            // Update Title
-            const title = item.querySelector('span').textContent;
-            moduleTitle.textContent = title;
+
 
             // Switch active iframe visibility
             const targetId = item.getAttribute('data-target');
@@ -36,49 +33,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentActiveIframe.classList.remove('active');
             }
             
-            // Show new target iframe
-            document.getElementById(targetId).classList.add('active');
+            // Show new target iframe and implement Lazy Loading
+            const targetIframe = document.getElementById(targetId);
+            
+            // If the iframe hasn't been loaded yet (has data-src but no src)
+            const dataSrc = targetIframe.getAttribute('data-src');
+            if (dataSrc) {
+                loadingOverlay.classList.remove('hidden');
+                targetIframe.src = dataSrc; // Start loading
+                targetIframe.removeAttribute('data-src'); // Remove so it doesn't trigger again
+                
+                targetIframe.addEventListener('load', function handler() {
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('hidden');
+                    }, 400);
+                    targetIframe.removeEventListener('load', handler);
+                });
+            }
+            
+            targetIframe.classList.add('active');
         });
     });
 });
 
-// Top bar actions
-function refreshIframe() {
-    const activeIframe = document.querySelector('.app-frame.active');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    
-    loadingOverlay.classList.remove('hidden');
-    
-    // Reload only the active iframe
-    activeIframe.src = activeIframe.src;
-    
-    // Remove loading overlay when this specific iframe finishes loading
-    activeIframe.addEventListener('load', function handler() {
-        setTimeout(() => {
-            loadingOverlay.classList.add('hidden');
-        }, 300);
-        activeIframe.removeEventListener('load', handler);
-    });
-}
-
-function openFullscreen() {
-    const appContainer = document.querySelector('.app-container');
-    
-    if (!document.fullscreenElement) {
-        if (appContainer.requestFullscreen) {
-            appContainer.requestFullscreen();
-        } else if (appContainer.webkitRequestFullscreen) { /* Safari */
-            appContainer.webkitRequestFullscreen();
-        } else if (appContainer.msRequestFullscreen) { /* IE11 */
-            appContainer.msRequestFullscreen();
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
-    }
-}
