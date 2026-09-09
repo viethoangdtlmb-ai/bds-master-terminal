@@ -49,6 +49,22 @@ function setupSidebarToggle() {
     const sidebar = document.getElementById('sidebar');
     
     if (btn && sidebar) {
+        // Tự động thu gọn trên màn hình nhỏ hoặc Iframe
+        if (window.innerWidth <= 900) {
+            sidebar.classList.add('collapsed');
+            btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+        }
+
+        // Logic cho nút Close Mobile
+        const closeBtn = document.getElementById('closeSidebarMobile');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.add('collapsed');
+                btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+                setTimeout(() => { if (map) map.invalidateSize(); }, 300);
+            });
+        }
+
         // Ngăn sự kiện click lan xuống bản đồ
         L.DomEvent.disableClickPropagation(btn);
         
@@ -57,12 +73,12 @@ function setupSidebarToggle() {
             
             // Đổi icon
             if (sidebar.classList.contains('collapsed')) {
-                btn.innerHTML = '<i class="fa-solid fa-list"></i>';
+                btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             } else {
-                btn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                btn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
             }
             
-            // Cập nhật lại kích thước bản đồ sau khi animation kết thúc
+            // Kích hoạt thay đổi kích thước bản đồ
             setTimeout(() => {
                 if (map) map.invalidateSize();
             }, 300);
@@ -72,7 +88,7 @@ function setupSidebarToggle() {
 
 function initMap() {
     // Tọa độ trung tâm Hà Nội
-    map = L.map('map').setView([21.0285, 105.8048], 11);
+    map = L.map('map', { attributionControl: false }).setView([21.0285, 105.8048], 11);
 
     // Đã thay thế hoàn toàn sang dữ liệu của GOOGLE MAPS (Phiên bản Việt Nam - gl=VN)
     // Đảm bảo tuyệt đối chủ quyền biển đảo Hoàng Sa, Trường Sa hiển thị tiếng Việt và thuộc Việt Nam.
@@ -230,6 +246,15 @@ function renderProjectList(projects) {
             document.querySelectorAll('.project-list li').forEach(el => el.classList.remove('active'));
             li.classList.add('active');
             
+            // Tự động gập sidebar trên màn hình nhỏ
+            if (window.innerWidth <= 900) {
+                const sb = document.getElementById('sidebar');
+                if (sb) sb.classList.add('collapsed');
+                const btn = document.getElementById('toggleSidebarBtn');
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+                setTimeout(() => { if (map) map.invalidateSize(); }, 300);
+            }
+            
             // Tìm marker và mở popup
             const marker = markers.find(m => m.projectId === proj.id);
             if (marker) {
@@ -280,14 +305,16 @@ function setupPlanningToggle() {
     btn.addEventListener('click', () => {
         if (isPlanningVisible) {
             if (planningLayer) map.removeLayer(planningLayer);
-            btn.innerHTML = '<i class="fa-solid fa-layer-group"></i> Bật Quy Hoạch';
+            btn.innerHTML = 'Quy Hoạch';
             btn.style.background = 'white';
-            btn.style.color = '#1e293b';
+            btn.style.color = 'var(--text-color)';
+            btn.style.borderColor = 'rgba(0,0,0,0.2)';
         } else {
             updatePlanningLayer();
-            btn.innerHTML = '<i class="fa-solid fa-layer-group"></i> Tắt Quy Hoạch';
+            btn.innerHTML = 'Quy Hoạch';
             btn.style.background = '#2563eb';
             btn.style.color = 'white';
+            btn.style.borderColor = '#2563eb';
         }
         isPlanningVisible = !isPlanningVisible;
     });

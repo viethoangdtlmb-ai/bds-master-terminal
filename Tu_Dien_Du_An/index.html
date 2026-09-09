@@ -16,23 +16,14 @@
     <div class="layout-container">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="header-brand">
-                    <div class="brand-icon">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
-                    <div class="brand-text">
-                        <h2>Asset Architect</h2>
-                        <span class="badge">VIP</span>
-                    </div>
-                </div>
-                <p class="header-subtitle">Danh mục Đầu tư & Quy hoạch</p>
-            </div>
-            
-            <div class="search-box-container">
+            <div class="search-box-container" style="position: relative;">
+                <!-- Nút đóng Sidebar chỉ hiện trên màn hình hẹp -->
+                <button id="closeSidebarMobile" class="close-sidebar-btn" title="Đóng danh sách">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
                 <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchProject" placeholder="Tìm kiếm tên, vị trí..." class="search-input">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchProject" placeholder="Tìm kiếm tên, vị trí...">
                 </div>
                 <div class="filters">
                     <select id="filterDeveloper" class="filter-select">
@@ -56,13 +47,13 @@
             
             <!-- Sidebar Toggle Button -->
             <button id="toggleSidebarBtn" style="position: absolute; top: 10px; left: 60px; z-index: 1000; padding: 8px 12px; border-radius: 6px; background: white; border: 1px solid #cbd5e1; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 16px;">
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-chevron-right"></i>
             </button>
             <!-- Map Overlay Controls overlaying Leaflet -->
             <div id="mapControls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <select id="planningDistrict" class="map-control-btn" style="cursor: pointer; border-color: #cbd5e1; outline: none; padding: 8px;">
-                        <option value="all">Tất cả Hà Nội</option>
+                        <option value="all">Hà Nội</option>
                         <option value="BacTuLiem">Bắc Từ Liêm</option>
                         <option value="CauGiay">Cầu Giấy</option>
                         <option value="DanPhuong">Đan Phượng</option>
@@ -79,12 +70,10 @@
                         <option value="ThanhTri">Thanh Trì</option>
                         <option value="ThanhXuan">Thanh Xuân</option>
                     </select>
-                    <button id="togglePlanningBtn" class="map-control-btn">
-                        <i class="fa-solid fa-layer-group"></i> Bật Quy Hoạch
-                    </button>
+                    <button id="togglePlanningBtn" class="map-control-btn">Quy Hoạch</button>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <label for="opacitySlider" style="font-size: 13px; font-weight: 600; color: #1e293b;">Độ đậm nhạt:</label>
+                    <label id="opacityLabel" for="opacitySlider" style="font-size: 13px; font-weight: 600; color: #1e293b;">Độ đậm nhạt:</label>
                     <input type="range" id="opacitySlider" min="0" max="1" step="0.05" value="1" style="cursor: pointer; flex: 1;">
                 </div>
             </div>

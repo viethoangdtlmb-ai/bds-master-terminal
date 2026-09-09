@@ -1,3786 +1,4 @@
-<!DOCTYPE html>
 
-<html lang="vi">
-
-
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
-
-    <title>Asset Architect OS — Hoàng Việt</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
-        rel="stylesheet">
-
-    <style>
-        /* ============================================================
-
-DESIGN SYSTEM — Bloomberg Terminal Dark Theme
-
-============================================================ */
-
-        :root {
-
-            --bg-deep: #080B14;
-
-            --bg-card: #0E1422;
-
-            --bg-hover: #151C2E;
-
-            --bg-border: #1E2A42;
-
-            --gold: #D4AF37;
-
-            --gold-dim: #8B7520;
-
-            --emerald: #05F29B; /* Neon Mint for Gains */
-
-            --emerald-dim: #025939;
-
-            --red: #FF4040; /* Vibrant Coral Red for Losses */
-
-            --red-dim: #591616;
-
-            --blue: #3B82F6;
-
-            --yellow: #FBBF24; /* Bright Amber for Warnings */
-
-            --text-1: #FFFFFF; /* Pure white for max contrast */
-
-            --text-2: #8A9BB8;
-
-            --text-3: #4A5875;
-
-            --mono: 'JetBrains Mono', monospace;
-
-            --sans: 'Inter', sans-serif;
-
-            --r-sm: 6px;
-
-            --r-md: 10px;
-
-            --r-lg: 16px;
-
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-
-            --tab-h: 56px;
-
-        }
-
-
-
-        * {
-
-            box-sizing: border-box;
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-
-
-        html,
-
-        body {
-
-            height: 100%;
-
-            background: var(--bg-deep);
-
-            color: var(--text-1);
-
-            font-family: var(--sans);
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            overflow-x: hidden;
-
-        }
-
-
-
-        /* ============================================================
-
-SCROLLBAR
-
-============================================================ */
-
-        ::-webkit-scrollbar {
-
-            width: 4px;
-
-        }
-
-
-
-        ::-webkit-scrollbar-track {
-
-            background: var(--bg-deep);
-
-        }
-
-
-
-        ::-webkit-scrollbar-thumb {
-
-            background: var(--bg-border);
-
-            border-radius: 4px;
-
-        }
-
-
-
-        /* ============================================================
-
-HEADER
-
-============================================================ */
-
-        #header {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            right: 0;
-
-            height: 52px;
-
-            background: rgba(8, 11, 20, 0.95);
-
-            backdrop-filter: blur(12px);
-
-            border-bottom: 1px solid var(--bg-border);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 20px;
-
-            z-index: 100;
-
-        }
-
-
-
-        .logo {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            font-family: var(--mono);
-
-            font-size: 13px;
-
-            letter-spacing: 0.05em;
-
-        }
-
-
-
-        .logo-gem {
-
-            font-size: 18px;
-
-        }
-
-
-
-        .logo-title {
-
-            color: var(--gold);
-
-            font-weight: 600;
-
-        }
-
-
-
-        .logo-sub {
-
-            color: var(--text-3);
-
-            font-size: 11px;
-
-        }
-
-
-
-        .header-right {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 16px;
-
-        }
-
-
-
-        #market-stamp {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            font-family: var(--mono);
-
-            font-size: 11px;
-
-            color: var(--text-2);
-
-            padding: 4px 10px;
-
-            background: var(--bg-card);
-
-            border: 1px solid var(--bg-border);
-
-            border-radius: var(--r-sm);
-
-        }
-
-
-
-        .stamp-dot {
-
-            width: 6px;
-
-            height: 6px;
-
-            border-radius: 50%;
-
-            background: var(--emerald);
-
-            animation: pulse 2s infinite;
-
-        }
-
-
-
-        @keyframes pulse {
-
-
-
-            0%,
-
-            100% {
-
-                opacity: 1;
-
-                transform: scale(1);
-
-            }
-
-
-
-            50% {
-
-                opacity: .4;
-
-                transform: scale(1.3);
-
-            }
-
-        }
-
-
-
-        /* ============================================================
-
-TAB NAVIGATION
-
-============================================================ */
-
-        #nav {
-
-            position: fixed;
-
-            top: 52px;
-
-            left: 0;
-
-            right: 0;
-
-            height: var(--tab-h);
-
-            background: rgba(14, 20, 34, 0.98);
-
-            border-bottom: 1px solid var(--bg-border);
-
-            display: flex;
-
-            align-items: center;
-
-            padding: 0 20px;
-
-            gap: 4px;
-
-            z-index: 99;
-
-            overflow-x: auto;
-
-        }
-
-
-
-        #nav::-webkit-scrollbar {
-
-            height: 0;
-
-        }
-
-
-
-        .tab-btn {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            padding: 8px 16px;
-
-            border-radius: var(--r-sm);
-
-            border: 1px solid transparent;
-
-            background: none;
-
-            color: var(--text-3);
-
-            font-family: var(--sans);
-
-            font-size: 13px;
-
-            font-weight: 500;
-
-            cursor: pointer;
-
-            white-space: nowrap;
-
-            transition: all 0.2s;
-
-        }
-
-
-
-        .tab-btn:hover {
-
-            color: var(--text-1);
-
-            background: var(--bg-hover);
-
-        }
-
-
-
-        .tab-btn.active {
-
-            color: var(--gold);
-
-            border-color: var(--gold-dim);
-
-            background: rgba(212, 175, 55, 0.08);
-
-        }
-
-
-
-        .tab-step {
-
-            font-family: var(--mono);
-
-            font-size: 10px;
-
-            background: var(--bg-border);
-
-            color: var(--text-3);
-
-            border-radius: 3px;
-
-            padding: 1px 5px;
-
-        }
-
-
-
-        .tab-btn.active .tab-step {
-
-            background: var(--gold-dim);
-
-            color: var(--gold);
-
-        }
-
-
-
-        /* ============================================================
-
-MAIN CONTENT AREA
-
-============================================================ */
-
-        #app {
-
-            margin-top: calc(52px + var(--tab-h));
-
-            min-height: calc(100vh - 52px - var(--tab-h));
-
-            padding: 24px 20px 80px;
-
-            max-width: 1280px;
-
-            margin-left: auto;
-
-            margin-right: auto;
-
-        }
-
-
-
-        #app {
-
-            margin-top: calc(52px + var(--tab-h));
-
-        }
-
-
-
-        .tab-panel {
-
-            display: none;
-
-            animation: fadeIn 0.25s ease;
-
-        }
-
-
-
-        .tab-panel.active {
-
-            display: block;
-
-        }
-
-
-
-        @keyframes fadeIn {
-
-            from {
-
-                opacity: 0;
-
-                transform: translateY(6px);
-
-            }
-
-
-
-            to {
-
-                opacity: 1;
-
-                transform: translateY(0);
-
-            }
-
-        }
-
-
-
-        /* ============================================================
-
-CARD SYSTEM
-
-============================================================ */
-
-        .card {
-
-            background: var(--bg-card);
-
-            border: 1px solid var(--bg-border);
-
-            border-radius: var(--r-lg);
-
-            padding: 20px;
-
-        }
-
-
-
-        .card-sm {
-
-            padding: 16px;
-
-            border-radius: var(--r-md);
-
-        }
-
-
-
-        .card-header {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            margin-bottom: 16px;
-
-            padding-bottom: 12px;
-
-            border-bottom: 1px solid var(--bg-border);
-
-        }
-
-
-
-        .card-title {
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            color: var(--text-2);
-
-            letter-spacing: 0.08em;
-
-            text-transform: uppercase;
-
-        }
-
-
-
-        /* ============================================================
-
-GRID
-
-============================================================ */
-
-        .grid-2 {
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 16px;
-
-        }
-
-
-
-        .grid-3 {
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr 1fr;
-
-            gap: 16px;
-
-        }
-
-
-
-        .grid-4 {
-
-            display: grid;
-
-            grid-template-columns: repeat(4, 1fr);
-
-            gap: 16px;
-
-        }
-
-
-
-        @media (max-width: 900px) {
-
-            .grid-4 {
-
-                grid-template-columns: 1fr 1fr;
-
-            }
-
-
-
-            .grid-3 {
-
-                grid-template-columns: 1fr 1fr;
-
-            }
-
-        }
-
-
-
-        @media (max-width: 600px) {
-
-
-
-            .grid-4,
-
-            .grid-3,
-
-            .grid-2 {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-
-            #app {
-
-                padding: 16px 12px;
-
-            }
-
-        }
-
-
-
-        /* ============================================================
-
-STAT CARD (KPI box)
-
-============================================================ */
-
-        .stat-card {
-
-            background: var(--bg-card);
-
-            border: 1px solid var(--bg-border);
-
-            border-radius: var(--r-md);
-
-            padding: 16px;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-
-
-        .stat-label {
-
-            font-size: 11px;
-
-            color: var(--text-3);
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.07em;
-
-            margin-bottom: 8px;
-
-        }
-
-
-
-        .stat-value {
-
-            font-family: var(--mono);
-
-            font-size: 28px;
-
-            font-weight: 600;
-
-            color: var(--text-1);
-
-            line-height: 1;
-
-        }
-
-
-
-        .stat-sub {
-
-            font-size: 12px;
-
-            color: var(--text-2);
-
-            margin-top: 6px;
-
-        }
-
-
-
-        .stat-card.danger {
-
-            border-color: var(--red-dim);
-
-            background: rgba(255, 59, 59, 0.05);
-
-        }
-
-
-
-        .stat-card.warn {
-
-            border-color: #7A4A00;
-
-            background: rgba(245, 158, 11, 0.05);
-
-        }
-
-
-
-        .stat-card.ok {
-
-            border-color: var(--emerald-dim);
-
-            background: rgba(0, 194, 122, 0.05);
-
-        }
-
-
-
-        .stat-card.gold {
-
-            border-color: var(--gold-dim);
-
-            background: rgba(212, 175, 55, 0.05);
-
-        }
-
-
-
-        /* ============================================================
-
-BADGE / PILL
-
-============================================================ */
-
-        .badge {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 4px;
-
-            padding: 3px 8px;
-
-            border-radius: 20px;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-        }
-
-
-
-        .badge-danger {
-
-            background: rgba(255, 59, 59, .15);
-
-            color: var(--red);
-
-        }
-
-
-
-        .badge-warn {
-
-            background: rgba(245, 158, 11, .15);
-
-            color: var(--yellow);
-
-        }
-
-
-
-        .badge-ok {
-
-            background: rgba(0, 194, 122, .15);
-
-            color: var(--emerald);
-
-        }
-
-
-
-        .badge-gold {
-
-            background: rgba(212, 175, 55, .15);
-
-            color: var(--gold);
-
-        }
-
-
-
-        .badge-muted {
-
-            background: var(--bg-border);
-
-            color: var(--text-2);
-
-        }
-
-
-
-        /* ============================================================
-
-BUTTONS
-
-============================================================ */
-
-        .btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-            padding: 10px 20px;
-
-            border-radius: var(--r-sm);
-
-            border: none;
-
-            font-family: var(--sans);
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: all 0.18s;
-
-            letter-spacing: 0.02em;
-
-        }
-
-
-
-        .btn-primary {
-
-            background: var(--gold);
-
-            color: #000;
-
-        }
-
-
-
-        .btn-primary:hover {
-
-            background: #E8C43D;
-
-            filter: brightness(1.05);
-
-        }
-
-
-
-        .btn-secondary {
-
-            background: var(--bg-hover);
-
-            color: var(--text-1);
-
-            border: 1px solid var(--bg-border);
-
-        }
-
-
-
-        .btn-secondary:hover {
-
-            border-color: var(--gold-dim);
-
-            color: var(--gold);
-
-        }
-
-
-
-        .btn-danger {
-
-            background: rgba(255, 59, 59, .12);
-
-            color: var(--red);
-
-            border: 1px solid var(--red-dim);
-
-        }
-
-
-
-        .btn-danger:hover {
-
-            background: rgba(255, 59, 59, .2);
-
-        }
-
-
-
-        .btn-sm {
-
-            padding: 6px 14px;
-
-            font-size: 12px;
-
-        }
-
-
-
-        .btn-full {
-
-            width: 100%;
-
-            justify-content: center;
-
-        }
-
-
-
-        /* ============================================================
-
-FORM ELEMENTS
-
-============================================================ */
-
-        .form-group {
-
-            margin-bottom: 14px;
-
-        }
-
-
-
-        .form-label {
-
-            display: block;
-
-            font-size: 11px;
-
-            color: var(--text-2);
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.07em;
-
-            margin-bottom: 6px;
-
-        }
-
-
-
-        .form-input {
-
-            width: 100%;
-
-            background: var(--bg-deep);
-
-            border: 1px solid var(--bg-border);
-
-            border-radius: var(--r-sm);
-
-            padding: 9px 12px;
-
-            color: var(--text-1);
-
-            font-family: var(--mono);
-
-            font-size: 14px;
-
-            transition: border-color 0.18s;
-
-            outline: none;
-
-        }
-
-
-
-        .form-input:focus {
-
-            border-color: var(--gold-dim);
-
-        }
-
-
-
-        .form-input::placeholder {
-
-            color: var(--text-3);
-
-        }
-
-
-
-        .form-select {
-
-            width: 100%;
-
-            background: var(--bg-deep);
-
-            border: 1px solid var(--bg-border);
-
-            border-radius: var(--r-sm);
-
-            padding: 9px 12px;
-
-            color: var(--text-1);
-
-            font-family: var(--sans);
-
-            font-size: 13px;
-
-            outline: none;
-
-            cursor: pointer;
-
-            transition: border-color 0.18s;
-
-            appearance: none;
-
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A5875' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-
-            background-repeat: no-repeat;
-
-            background-position: right 10px center;
-
-            background-size: 12px;
-
-        }
-
-
-
-        .form-select:focus {
-
-            border-color: var(--gold-dim);
-
-        }
-
-
-
-        .input-unit {
-
-            position: relative;
-
-        }
-
-
-
-        .input-unit .form-input {
-
-            padding-right: 44px;
-
-        }
-
-
-
-        .input-unit-label {
-
-            position: absolute;
-
-            right: 12px;
-
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            font-size: 11px;
-
-            color: var(--text-3);
-
-            font-family: var(--mono);
-
-            pointer-events: none;
-
-        }
-
-
-
-        /* ============================================================
-
-SECTION DIVIDER
-
-============================================================ */
-
-        .section-title {
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            color: var(--text-3);
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.1em;
-
-            margin: 24px 0 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-        }
-
-
-
-        .section-title::after {
-
-            content: '';
-
-            flex: 1;
-
-            height: 1px;
-
-            background: var(--bg-border);
-
-        }
-
-
-
-        /* ============================================================
-
-PROGRESS / GAUGE
-
-============================================================ */
-
-        .progress-bar {
-
-            height: 6px;
-
-            background: var(--bg-border);
-
-            border-radius: 3px;
-
-            overflow: hidden;
-
-            margin-top: 8px;
-
-        }
-
-
-
-        .progress-fill {
-
-            height: 100%;
-
-            border-radius: 3px;
-
-            transition: width 0.6s ease;
-
-        }
-
-
-
-        /* ============================================================
-
-ALERT / NOTICE BOX
-
-============================================================ */
-
-        .alert {
-
-            padding: 12px 16px;
-
-            border-radius: var(--r-sm);
-
-            font-size: 13px;
-
-            display: flex;
-
-            align-items: flex-start;
-
-            gap: 10px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-
-        .alert-icon {
-
-            font-size: 16px;
-
-            flex-shrink: 0;
-
-            margin-top: 1px;
-
-        }
-
-
-
-        .alert-danger {
-
-            background: rgba(255, 59, 59, .08);
-
-            border: 1px solid var(--red-dim);
-
-            color: #FFB3B3;
-
-        }
-
-
-
-        .alert-warn {
-
-            background: rgba(245, 158, 11, .08);
-
-            border: 1px solid #7A4A00;
-
-            color: #FDD38A;
-
-        }
-
-
-
-        .alert-ok {
-
-            background: rgba(0, 194, 122, .08);
-
-            border: 1px solid var(--emerald-dim);
-
-            color: #7FFFD4;
-
-        }
-
-
-
-        .alert-info {
-
-            background: rgba(59, 130, 246, .08);
-
-            border: 1px solid #1E3A6E;
-
-            color: #93BFFF;
-
-        }
-
-
-
-        /* ============================================================
-
-MARKET DATA TABLE (District list)
-
-============================================================ */
-
-        .mkt-table {
-
-            width: 100%;
-
-            border-collapse: collapse;
-
-        }
-
-
-
-        .sim-matrix-table th {
-
-            font-size: 10px;
-
-            color: var(--text-3);
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.07em;
-
-            font-weight: 600;
-
-            padding: 8px 12px;
-
-            text-align: right;
-
-            border-bottom: 1px solid var(--bg-border);
-
-        }
-
-
-
-        .mkt-table th:first-child {
-
-            text-align: left;
-
-        }
-
-
-
-        .sim-matrix-table td {
-
-            padding: 10px 12px;
-
-            font-family: var(--mono);
-
-            font-size: 12px;
-
-            color: var(--text-1);
-
-            text-align: right;
-
-            border-bottom: 1px solid rgba(30, 42, 66, 0.5);
-
-        }
-
-
-
-        .mkt-table td:first-child {
-
-            text-align: left;
-
-            font-family: var(--sans);
-
-            font-size: 13px;
-
-        }
-
-
-
-        .mkt-table tr:hover td {
-
-            background: var(--bg-hover);
-
-        }
-
-
-
-        .mkt-table tr.highlight td {
-
-            background: rgba(212, 175, 55, 0.06);
-
-            border-left: 2px solid var(--gold-dim);
-
-        }
-
-
-
-        .mkt-table tr:last-child td {
-
-            border-bottom: none;
-
-        }
-
-
-
-        /* ============================================================
-
-BREATHING DANGER EFFECT
-
-============================================================ */
-
-        .breathing {
-
-            animation: breathe 2.5s ease-in-out infinite;
-
-        }
-
-
-
-        @keyframes breathe {
-
-
-
-            0%,
-
-            100% {
-
-                box-shadow: 0 0 0 0 rgba(255, 59, 59, 0);
-
-            }
-
-
-
-            50% {
-
-                box-shadow: 0 0 0 6px rgba(255, 59, 59, 0.12);
-
-            }
-
-        }
-
-
-
-        /* ============================================================
-
-COUNTDOWN BLIP
-
-============================================================ */
-
-        .countdown-box {
-
-            background: var(--bg-deep);
-
-            border: 1px solid var(--red-dim);
-
-            border-radius: var(--r-sm);
-
-            padding: 12px 16px;
-
-            font-family: var(--mono);
-
-        }
-
-
-
-        .countdown-val {
-
-            font-size: 32px;
-
-            font-weight: 600;
-
-            color: var(--red);
-
-            line-height: 1;
-
-        }
-
-
-
-        .countdown-label {
-
-            font-size: 11px;
-
-            color: var(--text-3);
-
-            margin-top: 4px;
-
-        }
-
-
-
-        /* ============================================================
-
-NUMBER ANIMATION
-
-============================================================ */
-
-        .num-animate {
-
-            transition: all 0.4s ease;
-
-        }
-
-
-
-        /* ============================================================
-
-PLACEHOLDER PANELS (Sprint 1 skeleton)
-
-============================================================ */
-
-        .panel-placeholder {
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 80px 20px;
-
-            color: var(--text-3);
-
-            text-align: center;
-
-            border: 1px dashed var(--bg-border);
-
-            border-radius: var(--r-lg);
-
-            gap: 12px;
-
-        }
-
-
-
-        .panel-placeholder .ph-icon {
-
-            font-size: 48px;
-
-        }
-
-
-
-        .panel-placeholder .ph-title {
-
-            font-size: 18px;
-
-            font-weight: 600;
-
-            color: var(--text-2);
-
-        }
-
-
-
-        .panel-placeholder .ph-sub {
-
-            font-size: 13px;
-
-            max-width: 360px;
-
-        }
-
-
-
-        /* ── Print / PDF Styles ─────────────────────────────────────────── */
-
-        /* ── Toast Notification ────────────────────────── */
-
-        #toast-notify {
-
-            position: fixed;
-
-            bottom: 24px;
-
-            right: 24px;
-
-            padding: 10px 18px;
-
-            background: rgba(16, 185, 129, 0.95);
-
-            color: #fff;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            border-radius: 8px;
-
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-
-            z-index: 9999;
-
-            opacity: 0;
-
-            transform: translateY(12px);
-
-            transition: opacity 0.3s, transform 0.3s;
-
-            pointer-events: none;
-
-        }
-
-
-
-        #toast-notify.show {
-
-            opacity: 1;
-
-            transform: translateY(0);
-
-        }
-
-
-
-        @media print {
-
-
-
-            /* ── Reset height constraints: allow full multi-page flow ── */
-
-            html,
-
-            body {
-
-                height: auto !important;
-
-                min-height: unset !important;
-
-                overflow: visible !important;
-
-                background: #fff !important;
-
-                color: #1a1a2e !important;
-
-            }
-
-
-
-            #app,
-
-            main {
-
-                height: auto !important;
-
-                min-height: unset !important;
-
-                max-height: unset !important;
-
-                overflow: visible !important;
-
-                padding: 0 !important;
-
-                margin: 0 !important;
-
-            }
-
-
-
-            .no-print,
-
-            header,
-
-            nav,
-
-            #rx-empty,
-
-            #cart-fab,
-
-            #cart-modal,
-
-            #cart-overlay {
-
-                display: none !important;
-
-            }
-
-
-
-            .tab-panel {
-
-                display: none !important;
-
-            }
-
-
-
-            #tab-prescription {
-
-                display: block !important;
-
-                height: auto !important;
-
-                overflow: visible !important;
-
-            }
-
-
-
-            #rx-preview {
-
-                display: block !important;
-
-                height: auto !important;
-
-                overflow: visible !important;
-
-            }
-
-
-
-            #rx-preview * {
-
-                -webkit-print-color-adjust: exact;
-
-                print-color-adjust: exact;
-
-            }
-
-
-
-            /* Fill full A4 width — override max-width:780px inline style */
-
-            #rx-preview>div {
-
-                max-width: 100% !important;
-
-                width: 100% !important;
-
-                margin: 0 !important;
-
-            }
-
-
-
-            /* Fix: overflow-x:auto clips table in print — force visible */
-
-            #rx-preview div[style*="overflow-x"] {
-
-                overflow: visible !important;
-
-            }
-
-
-
-            /* Reduce font size on merged table for A4 fit */
-
-            #rx-preview table {
-
-                font-size: 9px !important;
-
-                page-break-inside: auto;
-
-            }
-
-
-
-            #rx-preview table tr {
-
-                page-break-inside: avoid;
-
-            }
-
-
-
-            /* Hide toggle mode button in print */
-
-            #rx-preview button,
-
-            #rx-preview .btn {
-
-                display: none !important;
-
-            }
-
-
-
-            @page {
-
-                size: A4;
-
-                margin: 15mm 12mm 18mm 12mm;
-
-            }
-
-        }
-
-
-
-        /* ── HYBRID SLIDER ─────────────────────────────── */
-
-        .slider-wrap {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 6px;
-
-            width: 100%;
-
-            pointer-events: all;
-
-        }
-
-
-
-        .slider-top {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-        }
-
-
-
-        .slider-top .form-input {
-
-            width: 72px;
-
-            flex-shrink: 0;
-
-            text-align: center;
-
-            font-weight: 600;
-
-        }
-
-
-
-        .slider-top .input-unit-label {
-
-            flex-shrink: 0;
-
-        }
-
-
-
-        /* Track + Thumb — works across Chrome/Edge/Firefox */
-
-        .range-slider {
-
-            -webkit-appearance: none;
-
-            appearance: none;
-
-            width: 100%;
-
-            height: 6px;
-
-            touch-action: none;
-
-            pointer-events: all;
-
-            position: relative;
-
-            z-index: 10;
-
-            border-radius: 3px;
-
-            background: rgba(255, 255, 255, 0.12);
-
-            outline: none;
-
-            cursor: pointer;
-
-            margin: 2px 0;
-
-            transition: background 0.1s;
-
-        }
-
-
-
-        .range-slider::-webkit-slider-runnable-track {
-
-            height: 6px;
-
-            border-radius: 3px;
-
-            background: transparent;
-
-        }
-
-
-
-        .range-slider::-webkit-slider-thumb {
-
-            -webkit-appearance: none;
-
-            width: 20px;
-
-            height: 20px;
-
-            border-radius: 50%;
-
-            background: #6366f1;
-
-            border: 3px solid #1e1e3f;
-
-            box-shadow: 0 0 8px rgba(99, 102, 241, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
-
-            cursor: pointer;
-
-            margin-top: -7px;
-
-            transition: transform 0.15s, box-shadow 0.15s;
-
-        }
-
-
-
-        .range-slider::-webkit-slider-thumb:hover,
-
-        .range-slider::-webkit-slider-thumb:active {
-
-            transform: scale(1.3);
-
-            box-shadow: 0 0 14px rgba(99, 102, 241, 1);
-
-        }
-
-
-
-        .range-slider::-moz-range-thumb {
-
-            width: 18px;
-
-            height: 18px;
-
-            border-radius: 50%;
-
-            background: #6366f1;
-
-            border: 3px solid #1e1e3f;
-
-            cursor: pointer;
-
-        }
-
-
-
-        .range-slider::-moz-range-track {
-
-            height: 6px;
-
-            border-radius: 3px;
-
-            background: rgba(255, 255, 255, 0.12);
-
-        }
-
-
-
-        .range-slider.warn::-webkit-slider-thumb {
-
-            background: #f59e0b;
-
-            box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
-
-        }
-
-
-
-        .range-slider.warn::-moz-range-thumb {
-
-            background: #f59e0b;
-
-        }
-
-
-
-        .range-slider.danger::-webkit-slider-thumb {
-
-            background: #ef4444;
-
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.9);
-
-        }
-
-
-
-        .range-slider.danger::-moz-range-thumb {
-
-            background: #ef4444;
-
-        }
-
-
-
-        .range-labels {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            font-size: 10px;
-
-            color: rgba(255, 255, 255, 0.4);
-
-            margin-top: 1px;
-
-            padding: 0 2px;
-
-        }
-
-
-
-        /* SLIDER POINTER EVENTS OVERRIDE */
-
-        .range-slider,
-
-        .range-slider::-webkit-slider-thumb {
-
-            pointer-events: all !important;
-
-        }
-
-
-
-        /* ── SLIDER ROW (standalone, no interference) ── */
-
-        .slider-row {
-
-            margin: -4px 0 8px 0;
-
-            padding: 0 2px;
-
-        }
-
-
-
-        .slider-row .range-slider {
-
-            width: 100%;
-
-            display: block;
-
-        }
-
-
-
-        .slider-row .range-labels {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            font-size: 10px;
-
-            color: rgba(255, 255, 255, 0.35);
-
-            margin-top: 2px;
-
-            padding: 0 2px;
-
-        }
-    
-
-        /* ============================================================
-        MOBILE RESPONSIVE — PREMIUM UI DISTILL (UNIFIED)
-        ============================================================ */
-        @media (max-width: 768px) {
-            /* 1. APP & LAYOUT SPACING (Quieter) */
-            #app {
-                padding: 16px 16px 40px !important;
-            }
-            .grid-4, .grid-3, .grid-2 {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-
-            /* 2. HEADER GLASSMORPHISM & FIXES */
-            #header {
-                padding: 0 16px !important;
-                flex-wrap: nowrap !important;
-                overflow: hidden;
-                backdrop-filter: blur(16px);
-                background: rgba(8, 11, 20, 0.85);
-            }
-            .logo-sub, #market-stamp, #save-badge { display: none !important; }
-            .logo-title { font-size: 14px !important; white-space: nowrap; }
-            .header-right .btn { padding: 8px 12px !important; font-size: 13px !important; white-space: nowrap; }
-
-            /* 3. NAVIGATION (Horizontal Scroll Smooth - Theo yêu cầu User) */
-            #nav {
-                display: flex;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                padding: 0 8px 4px;
-                scroll-snap-type: x mandatory;
-            }
-            #nav::-webkit-scrollbar { display: none; }
-            .tab-btn {
-                flex: 0 0 auto;
-                min-height: 48px;
-                padding: 0 16px;
-                scroll-snap-align: start;
-            }
-            .tab-step { display: none; }
-
-            /* 4. ANTI-SLOP: DISTILL CARDS (No Card-in-Card) */
-            .card {
-                padding: 16px 0 !important;
-                border: none !important;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-                border-radius: 0 !important;
-                background: transparent !important;
-            }
-            .card .card, .card .stat-card {
-                border: none !important;
-                border-bottom: 1px dashed rgba(255, 255, 255, 0.05) !important;
-                border-radius: 0 !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                background: transparent !important;
-            }
-            .stat-card {
-                padding: 16px 8px !important;
-            }
-            .card-title {
-                font-size: 14px !important;
-            }
-
-            /* 5. TOUCH TARGETS & FORM INPUTS (iOS Zoom Fix) */
-            .btn, .form-input, .form-select {
-                min-height: 48px;
-                font-size: 16px !important; /* iOS Zoom Fix */
-            }
-            .btn {
-                transition: transform 0.1s ease-out;
-            }
-            .btn:active {
-                transform: scale(0.96);
-            }
-            .form-group {
-                margin-bottom: 24px;
-            }
-            .slider-row {
-                margin-top: 8px;
-            }
-
-            /* 6. GHOST BUTTONS FOR SECONDARY ACTIONS */
-            .btn-secondary {
-                background: rgba(255, 255, 255, 0.03) !important;
-                border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                color: var(--text-2) !important;
-            }
-            .btn-secondary:hover {
-                background: rgba(255, 255, 255, 0.08) !important;
-                color: var(--text-1) !important;
-            }
-
-            /* 7. DATA TABLES (Vertical Block Mode - Premium Table) */
-            .mkt-table, .mkt-table tbody, .mkt-table tr, .mkt-table td {
-                display: block;
-                width: 100%;
-            }
-            .mkt-table thead {
-                display: none;
-            }
-            .mkt-table tr {
-                margin-bottom: 16px;
-                border: 1px solid rgba(255,255,255,0.05);
-                border-radius: var(--r-md);
-                background: rgba(14, 20, 34, 0.5);
-                padding: 12px;
-            }
-            .sim-matrix-table td {
-                text-align: right !important;
-                padding: 10px 0 !important;
-                border-bottom: 1px dashed rgba(255,255,255,0.05) !important;
-                font-size: 14px !important;
-            }
-            .mkt-table td:first-child {
-                text-align: left !important;
-                font-weight: 700;
-                font-size: 15px !important;
-                color: var(--gold);
-                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                padding-bottom: 12px !important;
-                margin-bottom: 4px;
-            }
-            .mkt-table td:last-child {
-                border-bottom: none !important;
-            }
-            
-            /* Helper classes */
-            .hide-on-mobile { display: none !important; }
-        }
-
-    
-        /* Premium Asset Selector Tabs */
-        #sim-asset-list::-webkit-scrollbar { display: none; }
-        .sim-tab {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-3);
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-        .sim-tab:hover {
-            color: var(--text-1);
-            background: rgba(255,255,255,0.05);
-        }
-        .sim-tab.active {
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-
-    
-        /* Asset Stats Grid Premium */
-        .asset-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px 8px;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .asset-stat-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px 8px;
-        }
-        
-        @media (min-width: 640px) {
-            .asset-stat-group {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        /* The Holy Grail Hack: Make dangling odd-numbered last items span full width */
-        .asset-stat-group > .stat-item:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-            /* Optional: center the content of the spanned item to make it look intentional */
-            align-items: flex-start;
-        }
-        .stat-lbl {
-            font-size: 9px;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .stat-val {
-            font-family: var(--mono);
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--text-1);
-            white-space: nowrap;
-            /* Premium Glow Effect using a faint drop shadow */
-            filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.1));
-        }
-        .stat-unit {
-            font-family: var(--sans);
-            font-size: 9.5px;
-            color: var(--text-3);
-            font-weight: 500;
-        }
-        @media (max-width: 768px) {
-            .asset-stats-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .asset-stats-grid > .stat-item[style*="grid-column: span 2"] {
-                grid-column: span 1 !important;
-            }
-        }
-
-    
-        /* Matrix Compare Table */
-        .sim-matrix-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
-        }
-        .sim-matrix-table th {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            text-align: center;
-            border-bottom: 2px solid var(--bg-border);
-            font-weight: 600;
-            color: var(--text-2);
-        }
-        .sim-matrix-table td {
-            display: table-cell !important;
-            vertical-align: middle;
-            padding: 12px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-            transition: background 0.2s ease;
-        }
-        .sim-matrix-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-    </style>
-
-</head>
-
-
-
-<body>
-
-    <!-- ============================================================
-
-HEADER
-
-============================================================ -->
-
-    <header id="header">
-
-        <div class="logo">
-
-            <span class="logo-gem">💎</span>
-
-            <div>
-
-                <div class="logo-title">ASSET ARCHITECT OS</div>
-
-                <div class="logo-sub">Hệ Điều Hành Chẩn Đoán Danh Mục BĐS</div>
-
-            </div>
-
-        </div>
-
-        <div class="header-right">
-
-            <div id="save-badge"
-                style="display:none;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--emerald);padding:3px 9px;background:rgba(0,194,122,0.08);border:1px solid var(--emerald-dim);border-radius:var(--r-sm);transition:opacity 1.5s">
-
-                💾 <span id="save-time"></span>
-
-            </div>
-
-            <div id="market-stamp">
-
-                <span class="stamp-dot"></span>
-
-                <span id="stamp-text">Đang tải dữ liệu...</span>
-
-            </div>
-
-            <button class="btn btn-secondary btn-sm" onclick="newSession()">＋ Buổi khám mới</button>
-
-        </div>
-
-    </header>
-
-    <!-- ============================================================
-
-TAB NAVIGATION
-
-============================================================ -->
-
-    <nav id="nav">
-
-        <button class="tab-btn active" data-tab="triage" onclick="switchTab('triage')">
-
-            <span class="tab-step">01</span> 🏥 Triage
-
-        </button>
-
-        <button class="tab-btn" data-tab="diagnosis" onclick="switchTab('diagnosis')">
-
-            <span class="tab-step">02</span> 🩺 Chẩn Đoán
-
-        </button>
-
-        <button class="tab-btn" data-tab="surgery" onclick="switchTab('surgery')">
-
-            <span class="tab-step">03</span> 🎮 Surgery
-
-        </button>
-
-        <button class="tab-btn" data-tab="prescription" onclick="switchTab('prescription')">
-
-            <span class="tab-step">04</span> 📋 Báo Cáo
-
-        </button>
-
-    </nav>
-
-    <!-- ============================================================
-
-MAIN APPLICATION
-
-============================================================ -->
-
-    <main id="app">
-
-        <!-- TAB 1: TRIAGE -->
-
-        <div id="tab-triage" class="tab-panel active">
-
-            <!-- PORTFOLIO ASSET LIST -->
-
-            <div id="portfolio-panel" style="margin-bottom:20px;display:block">
-
-                <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleImport(event)">
-
-                <div
-                    style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-
-                    <div class="section-title" style="margin:0">🏠 Danh Mục Tài Sản <span id="asset-count-badge"
-                            class="badge badge-gold" style="margin-left:6px">0 tài sản</span></div>
-
-                    <div style="display:flex;gap:6px;flex-wrap:wrap">
-
-                        <button class="btn btn-secondary btn-sm" onclick="importPortfolio()"
-                            title="Import danh mục từ file JSON backup">📥 Import</button>
-
-                        <button class="btn btn-secondary btn-sm" id="btn-export" onclick="exportPortfolio()"
-                            style="display:none" title="Xuất danh mục ra file JSON để backup">📤 Export</button>
-
-                        <button class="btn btn-secondary btn-sm" id="btn-print-quick" onclick="quickPrintSummary()"
-                            style="display:none" title="In tóm tắt nhanh không cần Prescription">🖨️</button>
-
-                        <!-- Nút chẩn đoán đã được gỡ bỏ -->
-
-                    </div>
-
-                </div>
-
-                <div id="portfolio-summary"
-                    style="display:none;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;background:var(--bg-card);border:1px solid var(--bg-border);border-radius:var(--r-md);padding:14px 16px">
-
-                </div>
-
-                <div id="asset-list"></div>
-
-            </div>
-
-            <!-- Quick Scan Banner -->
-
-            <div id="quick-scan-banner" class="card"
-                style="border-color:var(--gold-dim);background:rgba(212,175,55,0.04);margin-bottom:20px">
-
-                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-
-                    <div>
-
-                        <div style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:4px">⚡ Quick Scan
-                            Mode — Kết quả
-
-                            trong 60 giây</div>
-
-                        <div style="font-size:12px;color:var(--text-2)">Chỉ cần 4 thông số để xem Health Score. Không
-                            cần nhập đầy
-
-                            đủ.</div>
-
-                    </div>
-
-                    <button class="btn btn-secondary btn-sm" onclick="toggleQuickScan()" id="qs-toggle">▼ Mở Quick
-                        Scan</button>
-
-                </div>
-
-                <div id="qs-form" style="display:none;margin-top:16px">
-
-                    <div class="grid-4" style="margin-bottom:14px">
-
-                        <div class="form-group" style="margin:0">
-
-                            <label class="form-label">📍 Khu vực</label>
-
-                            <select class="form-select" id="qs-district">
-
-                                <option value="">Chọn...</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="form-group" style="margin:0">
-
-                            <label class="form-label">💰 Giá mua (tỷ)</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="qs-buy" placeholder="9.0" step="0.1">
-
-                                <span class="input-unit-label">Tỷ</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-qs-buy" min="0" max="50" step="0.5"
-                                    value="0">
-
-                                <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group" style="margin:0">
-
-                            <label class="form-label">📈 Giá hiện tại (tỷ)</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="qs-now" placeholder="8.5" step="0.1">
-
-                                <span class="input-unit-label">Tỷ</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-qs-now" min="0" max="50" step="0.5"
-                                    value="0">
-
-                                <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group" style="margin:0">
-
-                            <label class="form-label">🏦 Tỷ lệ vay</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="qs-loan" placeholder="60" min="0" max="100">
-
-                                <span class="input-unit-label">%</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-qs-loan" min="0" max="100" step="1"
-                                    value="0">
-
-                                <div class="range-labels"><span>0%</span><span>50%</span><span>100%</span></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group" style="margin:0">
-
-                            <label class="form-label">📅 Năm mua</label>
-
-                            <select class="form-select" id="qs-year">
-
-                                <optgroup label="Gần đây">
-
-                                    <option value="2026">2026</option>
-
-                                    <option value="2025">2025</option>
-
-                                    <option value="2024">2024</option>
-
-                                    <option value="2023">2023</option>
-
-                                    <option value="2022">2022</option>
-
-                                    <option value="2021">2021</option>
-
-                                    <option value="2020">2020</option>
-
-                                </optgroup>
-
-                                <optgroup label="Cũ hơn">
-
-                                    <option value="2019">2019</option>
-
-                                    <option value="2018">2018</option>
-
-                                    <option value="2017">2017</option>
-
-                                    <option value="2016">2016</option>
-
-                                    <option value="2015">2015</option>
-
-                                    <option value="2014">2014</option>
-
-                                    <option value="2013">2013</option>
-
-                                    <option value="2012">2012</option>
-
-                                    <option value="2011">2011</option>
-
-                                    <option value="2010">2010</option>
-
-                                    <option value="2009">2009</option>
-
-                                    <option value="2008">2008</option>
-
-                                    <option value="2007">2007</option>
-
-                                    <option value="2006">2006</option>
-
-                                    <option value="2005">2005</option>
-
-                                    <option value="2004">2004</option>
-
-                                    <option value="2003">2003</option>
-
-                                    <option value="2002">2002</option>
-
-                                    <option value="2001">2001</option>
-
-                                    <option value="2000">2000</option>
-
-                                </optgroup>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-
-                        <button class="btn btn-primary" onclick="runQuickScan()">⚡ Chẩn đoán nhanh</button>
-
-                        <button class="btn btn-secondary btn-sm" id="qs-reset-btn" onclick="resetQuickScan()"
-                            style="display:none">↺
-
-                            Quét lại</button>
-
-                        <div id="qs-result" style="display:none"></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-                        <!-- Quick-Load Templates (Categorized Dropdown Grid) -->
-            <div class="template-dropdown-container" style="margin-bottom: 24px;">
-                <!-- Nút Toggle Dropdown - Phong cách Premium Minimalist -->
-                <button class="btn btn-secondary" id="btn-toggle-templates" 
-                    style="width: 100%; justify-content: space-between; padding: 12px 16px; border-color: var(--gold-dim); background: rgba(212,175,55,0.05); color: var(--gold);" 
-                    onclick="const grid = document.getElementById('templates-grid'); grid.style.display = grid.style.display === 'none' ? 'block' : 'none';">
-                    <span style="font-weight: 600; letter-spacing: 0.5px;">⚡ BỘ TEMPLATE MẪU (CLICK ĐỂ MỞ)</span>
-                    <span style="font-size: 10px;">▼</span>
-                </button>
-                
-                <!-- Nội dung Dropdown -->
-                <div id="templates-grid" style="display: none; padding: 20px; border: 1px solid var(--bg-border); border-top: none; border-radius: 0 0 var(--r-md) var(--r-md); background: rgba(14, 20, 34, 0.9);">
-                    
-                    <!-- Nhóm 1: Căn Hộ -->
-                    <div style="font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">🏢 Căn Hộ / Chung Cư</div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin-bottom: 20px;">
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('chungcu', event)">Căn Hộ Hoàng Mai</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('shophouse', event)">Căn Hộ Cầu Giấy</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('chungcuvip', event)">💎 Căn Hộ Ba Đình</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('hadong', event)">Căn Hộ Mới Hà Đông</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('namtuliem', event)">Căn Hộ Lõi Mỹ Đình</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('bactuliem', event)">Dấu Ấn Ngoại Giao</button>
-                    </div>
-
-                    <!-- Nhóm 2: Thấp Tầng -->
-                    <div style="font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">🏡 Thấp Tầng / Nhà Phố</div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin-bottom: 20px;">
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('nhapho', event)">Nhà Phố Hai Bà Trưng</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('vanphong', event)">Nhà Phố Đống Đa</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('chdv', event)">CHDV Thanh Xuân</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('bietthu', event)">Biệt Thự Tây Hồ</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('nghiduong', event)">Biệt Thự Long Biên</button>
-                    </div>
-
-                    <!-- Nhóm 3: Đại Dự Án -->
-                    <div style="font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">🏙️ Đại Dự Án</div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin-bottom: 20px;">
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('smartcity', event)">Vinhomes Smart City</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('ocp1', event)">Vin Ocean Park 1</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('ocp2', event)">Shop Ocean Park 2</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('vincoloa', event)">KĐT Vin Cổ Loa</button>
-                    </div>
-
-                    <!-- Nhóm 4: Đất Nền -->
-                    <div style="font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">🌿 Đất Nền</div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px;">
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('datnen', event)">Đất Nền Hoài Đức</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadTemplate('datvuon', event)">Đất Nền Thanh Trì</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Full Form -->
-
-            <form id="main-form" onsubmit="return false">
-
-                <!-- GROUP 1: ASSET INFO -->
-
-                <div class="section-title">📋 Nhóm 1 — Thông Tin Tài Sản</div>
-
-                <div class="card" style="margin-bottom:16px">
-
-                    <div class="grid-2">
-
-                        <div class="form-group">
-
-                            <label class="form-label">Tên / Mã Tài Sản</label>
-
-                            <input type="text" class="form-input" id="f-name" placeholder="VD: Shophouse Làng Vân SH07">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Loại Hình BĐS</label>
-
-                            <select class="form-select" id="f-type">
-
-                                <option value="chung-cu">🏢 Chung cư</option>
-
-                                <option value="shophouse">🏬 Shophouse</option>
-
-                                <option value="biet-thu">🏡 Biệt thự - Liền kề</option>
-
-                                <option value="dat-nen">🏜️ Đất nền vùng ven</option>
-
-                                <option value="nghi-duong">🏖️ BĐS nghỉ dưỡng</option>
-
-                                <option value="van-phong">💼 Văn phòng cho thuê</option>
-
-                                <option value="nha-pho">🏰 Nhà mặt phố</option>
-
-                                <option value="chdv">🏨 Tòa nhà / CHDV</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Vị trí (Quận / Huyện)</label>
-
-                            <select class="form-select" id="f-district">
-
-                                <option value="">Chọn khu vực...</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Diện Tích (m²)</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="f-area" placeholder="0" min="1">
-
-                                <span class="input-unit-label">m²</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-area" min="0" max="500" step="1"
-                                    value="0">
-
-                                <div class="range-labels"><span>0</span><span>250</span><span>500m²</span></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Thời Điểm Mua</label>
-
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-
-                                <select class="form-select" id="f-month" title="Tháng giải ngân">
-
-                                    <option value="1">Tháng 1</option>
-
-                                    <option value="2">Tháng 2</option>
-
-                                    <option value="3">Tháng 3</option>
-
-                                    <option value="4">Tháng 4</option>
-
-                                    <option value="5">Tháng 5</option>
-
-                                    <option value="6">Tháng 6</option>
-
-                                    <option value="7">Tháng 7</option>
-
-                                    <option value="8">Tháng 8</option>
-
-                                    <option value="9">Tháng 9</option>
-
-                                    <option value="10">Tháng 10</option>
-
-                                    <option value="11">Tháng 11</option>
-
-                                    <option value="12" selected>Tháng 12</option>
-
-                                </select>
-
-                                <select class="form-select" id="f-year">
-
-                                    <optgroup label="Gần đây">
-
-                                        <option value="2026">2026</option>
-
-                                        <option value="2025">2025</option>
-
-                                        <option value="2024">2024</option>
-
-                                        <option value="2023">2023</option>
-
-                                        <option value="2022" selected>2022</option>
-
-                                        <option value="2021">2021</option>
-
-                                        <option value="2020">2020</option>
-
-                                    </optgroup>
-
-                                    <optgroup label="Cũ hơn">
-
-                                        <option value="2019">2019</option>
-
-                                        <option value="2018">2018</option>
-
-                                        <option value="2017">2017</option>
-
-                                        <option value="2016">2016</option>
-
-                                        <option value="2015">2015</option>
-
-                                        <option value="2014">2014</option>
-
-                                        <option value="2013">2013</option>
-
-                                        <option value="2012">2012</option>
-
-                                        <option value="2011">2011</option>
-
-                                        <option value="2010">2010</option>
-
-                                        <option value="2009">2009</option>
-
-                                        <option value="2008">2008</option>
-
-                                        <option value="2007">2007</option>
-
-                                        <option value="2006">2006</option>
-
-                                        <option value="2005">2005</option>
-
-                                        <option value="2004">2004</option>
-
-                                        <option value="2003">2003</option>
-
-                                        <option value="2002">2002</option>
-
-                                        <option value="2001">2001</option>
-
-                                        <option value="2000">2000</option>
-
-                                    </optgroup>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Mục Tiêu Đầu Tư</label>
-
-                            <select class="form-select" id="f-goal">
-
-                                <option value="cho-thue">Cho thuê (dòng tiền — Pha 3)</option>
-
-                                <option value="tang-gia">Tăng giá (lướt sóng — Pha 1/2)</option>
-
-                                <option value="tu-o">Tự ở</option>
-
-                                <option value="tich-san">🟦 Tích sản dài hạn (Pha 4 — Tư vấn viên chọn)</option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- GROUP 2: BANK (hidden if no loan) -->
-
-                <div id="group-bank">
-
-                    <div class="section-title">🏦 Nhóm 2 — Tài Chính Ngân Hàng
-
-                    </div>
-
-                    <div class="card" style="margin-bottom:16px">
-
-                        <div class="grid-2">
-
-                            <div class="form-group">
-
-                                <label class="form-label">Giá Vốn Ban Đầu</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-cost" placeholder="0" step="0.1">
-
-                                    <span class="input-unit-label">Tỷ</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-cost" min="0" max="50" step="0.5"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
-                                    <span>Giá Thị Trường Hiện Tại</span>
-                                    <span style="cursor:pointer; color:var(--gold); font-size:11px; padding:2px 6px; background:rgba(212,175,55,0.1); border-radius:4px;" onclick="suggestMarketPrice(true)" title="Nội suy giá dựa trên Lịch sử 60 tháng">🪄 Gợi ý</span>
-                                </label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-market" placeholder="0" step="0.1">
-
-                                    <span class="input-unit-label">Tỷ</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-market" min="0" max="50" step="0.5"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0</span><span>25</span><span>50Tỷ</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label">Tỷ Lệ Vay</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-loanpct" placeholder="0" min="0"
-                                        max="100" oninput="onLoanPctChange(this.value);">
-
-                                    <span class="input-unit-label">%</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-loanpct" min="0" max="100" step="1"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0%</span><span>50%</span><span>100%</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label" title="Tổng số năm ký kết hợp đồng vay ban đầu">Kỳ Hạn Vay
-                                    (Tổng)</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-loanterm" placeholder="0" min="1"
-                                        max="30">
-
-                                    <span class="input-unit-label">năm</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-loanterm" min="0" max="35" step="1"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0</span><span>17</span><span>35năm</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label" title="Tổng số tháng ưu đãi lãi suất tính từ ngày giải ngân">⏳
-                                    Thời Gian Ưũ
-
-                                    Đãi</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-prefmonths" placeholder="0" min="0"
-                                        style="border-color:var(--yellow)">
-
-                                    <span class="input-unit-label">tháng</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-prefmonths" min="0" max="36"
-                                        step="1" value="0">
-
-                                    <div class="range-labels"><span>0T</span><span>18T</span><span>36T</span></div>
-
-                                </div>
-
-                                <div style="font-size:11px;color:var(--yellow);margin-top:4px">⏰ Hết ưu đãi, lãi suất
-                                    tăng mạnh lên thả
-
-                                    nổi</div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label">Lãi Suất Ưu Đãi</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-rate" placeholder="0" step="0.5"
-                                        min="0">
-
-                                    <span class="input-unit-label">%/năm</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-rate" min="0" max="20" step="0.5"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0%</span><span>10%</span><span>20%</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label" title="Tổng số tháng ân hạn nợ gốc tính từ ngày giải ngân">💣
-                                    Thời Gian Ân Hạn
-
-                                    Gốc</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-grace" placeholder="0" min="0"
-                                        style="border-color:var(--yellow)">
-
-                                    <span class="input-unit-label">tháng</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-grace" min="0" max="36" step="1"
-                                        value="0">
-
-                                    <div class="range-labels"><span>0</span><span>18</span><span>36T</span></div>
-
-                                </div>
-
-                                <div style="font-size:11px;color:var(--yellow);margin-top:4px">⚠️ Quả bom nổ chậm — khi
-                                    hết, dòng tiền
-
-                                    âm x2-x3</div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label">Lãi Suất Thả Nổi Sau Ưu Đãi</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-floatrate" placeholder="0" step="0.1"
-                                        min="0">
-
-                                    <span class="input-unit-label">%/năm</span>
-
-                                </div>
-
-                                <div class="slider-row">
-
-                                    <input type="range" class="range-slider" id="sl-floatrate" min="0" max="20"
-                                        step="0.5" value="0">
-
-                                    <div class="range-labels"><span>0%</span><span>10%</span><span>20%</span></div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label"
-                                    title="Số tiền gốc đã trả thêm ngoài lịch khấu hao định kỳ (VD: Tất toán trước một phần)">Trả
-                                    Thêm Gốc
-
-                                    Trước Hạn</label>
-
-                                <div class="input-unit">
-
-                                    <input type="number" class="form-input" id="f-extrapaid" placeholder="0" step="0.1"
-                                        min="0">
-
-                                    <span class="input-unit-label">Tỷ</span>
-
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <label class="form-label" style="display:flex;align-items:center;gap:6px">Dư Nợ Gốc Còn
-                                    Lại <span style="font-size:10px;color:var(--text-3);font-weight:400">(Tự
-                                        tính)</span></label>
-
-                                <div id="auto-debt-display"
-                                    style="font-family:var(--mono);font-size:13px;color:var(--gold);padding:7px 10px;background:rgba(212,175,55,0.07);border:1px solid var(--gold)44;border-radius:6px;min-height:32px">
-
-                                    — Tỷ (nhập đủ thông tin để tính)</div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- NO-LOAN NOTICE -->
-
-                <div id="no-loan-notice" style="display:none;margin-bottom:16px">
-
-                    <div class="alert alert-info">
-
-                        <span class="alert-icon">ℹ️</span>
-
-                        <span><strong>Chế độ Không Vay:</strong> Health Score sẽ tính theo ROE vs Chi phí cơ hội + Thanh
-                            khoản khu
-
-                            vực.</span>
-
-                    </div>
-
-                </div>
-
-                <!-- GROUP 3: CASHFLOW -->
-
-                <div class="section-title">💰 Nhóm 3 — Dòng Tiền Vận Hành</div>
-
-                <div class="card" style="margin-bottom:24px">
-
-                    <div class="grid-2">
-
-                        <div class="form-group">
-
-                            <label class="form-label">Tình Trạng Cho Thuê</label>
-
-                            <select class="form-select" id="f-rentstatus" onchange="onRentStatusChange(this.value)">
-
-                                <option value="dang-thue">✅ Đang cho thuê</option>
-
-                                <option value="chua-ban-giao">🔑 Chưa nhận bàn giao (dự kiến cho thuê)</option>
-
-                                <option value="trong">❌ Đang trống</option>
-
-                                <option value="tu-dung">🏠 Tự dùng</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="form-group" id="rent-income-row">
-
-                            <label class="form-label">Thu Cho Thuê / Tháng</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="f-rent" placeholder="0" min="0">
-
-                                <span class="input-unit-label">Triệu</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-rent" min="0" max="150" step="1"
-                                    value="0">
-
-                                <div class="range-labels"><span>0</span><span>75</span><span>150Tr</span></div>
-
-                            </div>
-
-                        </div>
-
-                        <div id="chua-ban-giao-note" style="display:none;grid-column:1/-1">
-
-                            <div class="alert alert-info" style="padding:10px 14px;margin:0">
-
-                                <span class="alert-icon">🔑</span>
-
-                                <div>
-
-                                    <strong>Chưa nhận bàn giao:</strong> Dòng tiền thuê tạm tính = 0 cho đến khi nhận
-                                    nhà.
-
-                                    <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-
-                                        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:4px">
-
-                                            <div>
-
-                                                <div style="font-size:11px;color:var(--text-2);margin-bottom:4px">📅
-                                                    Nhận nhà sau:</div>
-
-                                                <div class="input-unit" style="max-width:120px">
-
-                                                    <input type="number" class="form-input" id="f-delivery"
-                                                        placeholder="0" min="0">
-
-                                                    <span class="input-unit-label">tháng</span>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div>
-
-                                                <div style="font-size:11px;color:var(--text-2);margin-bottom:4px">💰 Thu
-                                                    thuê dự kiến:</div>
-
-                                                <div class="input-unit" style="max-width:130px">
-
-                                                    <input type="number" class="form-input" id="f-rent-expected"
-                                                        placeholder="0" min="0">
-
-                                                    <span class="input-unit-label">Triệu/tháng</span>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Phí Quản lý/ Vận hành</label>
-
-                            <div class="input-unit">
-
-                                <input type="number" class="form-input" id="f-mgmt" placeholder="0" step="0.5" min="0">
-
-                                <span class="input-unit-label">Triệu/ tháng</span>
-
-                            </div>
-
-                            <div class="slider-row">
-
-                                <input type="range" class="range-slider" id="sl-mgmt" min="0" max="20" step="0.1"
-                                    value="0">
-
-                                <div class="range-labels"><span>0</span><span>10</span><span>20Tr</span></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- CTA -->
-
-                <div style="display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding-bottom:100px;">
-
-                    <button class="btn btn-secondary" type="button" onclick="clearForm()">↺ Xóa form</button>
-
-                    <button class="btn btn-primary" type="button" onclick="addToPortfolio()">+ Thêm vào danh
-                        mục</button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-        <!-- TAB 2: DIAGNOSIS -->
-
-        <div id="tab-diagnosis" class="tab-panel">
-
-            <div id="diag-empty" class="panel-placeholder">
-
-                <div class="ph-icon">🩺</div>
-
-                <div class="ph-title">Chưa có dữ liệu</div>
-
-                <div class="ph-sub">Quay lại Triage, thêm tài sản và bấm “Chẩn đoán toàn danh mục”.</div>
-
-                <button class="btn btn-secondary" onclick="switchTab('triage')">← Về Triage</button>
-
-            </div>
-
-            <div id="diag-content" style="display:none">
-
-                <!-- Header -->
-
-                <div
-                    style="display:none !important;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px">
-
-                    <div>
-
-                        <div style="font-size:20px;font-weight:700" id="diag-title">Kết Quả Chẩn Đoán Danh Mục</div>
-
-                        <div style="font-size:12px;color:var(--text-2)" id="diag-subtitle"></div>
-
-                    </div>
-
-                    <div style="display:flex;gap:8px">
-
-                        <button class="btn btn-secondary btn-sm" onclick="switchTab('triage')">← Sửa danh mục</button>
-
-                        <button class="btn btn-primary btn-sm" onclick="switchTab('surgery')">🎮 What-If Simulator
-                            →</button>
-
-                    </div>
-
-                </div>
-
-                <!-- Sandwich: Điểm mạnh trước -->
-
-                <div id="diag-strengths" class="alert alert-ok" style="margin-bottom:16px"></div>
-
-                <!-- KPI Row -->
-
-                <div id="diag-kpi"
-                    style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:20px">
-
-                </div>
-
-                <!-- Investor Profile — moved into strategic analysis group below -->
-
-                <!-- DANH MUC TAI SAN — below KPI Cards, read-only -->
-
-                <div id="diag-portfolio-section" style="margin-bottom:24px">
-
-                    <div
-                        style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:8px">
-
-                        <div
-                            style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)">
-
-                            🏠 Danh Mục Tài Sản
-
-                        </div>
-
-                        <span id="diag-asset-count-badge"
-                            style="font-size:11px;color:var(--text-2);background:var(--bg-border);padding:2px 10px;border-radius:12px;font-family:var(--mono)"></span>
-
-                    </div>
-
-                    <div id="diag-asset-list"></div>
-
-                </div>
-
-                <!-- END DANH MUC TAI SAN -->
-
-                <!-- Chi tiết tài sản -->
-
-                <div id="diag-details" style="margin-bottom:20px"></div>
-
-                <!-- Alerts -->
-
-                <div id="diag-alerts" style="margin-bottom:20px"></div>
-
-                <!-- Investor Profile — moved above to after diag-kpi -->
-
-                <!-- ╔══════════════════════════════════════════════════════════════╗
-
-║  PHÂN TÍCH CHIẾN LƯỢC — Bảng 2×2                            ║
-
-║  [1.NDT] [2.Radar] / [3.5 Trục] [4.Ma Trận]                 ║
-
-╚══════════════════════════════════════════════════════════════╝ -->
-
-                <div id="diag-radar-section" style="display:none;margin-bottom:20px">
-
-                    <div style="display:grid;grid-template-columns:1fr;gap:16px">
-
-                        <!-- Ô 1: Nhận Định Loại Nhà Đầu Tư -->
-
-                        <div id="investor-profile-box" style="display:none;align-self:stretch"></div>
-
-                        <!-- Ô 2: Radar Sức Khỏe Danh Mục -->
-
-                        <div class="card"
-                            style="text-align:center;align-self:stretch;display:flex;flex-direction:column">
-
-                            <div class="card-header"><span class="card-title">🕸️ Radar Sức Khỏe Danh Mục</span></div>
-
-                            <div id="diag-radar"
-                                style="flex:1;display:flex;align-items:center;justify-content:center;padding:8px 0">
-
-                            </div>
-
-                        </div>
-
-                        <!-- Ô 3: 5 Trục Đánh Giá -->
-
-                        <div class="card" style="align-self:stretch;display:flex;flex-direction:column">
-
-                            <div class="card-header"><span class="card-title">📐 5 Trục Đánh Giá</span></div>
-
-                            <div id="diag-radar-legend" style="flex:1;padding:4px 0"></div>
-
-                        </div>
-
-                        <!-- Ô 4: Ma Trận 4 Pha -->
-
-                        <div class="card" style="align-self:stretch;display:flex;flex-direction:column">
-
-                            <div class="card-header"><span class="card-title">🐍 Ma Trận 4 Pha</span><span
-                                    id="diag-matrix-note" class="badge badge-muted"></span></div>
-
-                            <div id="diag-matrix" style="flex:1"></div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Đơn Thuốc Tái Cơ Cấu -->
-
-                <div id="diag-recos" style="margin-bottom:20px"></div>
-
-                <!-- Market Data -->
-                <div class="card" style="display:none;">
-                    <div class="card-header"><span class="card-title">📡 Dữ Liệu Thị Trường (Crawler)</span><span
-                            id="diag-market-stamp" class="badge badge-muted"></span></div>
-
-                    <div id="diag-market-sort"
-                        style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;padding:0 2px"></div>
-
-                    <div id="diag-market"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- TAB 3: SURGERY -->
-
-        <div id="tab-surgery" class="tab-panel">
-
-            <div id="sim-empty" class="panel-placeholder">
-
-                <div class="ph-icon">🎮</div>
-
-                <div class="ph-title">Chưa có danh mục để giả lập</div>
-
-                <div class="ph-sub">Thêm tài sản ở Triage trước, sau đó chẩn đoán để mở Simulator.</div>
-
-                <button class="btn btn-secondary" onclick="switchTab('triage')">← Về Triage</button>
-
-            </div>
-
-            <div id="sim-content" style="display:none">
-
-
-
-                <!-- Portfolio Impact Overview -->
-
-                <div id="sim-portfolio-overview" style="display:none">
-
-                    <div id="sim-portfolio-stats"></div>
-
-                </div>
-
-                <!-- Asset Selector -->
-
-                <div class="card" style="margin-bottom:20px">
-
-                    <div class="card-header"><span class="card-title">🏠 Chọn Tài Sản Để Giả Lập Kịch Bản</span></div>
-
-                    <div id="sim-asset-list" style="display:inline-flex;overflow-x:auto;white-space:nowrap;gap:6px;padding:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:12px;max-width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
-
-                    <div id="sim-selected-asset-card"
-                        style="margin-top:16px;border-top:1px solid var(--bg-border);padding-top:16px"></div>
-
-                </div>
-
-        <!-- BẮT ĐẦU FORM THÊM TÀI SẢN MỚI -->
-        <div id="sim-buy-new" class="card" style="margin-top: 20px;">
-            <div class="card-header"><span class="card-title" style="color:var(--gold)">➕ THÊM TÀI SẢN TÚI CHIẾN LƯỢC</span></div>
-            
-            <div class="form-group">
-                <label class="form-label">Rổ Hàng Nổi Bật (Khuyến Nghị)</label>
-                <select id="new-cn-hot-deals" class="form-select" onchange="fillHotDeal()">
-                    <option value="">-- Tự nhập thủ công --</option>
-                    <option value="imperia-skypark">🏢 Imperia Sky Park 2PN (Giá: 5.59T, Vay: 70%)</option>
-                    <option value="mipec-tohuu">🏢 ICONA MIPEC Tố Hữu 2PN (Giá: 9.6T, Vay: 70%)</option>
-                    <option value="vanla-hadong">🏢 Vista Văn La 2PN (Giá: 6.65T, Vay: 70%)</option>
-                    <option value="revia-hoangmai">🏢 Rivea Hoàng Mai 2PN (Giá: 8.85T, Vay: 70%)</option>
-                    <option value="parkland-ocp3">🏢 ParkLand OCP3 2PN (Giá: 4.59T, Vay: 50%)</option>
-                    <option value="imperia-halong">🏢 Imperia Hạ Long 2PN (Giá: 5.13T, Vay: 50%)</option>
-                    <option value="langvan">🏖️ Nhà Phố Làng Vân (Giá: 7.94T, Vay: 0%)</option>
-                    <option value="meyhomes-pq">🏢 Meyhomes Phú Quốc 2PN (Giá: 4.96T, Vay: 70%)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Tên Tài Sản Mới</label>
-                <input type="text" id="new-cn-name" class="form-input" placeholder="VD: Căn hộ quận 7..." value="">
-            </div>
-            
-            <div class="grid-2">
-                <div class="form-group">
-                    <label class="form-label">Loại Hình</label>
-                    <select class="form-select" id="new-cn-type">
-                        <option value="chung-cu">🏢 Chung cư</option>
-                        <option value="shophouse">🏬 Shophouse</option>
-                        <option value="biet-thu">🏡 Biệt thự</option>
-                        <option value="dat-nen">🏜️ Đất nền</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Khu vực</label>
-                    <select class="form-select" id="new-cn-district"><option value="">Chọn khu vực...</option></select>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="form-group">
-                    <label class="form-label">Giá Mua</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-price" placeholder="0" min="0" value="4">
-                        <span class="input-unit-label">Tỷ</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tỷ Lệ Vay</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-loanpct" placeholder="0" min="0" max="100" value="0">
-                        <span class="input-unit-label">%</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Kỳ Hạn Vay</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-loanterm" placeholder="0" min="1" max="30" value="20">
-                        <span class="input-unit-label">năm</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Thời Gian Ưu Đãi</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-prefmonths" placeholder="0" min="0" value="0">
-                        <span class="input-unit-label">tháng</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Lãi Suất Ưu Đãi</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-rate" placeholder="0" step="0.5" min="0" value="0">
-                        <span class="input-unit-label">%/năm</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Ân Hạn Gốc</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-grace" placeholder="0" min="0" value="0">
-                        <span class="input-unit-label">tháng</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">LS Thả Nổi</label>
-                    <div class="input-unit">
-                        <input type="number" class="form-input" id="new-cn-floatrate" placeholder="0" step="0.1" min="0" value="10.5">
-                        <span class="input-unit-label">%/năm</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Thu Thuần (NOI)</label>
-                    <div class="input-unit">
-                        <input type="number" id="new-cn-noi" class="form-input" value="15">
-                        <span class="input-unit-label">Tr/th</span>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-primary btn-full" style="margin-top:16px;" onclick="addBuyNewToCart()">➕ THÊM VÀO KỊCH BẢN MUA</button>
-        </div>
-        <!-- KẾT THÚC FORM -->
-
-                <!-- Scenarios -->
-
-                <div class="grid-2" id="sim-scenarios" style="margin-bottom:20px"></div>
-        
-
-                <!-- Comparison Table -->
-
-                <div class="card" id="sim-compare" style="display:block">
-
-                    <div class="card-header"><span class="card-title">📊 So Sánh Kịch Bản</span><span
-                            class="badge badge-gold" id="sim-rec"></span></div>
-
-                    <div id="sim-compare-body"></div>
-
-                    
-
-            </div>
-
-        </div>
-        </div>
-
-        <!-- TAB 4: PRESCRIPTION -->
-
-        <div id="tab-prescription" class="tab-panel">
-
-            <!-- Control Panel (screen only) -->
-
-            <div class="no-print" style="margin-bottom:24px">
-
-                <div
-                    style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">
-
-                    <div>
-
-                        <div style="font-size:20px;font-weight:700">📋 Prescription — Bệnh Án Tài Sản</div>
-
-                        <div style="font-size:12px;color:var(--text-2)">Tạo và xuất báo cáo PDF chuyên nghiệp cho buổi
-                            tư vấn</div>
-
-                    </div>
-
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-
-                        <button class="btn btn-secondary" onclick="buildPrescription()">🔄 Tạo / Cập Nhật Báo
-                            Cáo</button>
-
-                        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-
-                            <button class="btn btn-primary" onclick="window.print()" id="rx-print-btn"
-                                style="display:none">🖨️ In /
-
-                                Xuất PDF</button>
-
-                            <span id="rx-print-hint" style="display:none;font-size:10px;color:var(--text-3)">💡 Trong
-                                hộp thoại in: bỏ
-
-                                chọn <em>Đầu trang & Chân trang</em></span>
-
-                        </div>
-
-                        <button class="btn btn-secondary btn-sm" onclick="switchTab('surgery')">← Surgery</button>
-
-                    </div>
-
-                </div>
-
-                <!-- Client info form -->
-
-                <div class="card" style="margin-bottom:16px">
-
-                    <div class="card-header"><span class="card-title">👤 Thông Tin Khách Hàng</span></div>
-
-                    <div class="grid-2" style="gap:12px">
-
-                        <div class="form-group">
-
-                            <label class="form-label">Họ Tên Khách Hàng</label>
-
-                            <input class="form-input" id="rx-client-name" placeholder="Nguyễn Văn A">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Điện Thoại</label>
-
-                            <input class="form-input" id="rx-client-phone" placeholder="0912 345 678">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Tên Tư Vấn Viên</label>
-
-                            <input class="form-input" id="rx-consultant" placeholder="Hoàng Việt" value="Hoàng Việt">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label class="form-label">Ghi Chú Buổi Khám</label>
-
-                            <input class="form-input" id="rx-note" placeholder="Mục tiêu: tái cơ cấu danh mục Q2/2026">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div id="rx-empty" style="text-align:center;padding:40px;color:var(--text-3)">
-
-                    <div style="font-size:40px;margin-bottom:12px">📋</div>
-
-                    <div style="font-size:15px;font-weight:700;color:var(--text-2);margin-bottom:8px">Chưa có báo cáo
-                    </div>
-
-                    <div style="font-size:12px;color:var(--text-3);max-width:380px;margin:0 auto 16px;line-height:1.8">
-
-                        <span style="color:var(--gold);font-weight:600">① Thêm tài sản</span> tại tab Triage
-
-                        → <span style="color:var(--emerald);font-weight:600">② Chẩn đoán</span> toàn danh mục
-
-                        → <span style="color:var(--text-1);font-weight:600">③ Nhập thông tin KH</span> bên trên
-
-                        → <span style="color:var(--gold);font-weight:600">④ Tạo Báo Cáo</span>
-
-                    </div>
-
-                    <button class="btn btn-secondary btn-sm" onclick="switchTab('triage')">← Về Triage để nhập tài
-                        sản</button>
-
-                </div>
-
-            </div>
-
-            <!-- Print Preview (also used by printer) -->
-
-            <div id="rx-preview" style="display:none"></div>
-
-        </div>
-
-    </main>
-
-    <!-- ============================================================
-
-JAVASCRIPT — Navigation + Market Stamp
-
-============================================================ -->
-
-    <script>
 
         // ── Tab Switcher ──────────────────────────────────────────────
 
@@ -4203,10 +421,7 @@ ${viewsTin ? `&nbsp;|&nbsp; Views/Tin: <strong>${viewsTin}</strong>` : ''}
 
         // ── Asset Portfolio Management ────────────────────────────────
 
-        let PORTFOLIO = JSON.parse(localStorage.getItem('aa_portfolio') || '[]');
-        function savePortfolio() {
-            localStorage.setItem('aa_portfolio', JSON.stringify(PORTFOLIO));
-        }
+        let PORTFOLIO = [];
 
         const TYPE_LABEL = { 'nha-rieng': 'Nhà riêng', 'shophouse': 'Shophouse', 'chung-cu': 'Chung cư', 'dat-nen': 'Đất nền', 'biet-thu': 'Biệt thự' };
 
@@ -4289,361 +504,430 @@ ${viewsTin ? `&nbsp;|&nbsp; Views/Tin: <strong>${viewsTin}</strong>` : ''}
         // Dung chung cho Triage va Chan Doan
 
         function generateAssetCardHTML(a, i, isReadOnly = false) {
+
             const PHASE_META = {
+
                 1: { label: 'Pha 1 — Chính Sách', color: '#3B82F6', bg: 'rgba(59,130,246,.12)' },
+
                 2: { label: 'Pha 2 — Di Dân', color: '#EAB308', bg: 'rgba(234,179,8,.12)' },
+
                 3: { label: 'Pha 3 — Dòng Tiền', color: '#10B981', bg: 'rgba(16,185,129,.12)' },
+
                 4: { label: 'Pha 4 — Tích Sản', color: '#A855F7', bg: 'rgba(168,85,247,.12)' },
+
             };
+
             const gain = a.market && a.cost ? ((a.market - a.cost) / a.cost * 100) : 0;
+
             const gainColor = gain >= 0 ? 'var(--emerald)' : 'var(--red)';
+
             const gainSign = gain >= 0 ? '+' : '';
+
             const c_q = calcAsset(a);
+
             const phMeta = PHASE_META[c_q.phase] || PHASE_META[2];
+
             const phaseBadge = `<span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;background:${phMeta.bg};color:${phMeta.color};border:1px solid ${phMeta.color}33;white-space:nowrap">${phMeta.label}</span>`;
+
             const dscr = c_q.dscr !== null ? c_q.dscr.toFixed(2) : 'N/A';
+
             const dscrColor = dscr === 'N/A' ? 'var(--text-2)' : (parseFloat(dscr) < 0.3 ? 'var(--red)' : parseFloat(dscr) < 0.8 ? 'var(--yellow)' : 'var(--emerald)');
-            
-            const verdict = assetVerdict(a, c_q);
-            const vColor = verdict.cls === 'badge-danger' ? 'var(--red)' : 
-                           verdict.cls === 'badge-warn' ? 'var(--yellow)' : 
-                           verdict.cls === 'badge-gold' ? 'var(--gold)' : 
-                           verdict.cls === 'badge-ok' ? 'var(--emerald)' : 'var(--text-3)';
-            
-            let alertsHTML = '';
-            if (c_q.deliveryNote) alertsHTML += `<span style="font-size:11px;color:var(--gold);background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">⏳ ${c_q.deliveryNote}</span>`;
-            if ((c_q.graceRemaining || 0) > 0) alertsHTML += `<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">💣 Ân hạn gốc còn ${c_q.graceRemaining} tháng</span>`;
-            if ((c_q.prefRemaining || 0) > 0 && (c_q.prefRemaining || 0) <= 6) alertsHTML += `<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">⚡ Ưu đãi hết trong ${c_q.prefRemaining} tháng</span>`;
-            if (c_q.phaseWarning) alertsHTML += `<span style="font-size:11px;color:var(--text-2);background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.25);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">⚠️ ${c_q.phaseWarning}</span>`;
-            if (c_q.alerts && c_q.alerts.length > 0) alertsHTML += c_q.alerts.map(w => `<span style="font-size:11px;color:var(--text-2);background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.25);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">ℹ️ ${w}</span>`).join('');
-            if (parseFloat(dscr) < 0.3 && dscr !== 'N/A') alertsHTML += `<span style="font-size:11px;color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);padding:4px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:6px">🚨 DSCR=${dscr} — Dòng tiền sắp đứt gãy</span>`;
-            
+
+            const distData = window.MARKET_DATA?.districts.find(d => d.name === a.district);
+
+            const cycle = distData ? distData.cycle : '?';
+
+            const cycleColor = cycle === '?' ? 'var(--text-2)' : (cycle > 70 ? 'var(--red)' : cycle > 50 ? 'var(--yellow)' : 'var(--emerald)');
+
             return `
-<div class="card card-sm" style="margin-bottom:12px; padding:16px">
-  
-  <!-- HEADER -->
-  <div style="display:flex; justify-content:space-between; align-items:flex-start">
-    <div style="display:flex; gap:12px; align-items:center">
-      <div style="min-width:32px;height:32px;background:var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold)">${i + 1}</div>
-      <div>
-         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
-            <span style="font-weight:700; font-size:15px; color:var(--text-1)">${a.name}</span>
-            ${phaseBadge}
-         </div>
-         <div style="font-size:11.5px; color:var(--text-3); margin-top:4px">${TYPE_LABEL[a.type] || a.type} · ${a.district} · Mua: T${a.month}/${a.year} · ${GOAL_LABEL[a.goal] || a.goal}</div>
-      </div>
-    </div>
-    
-    <!-- HEALTH SCORE -->
-    ${isReadOnly ? `
-    <div style="width:54px; height:54px; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:${c_q.health >= 65 ? 'rgba(16,185,129,.05)' : c_q.health >= 40 ? 'rgba(234,179,8,.05)' : 'rgba(239,68,68,.05)'}; border:1px solid ${c_q.health >= 65 ? 'rgba(16,185,129,.2)' : c_q.health >= 40 ? 'rgba(234,179,8,.2)' : 'rgba(239,68,68,.2)'}">
-       <div style="font-size:20px; font-weight:800; font-family:var(--mono); color:${c_q.health >= 65 ? 'var(--emerald)' : c_q.health >= 40 ? 'var(--yellow)' : 'var(--red)'}; line-height:1">${c_q.health}</div>
-       <div style="font-size:9px; color:var(--text-3)">/100</div>
-       <div style="width:6px; height:6px; border-radius:50%; background:${c_q.health >= 65 ? 'var(--emerald)' : c_q.health >= 40 ? 'var(--yellow)' : 'var(--red)'}; margin-top:4px; box-shadow:0 0 4px ${c_q.health >= 65 ? 'var(--emerald)' : c_q.health >= 40 ? 'var(--yellow)' : 'var(--red)'}"></div>
-    </div>
-    ` : ''}
-  </div>
 
-  ${isReadOnly ? `
-  <!-- DIVIDER -->
-  <div style="height:1px; background:var(--bg-border); margin:16px 0 12px 0"></div>
+<div class="card card-sm" style="margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
 
-  <!-- OPTIMIZED LAYOUT -->
-  <div style="display:flex; flex-direction:column; gap:16px">
-     
-     <!-- 1. Vốn & Nợ -->
-     <div class="asset-stat-group">
-        <div class="stat-item">
-           <div class="stat-lbl">GIÁ VỐN</div>
-           <div class="stat-val">${a.cost} <span class="stat-unit">Tỷ</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">VỐN TỰ CÓ</div>
-           <div class="stat-val">${(a.cost * (1 - (a.loanpct || 0) / 100)).toFixed(2)} <span class="stat-unit">Tỷ</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">GỐC ĐÃ TRẢ</div>
-           <div class="stat-val" style="color:var(--emerald)">${Math.max(0, a.cost * (a.loanpct || 0) / 100 - (c_q.autoDebt / 1000)).toFixed(2)} <span class="stat-unit">Tỷ</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">DƯ NỢ</div>
-           <div class="stat-val" style="color:${c_q.autoDebt > 0 ? 'var(--yellow)' : 'var(--text-1)'}">${c_q.autoDebt > 0 ? (c_q.autoDebt / 1000).toFixed(2) : '0'} <span class="stat-unit">Tỷ</span></div>
-        </div>
-     </div>
+<div style="min-width:28px;width:28px;height:28px;background:var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0">${i + 1}</div>
 
-     <!-- 2. Định Giá & Lãi Vốn -->
-     <div class="asset-stat-group" style="border-top:1px dashed rgba(255,255,255,0.06); padding-top:12px;">
-        <div class="stat-item">
-           <div class="stat-lbl">GIÁ HIỆN TẠI</div>
-           <div class="stat-val">${a.market} <span class="stat-unit">Tỷ</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">ĐƠN GIÁ</div>
-           <div class="stat-val">${c_q.unitPrice > 0 ? c_q.unitPrice.toFixed(1) : '?'} <span class="stat-unit">Tr/m²</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">GIÁ SÀN</div>
-           <div class="stat-val" style="color:${a.market >= c_q.floorPrice ? 'var(--emerald)' : 'var(--red)'}">${c_q.floorPrice.toFixed(2)} <span class="stat-unit">Tỷ</span> <span style="font-size:10.5px">${a.market >= c_q.floorPrice ? '✅' : '🔴'}</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">LÃI VỐN</div>
-           <div class="stat-val" style="color:${gainColor}">${gainSign}${gain.toFixed(1)}%</div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">ROE NGẦM</div>
-           <div class="stat-val" style="color:${c_q.roeTotal >= 0 ? 'var(--emerald)' : 'var(--red)'}">${c_q.roeTotal.toFixed(1)}%</div>
-        </div>
-     </div>
+<div style="flex:1;min-width:180px">
 
-     <!-- 3. Dòng Tiền & Hiệu Suất -->
-     <div class="asset-stat-group" style="border-top:1px dashed rgba(255,255,255,0.06); padding-top:12px;">
-        <div class="stat-item">
-           <div class="stat-lbl">ROE/NĂM</div>
-           <div style="display:flex; align-items:center; gap:8px">
-              <div class="stat-val" style="color:${c_q.roeAnnual >= 15 ? 'var(--emerald)' : c_q.roeAnnual >= 8 ? 'var(--yellow)' : 'var(--red)'}">${c_q.roeAnnual.toFixed(1)}%</div>
-              <span style="font-size:9.5px; border:1px solid rgba(255,255,255,0.08); padding:2px 8px; border-radius:4px; color:var(--text-3); font-family:var(--sans)">CAGR: ${c_q.cagr.toFixed(1)}%</span>
-           </div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">DÒNG TIỀN</div>
-           <div class="stat-val" style="color:${c_q.cashflow >= 0 ? 'var(--emerald)' : 'var(--red)'}">${c_q.cashflow > 0 ? '+' : ''}${c_q.cashflow.toFixed(1)} <span class="stat-unit">Tr</span></div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">DSCR</div>
-           <div class="stat-val" style="color:${dscrColor}">${dscr}</div>
-        </div>
-        <div class="stat-item">
-           <div class="stat-lbl">LÃI ĐÃ ĐÓNG</div>
-           <div class="stat-val" style="color:var(--red)">${(c_q.interestPaid || 0).toFixed(2)} <span class="stat-unit">Tỷ</span></div>
-        </div>
-     </div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px">
 
-  </div>
+<span style="font-weight:600;font-size:13px">${a.name}</span>
 
-  <!-- ROW 5 (Action) -->
-  <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:12px; margin-top:12px; display:flex; flex-direction:column; align-items:flex-start; gap:8px">
-     <div style="padding:4px 12px; border-radius:6px; font-size:11px; font-weight:700; color:${vColor}; background:${vColor}22; border:1px solid ${vColor}44; display:inline-flex; align-items:center; gap:6px">
-        ${verdict.label}
-     </div>
-     ${alertsHTML}
-  </div>
-
-  ` : ''}
+${phaseBadge}
 
 </div>
-`;
+
+<div style="font-size:11px;color:var(--text-2)">${TYPE_LABEL[a.type] || a.type} · ${a.district || 'Chưa chọn'} · Mua: T${a.month || 1}/${a.year || new Date().getFullYear()} · ${GOAL_LABEL[a.goal] || a.goal}</div>
+
+</div>
+
+${isReadOnly ? `
+
+<!-- isReadOnly: [Row1+Row2 LEFT] | [HEALTH RIGHT] + Row3 full-width -->
+
+<div style="width:100%;margin-top:10px;padding-top:10px;border-top:1px solid var(--bg-border);display:flex;gap:12px;align-items:stretch">
+
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+
+<!-- Row 1: Kế Toán -->
+
+<div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">GIÁ VỐN</div>
+
+<div>${a.cost} Tỷ</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="Vốn thực bỏ ra lúc mua">VỐN TỰ CÓ</div>
+
+<div><strong style="color:var(--text-1)">${(a.cost * (1 - (a.loanpct || 0) / 100)).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="Gốc NH đã trả được">GỐC ĐÃ TRẢ</div>
+
+<div><strong style="color:var(--emerald)">${Math.max(0, a.cost * (a.loanpct || 0) / 100 - (c_q.autoDebt / 1000)).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="Dư nợ gốc còn lại">DƯ NỢ</div>
+
+<div><strong style="color:${c_q.autoDebt > 0 ? 'var(--yellow)' : 'var(--text-1)'}">${c_q.autoDebt > 0 ? (c_q.autoDebt / 1000).toFixed(2) : '0'}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="Lãi NH luỹ kế đã đóng">LÃI ĐÃ ĐÓNG</div>
+
+<div><strong style="color:var(--red)">${(c_q.interestPaid || 0).toFixed(2)}</strong> <span style="font-size:10px;color:var(--text-3)">Tỷ</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="Giá bán tối thiểu để hòa vốn">GIÁ SÀN</div>
+
+<div style="color:${a.market >= c_q.floorPrice ? 'var(--emerald)' : 'var(--red)'}">${c_q.floorPrice.toFixed(2)} Tỷ${a.market >= c_q.floorPrice ? ' ✅' : ' 🔴'}</div>
+
+</div>
+
+</div>
+
+<!-- Row 2: Phân Tích -->
+
+<div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;padding-top:8px;border-top:1px solid var(--bg-border)">
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">GIÁ HIỆN TẠI</div>
+
+<div style="color:var(--text-1);font-weight:600">${a.market} Tỷ</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">ĐƠN GIÁ</div>
+
+<div><strong style="color:var(--text-1)">${c_q.unitPrice > 0 ? c_q.unitPrice.toFixed(1) : '?'}</strong> <span style="font-size:10px;color:var(--text-3)">Tr/m²</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">LÃI VỐN</div>
+
+<div style="color:${gainColor}">${gainSign}${gain.toFixed(1)}%</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="ROE Toàn Khóa">ROE NGẦM</div>
+
+<div><strong style="color:${c_q.roeTotal >= 0 ? 'var(--emerald)' : 'var(--red)'}">${c_q.roeTotal.toFixed(1)}%</strong></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px;cursor:help" title="ROE trung bình mỗi năm">ROE/NĂM</div>
+
+<div>
+
+                <strong style="color:${c_q.roeAnnual >= 15 ? 'var(--emerald)' : c_q.roeAnnual >= 8 ? 'var(--yellow)' : 'var(--red)'}">${c_q.roeAnnual.toFixed(1)}%</strong>
+
+                <span style="font-size:9px;color:var(--text-3);margin-left:4px;border:1px solid var(--bg-border);padding:1px 3px;border-radius:3px;cursor:help" title="Lãi kép (Compound Annual Growth Rate)">CAGR: ${c_q.cagr.toFixed(1)}%</span>
+
+              </div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">DÒNG TIỀN</div>
+
+<div><strong style="color:${c_q.cashflow >= 0 ? 'var(--emerald)' : 'var(--red)'}">${c_q.cashflow > 0 ? '+' : ''}${c_q.cashflow.toFixed(1)}</strong> <span style="font-size:10px;color:var(--text-3)">Tr</span></div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:10px">DSCR</div>
+
+<div style="color:${dscrColor}">${dscr}</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HEALTH column — spans Row 1 + Row 2 -->
+
+<div style="min-width:70px;width:70px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:${c_q.health >= 65 ? 'rgba(16,185,129,.08)' : c_q.health >= 40 ? 'rgba(234,179,8,.08)' : 'rgba(239,68,68,.08)'};border:1px solid ${c_q.health >= 65 ? 'rgba(16,185,129,.25)' : c_q.health >= 40 ? 'rgba(234,179,8,.25)' : 'rgba(239,68,68,.25)'};border-radius:8px;padding:10px 6px;text-align:center">
+
+<div style="font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Health</div>
+
+<div style="font-size:26px;font-weight:800;font-family:var(--mono);color:${c_q.health >= 65 ? 'var(--emerald)' : c_q.health >= 40 ? 'var(--yellow)' : 'var(--red)'};line-height:1">${c_q.health}</div>
+
+<div style="font-size:9px;color:var(--text-3)">/100</div>
+
+<div style="font-size:13px;margin-top:4px">${c_q.health >= 70 ? '🟢' : c_q.health >= 45 ? '🟡' : '🔴'}</div>
+
+</div>
+
+</div>
+
+<!-- Row 3: Verdict — full width -->
+
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;padding-top:7px;border-top:1px solid var(--bg-border)">
+
+<span class="badge ${assetVerdict(a, c_q).cls}" style="font-size:10px;padding:3px 10px">${assetVerdict(a, c_q).label}</span>
+
+${c_q.deliveryNote ? `<span style="font-size:11px;color:var(--gold);background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);padding:2px 8px;border-radius:4px">⏳ ${c_q.deliveryNote}</span>` : ''}
+
+${(c_q.graceRemaining || 0) > 0 ? `<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:2px 8px;border-radius:4px">💣 Ân hạn gốc còn <strong>${c_q.graceRemaining} tháng</strong></span>` : ''}
+
+${(c_q.prefRemaining || 0) > 0 && (c_q.prefRemaining || 0) <= 6 ? `<span style="font-size:11px;color:var(--yellow);background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);padding:2px 8px;border-radius:4px">⚡ Ưu đãi hết trong <strong>${c_q.prefRemaining} tháng</strong></span>` : ''}
+
+${c_q.phaseWarning ? `<span style="font-size:11px;color:var(--text-2);background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.25);padding:2px 8px;border-radius:4px">⚠️ ${c_q.phaseWarning}</span>` : ''}
+
+        ${c_q.alerts && c_q.alerts.length > 0 ? c_q.alerts.map(w => `<span style="font-size:11px;color:var(--text-2);background:rgba(100,116,139,0.08);border:1px solid rgba(100,116,139,0.25);padding:2px 8px;border-radius:4px">${w}</span>`).join('') : ''}
+
+        ${parseFloat(dscr) < 0.3 && dscr !== 'N/A' ? `<span style="font-size:11px;color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);padding:2px 8px;border-radius:4px">🚨 DSCR=${dscr} — Dòng tiền sắp đứt gãy</span>` : ''}
+
+</div>
+
+` : `
+
+<div style="display:flex;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+
+        <div>
+
+          <div style="color:var(--text-3);font-size:10px">DIỆN TÍCH</div>
+
+          <div><strong>${a.area || '?'}</strong> <span style="color:var(--text-3)">m²</span></div>
+
+        </div>
+
+        <div>
+
+          <div style="color:var(--text-3);font-size:10px">ĐƠN GIÁ</div>
+
+          <div><strong>${a.area && a.market ? (a.market * 1000 / a.area).toFixed(1) : '?'}</strong> <span style="color:var(--text-3)">Tr/m²</span></div>
+
+        </div>
+
+        <div>
+
+          <div style="color:var(--text-3);font-size:10px">GIÁ VỐN</div>
+
+          <div>${a.cost} Tỷ</div>
+
+        </div>
+
+        <div>
+
+          <div style="color:var(--text-3);font-size:10px">GIÁ HIỆN TẠI</div>
+
+          <div style="color:var(--text-1);font-weight:600">${a.market} Tỷ</div>
+
+        </div>
+
+      </div>
+
+`}
+
+${!isReadOnly ? `
+
+<!-- Row 2: Chỉ số gốc (raw inputs) — chỉ hiện ở Triage -->
+
+<div style="width:100%;margin-top:10px;padding-top:10px;border-top:1px solid var(--bg-border);display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px">
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Tỷ Lệ Vay</div>
+
+<div style="color:${(a.loanpct || 0) >= 70 ? 'var(--red)' : (a.loanpct || 0) >= 50 ? 'var(--yellow)' : 'var(--text-1)'}">
+
+<strong>${a.loanpct || 0}%</strong>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Ưu đãi</div>
+
+<div style="color:${(c_q.prefRemaining || 0) <= 3 && (c_q.prefRemaining || 0) > 0 ? 'var(--yellow)' : 'var(--text-1)'}">
+
+<strong>${c_q.prefRemaining || 0}</strong> <span style="color:var(--text-3)">tháng</span>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Lãi Ưu Đãi</div>
+
+<div style="color:${(a.rate || 0) >= 12 ? 'var(--red)' : (a.rate || 0) >= 9 ? 'var(--yellow)' : 'var(--emerald)'}">
+
+<strong>${a.rate || 0}%</strong>/năm
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em;cursor:help" title="Tháng còn được ân hạn nợ gốc — chưa trả gốc">Ân Hạn Gốc</div>
+
+<div style="color:${(c_q.graceRemaining || 0) > 0 && (c_q.graceRemaining || 0) <= 3 ? 'var(--yellow)' : 'var(--text-1)'}">
+
+<strong>${c_q.graceRemaining || 0}</strong> <span style="color:var(--text-3)">tháng</span>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Lãi Thả Nổi</div>
+
+<div style="color:${(a.floatrate || 0) >= 14 ? 'var(--red)' : (a.floatrate || 0) >= 12 ? 'var(--yellow)' : 'var(--text-1)'}">
+
+<strong>${a.floatrate || 0}%</strong>/năm
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Kỳ Hạn</div>
+
+<div><strong>${a.loanterm || 0}</strong> <span style="color:var(--text-3)">năm</span></div>
+
+</div>
+
+${(a.extrapaid || 0) > 0 ? `<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Trả Thêm Gốc</div>
+
+<div style="color:var(--emerald)"><strong>${a.extrapaid}</strong> <span style="color:var(--text-3)">Tỷ/kỳ</span></div>
+
+</div>` : ''}
+
+<div style="border-left:1px solid var(--bg-border);padding-left:16px">
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Tình Trạng</div>
+
+<div style="color:${{
+
+                        'dang-thue': 'var(--emerald)',
+
+                        'trong': 'var(--text-2)',
+
+                        'tu-dung': 'var(--text-2)',
+
+                        'chua-ban-giao': 'var(--yellow)'
+
+                    }[a.rentstatus] || 'var(--text-2)'}">
+
+<strong>${{
+
+                        'dang-thue': 'Đang thuê ✅',
+
+                        'trong': 'Bỏ trống',
+
+                        'tu-dung': 'Tự dùng',
+
+                        'chua-ban-giao': 'Chưa bàn giao 🔑'
+
+                    }[a.rentstatus] || a.rentstatus}</strong>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Thu Thuê</div>
+
+<div style="color:${(a.rent || 0) > 0 ? 'var(--emerald)' : 'var(--text-3)'}">
+
+<strong>${a.rent || 0}</strong> <span style="color:var(--text-3)">Tr/th</span>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="color:var(--text-3);font-size:9px;text-transform:uppercase;letter-spacing:.05em">Phí Quản lý/ bảo trì</div>
+
+<div style="color:${(a.mgmt || 0) > 0 ? 'var(--red)' : 'var(--text-3)'}">
+
+<strong>${a.mgmt || 0}</strong> <span style="color:var(--text-3)">Tr/th</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- End Row 2 -->
+
+` : ''}
+
+${!isReadOnly ? `
+
+<div style="display:flex;gap:6px;flex-shrink:0">
+
+<button class="btn btn-secondary btn-sm" onclick="editAsset(${a._id})">✏️ Sửa</button>
+
+<button class="btn btn-danger btn-sm" onclick="removeAsset(${a._id})">🗑️</button>
+
+</div>
+
+` : ''}
+
+</div>`;
+
         }
 
-        // ══ PRESCRIPTION ENGINE ════════════════════════════════════════════════
-
-        function getVirtualPortfolio() {
-
-            const base = JSON.parse(JSON.stringify(window.SESSION_PORTFOLIO || PORTFOLIO));
-
-            const cartItems = Object.values(window._STRATEGY_CART || {});
-
-            if (cartItems.length === 0) return base;
-
-            let vPort = [];
-
-            base.forEach(a => {
-
-                const item = cartItems.find(it => !it.isBuyNew && it.asset.name === a.name);
-
-                if (!item) {
-
-                    vPort.push(a);
-
-                    return;
-
-                }
-
-                const scId = item.scenario.id;
-
-                if (scId.startsWith('ban-')) {
-
-                    // Bán -> Loại bỏ khỏi danh mục
-
-                    return;
-
-                } else if (scId === 'tai-co-cau') {
-
-                    a.rate = parseFloat(item.inputs['sc-rate']) || a.rate;
-
-                    a.grace = parseFloat(item.inputs['sc-grace']) || a.grace;
-
-                    a.loanterm = parseFloat(item.inputs['sc-term']) || a.loanterm;
-
-                    vPort.push(a);
-
-                } else if (scId === 'cai-tao') {
-
-                    const capex = (parseFloat(item.inputs['sd-capex']) || 0) / 1000;
-
-                    const newRent = parseFloat(item.inputs['sd-rent']) || a.rent;
-
-                    a.cost = (a.cost || 0) + capex;
-
-                    a.rent = newRent;
-
-                    // Market value delta based on NOI cap rate 4.5%
-
-                    const c = calcAsset(a);
-
-                    const mgmt = a.rent > 0 && a.mgmt > 0 ? (a.rent * (a.mgmt / 100)) : 0;
-
-                    const maint = (a.market || 0) * 1000 * (a.maint / 100) / 12; // Approximation
-
-                    const newNOI = a.rent - mgmt - maint;
-
-                    const deltaNOI = newNOI - (c.noi || 0);
-
-                    if (deltaNOI > 0) {
-
-                        const addVal = (deltaNOI * 12) / 0.045 / 1000;
-
-                        a.market = (a.market || 0) + addVal;
-
-                    }
-
-                    vPort.push(a);
-
-                } else {
-
-                    vPort.push(a);
-
-                }
-
-            });
-
-            cartItems.forEach(it => {
-
-                if (it.isBuyNew) {
-
-                    if (it.asset) {
-
-                        vPort.push(it.asset);
-
-                    } else {
-
-                        vPort.push({
-
-                            _id: 'v-new-' + Date.now(),
-
-                            name: it.name,
-
-                            type: 'nha-rieng',
-
-                            market: it.price,
-
-                            cost: it.price,
-
-                            debt: it.debtTy * 1000,
-
-                            autoDebt: it.debtTy * 1000,
-
-                            year: new Date().getFullYear(),
-
-                            month: new Date().getMonth() + 1,
-
-                            rate: 9, // estimated
-
-                            rent: it.cf + ((it.debtTy * 1000) * (9 / 100 / 12)), // Reverse engineer rent roughly
-
-                            mgmt: 0,
-
-                            maint: 0
-
-                        });
-
-                    }
-
-                }
-
-            });
-
-            return vPort;
-
-        }
-
-var PROFILES = {
-
-            ruler: {
-
-                icon: '👑', name: 'NHÀ CAI TRỊ', eng: 'The Ruler', color: 'var(--gold)',
-
-                desc: 'Tài sản đa dạng, đòn bẩy kiểm soát tốt. Pha 3 — Dòng tiền đang nuôi cả hệ thống.',
-
-                weakness: 'Sự trì trệ thế hệ kế cận, cấu trúc quản trị cũ lỗi thời.',
-
-                rx: 'Tiếp tục thâu tóm Pha 1 — Chính sách, Hạ Tầng để không ai thay thế đế chế. Consolidate & Expand.',
-
-            },
-
-            guardian: {
-
-                icon: '🏗️', name: 'NGƯỜI GIỮ KHO', eng: 'The Steward', color: 'var(--emerald)',
-
-                desc: 'Bảo toàn vốn tốt, ít rủi ro. Tiền đang "ngủ yên" — tăng trưởng chậm hơn tiềm năng.',
-
-                weakness: 'Lạm phát âm thầm ăn mòn sức mua. Thiếu tài sản tăng trưởng.',
-
-                rx: 'Chuyển 20–30% danh mục sang Pha 1 để tăng hệ số nhân vốn. Giữ Pha 3 làm lõi phòng thủ.',
-
-            },
-
-            predator: {
-
-                icon: '🏹', name: 'NGƯỜI THỢ SĂN', eng: 'The Predator', color: 'var(--blue,#3B82F6)',
-
-                desc: 'Cấu trúc tấn công. Đặt cược vào tăng trưởng Pha 1/2. Dòng tiền chưa phải ưu tiên.',
-
-                weakness: 'FOMO ngược — sợ bỏ lỡ kèo thập kỷ. Dễ vỡ nếu thị trường đứng yên > 18 tháng.',
-
-                rx: 'Cần ít nhất 1 tài sản Pha 3 tạo "máu" nuôi đòn bẩy. Cân bằng offense với defense.',
-
-            },
-
-            prey: {
-
-                icon: '🎲', name: 'KẺ CỜ BẠC', eng: 'The Prey', color: 'var(--red)',
-
-                desc: 'Cảnh báo nguy hiểm. Dòng tiền âm nặng, đòn bẩy cao — đang là "nhiên liệu" cho ngân hàng.',
-
-                weakness: 'Sự ngoan cố và hối tiếc quá khứ. Nguy cơ vỡ nợ kỹ thuật.',
-
-                rx: 'CẤP CỨU: Cắt ngay tài sản gánh lãi nặng nhất. Giải phóng dòng tiền — thoát khỏi bẫy trước khi quá muộn.',
-
-            },
-
-            sage: {
-
-                icon: '🦉', name: 'NHÀ THÔNG THÁI', eng: 'The Sage', color: '#A855F7',
-
-                desc: 'Danh mục đa pha hoàn chỉnh — có Pha 1 tăng trưởng, Pha 2 giá trị, Pha 3 dòng tiền. Cấu trúc hiếm thấy, nhưng chưa xây dựng được tài sản Pha 4 tích sản thế hệ.',
-
-                weakness: 'Danh mục vẫn đòi hỏi quản trị chủ động. Chưa có hệ thống tài sản tự sinh lời không cần sự hiện diện của chủ nhân.',
-
-                rx: 'Chuyển đổi 1–2 tài sản sang cơ cấu tích sản Pha 4: căn hộ dịch vụ dài hạn, nền đất sinh lời tự động, hoặc quỹ BDS lợi tức ổn định. Mục tiêu: hệ thống tự chạy.',
-
-            },
-
-            planter: {
-
-                icon: '🌱', name: 'NGƯỜI GIEO HẠT', eng: 'The Planter', color: '#10B981',
-
-                desc: 'Đã có Pha 2 tạo giá trị và Pha 3 dòng tiền — nền tảng vững chắc, thu nhập ổn định. Nhưng chưa có tài sản Pha 1 — chưa có hạt giống tăng trưởng đột phá theo hạ tầng, quy hoạch.',
-
-                weakness: 'Lạm phát âm thầm bào mòn sức mua dài hạn. Không có kèo thập kỷ — bỏ lỡ các làn sóng tăng trưởng đại trà.',
-
-                rx: 'Phân bổ 20–30% danh mục sang 1–2 tài sản Pha 1 có căn cứ quy hoạch rõ ràng. Dùng dòng tiền Pha 3 làm "nhiên liệu" nuôi kèo tăng trưởng.',
-
-            },
-
-        };
-
-
-function renderAssetList() {
+        function renderAssetList() {
 
             try {
 
@@ -4857,33 +1141,7 @@ rồi nhấn <strong style="color:var(--gold)">＋ Thêm Vào Danh Mục</strong
 
             win.document.write(`<!DOCTYPE html><html><head><title>Tóm Tắt Danh Mục — ${now}</title>
 
-<style>body{font-family:Arial,sans-serif;padding:24px;font-size:13px}h2{color:#1C1C2E}table{width:100%;border-collapse:collapse}th{background:#F1F5F9;padding:8px;text-align:left;font-size:11px;color:#6B7280;text-transform:uppercase}@media print{button{display:none}}
-        /* Matrix Compare Table */
-        .sim-matrix-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
-        }
-        .sim-matrix-table th {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            text-align: center;
-            border-bottom: 2px solid var(--bg-border);
-            font-weight: 600;
-            color: var(--text-2);
-        }
-        .sim-matrix-table td {
-            display: table-cell !important;
-            vertical-align: middle;
-            padding: 12px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-            transition: background 0.2s ease;
-        }
-        .sim-matrix-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-    </style>
+<style>body{font-family:Arial,sans-serif;padding:24px;font-size:13px}h2{color:#1C1C2E}table{width:100%;border-collapse:collapse}th{background:#F1F5F9;padding:8px;text-align:left;font-size:11px;color:#6B7280;text-transform:uppercase}@media print{button{display:none}}</style>
 
 </head><body>
 
@@ -5029,7 +1287,7 @@ rồi nhấn <strong style="color:var(--gold)">＋ Thêm Vào Danh Mục</strong
 
         // ── Investor Profile System ─────────────────────────────────────────
 
-        var PROFILES = {
+        const PROFILES = {
 
             ruler: {
 
@@ -5997,7 +2255,135 @@ ${A.cf > B.cf && A.health > B.health ? ' Tổ hợp này CẢI THIỆN cả dòn
 
         // ══ PRESCRIPTION ENGINE ════════════════════════════════════════════════
 
-        
+        function getVirtualPortfolio() {
+
+            const base = JSON.parse(JSON.stringify(window.SESSION_PORTFOLIO || PORTFOLIO));
+
+            const cartItems = Object.values(window._STRATEGY_CART || {});
+
+            if (cartItems.length === 0) return base;
+
+            let vPort = [];
+
+            base.forEach(a => {
+
+                const item = cartItems.find(it => !it.isBuyNew && it.asset.name === a.name);
+
+                if (!item) {
+
+                    vPort.push(a);
+
+                    return;
+
+                }
+
+                const scId = item.scenario.id;
+
+                if (scId.startsWith('ban-')) {
+
+                    // Bán -> Loại bỏ khỏi danh mục
+
+                    return;
+
+                } else if (scId === 'tai-co-cau') {
+
+                    a.rate = parseFloat(item.inputs['sc-rate']) || a.rate;
+
+                    a.grace = parseFloat(item.inputs['sc-grace']) || a.grace;
+
+                    a.loanterm = parseFloat(item.inputs['sc-term']) || a.loanterm;
+
+                    vPort.push(a);
+
+                } else if (scId === 'cai-tao') {
+
+                    const capex = (parseFloat(item.inputs['sd-capex']) || 0) / 1000;
+
+                    const newRent = parseFloat(item.inputs['sd-rent']) || a.rent;
+
+                    a.cost = (a.cost || 0) + capex;
+
+                    a.rent = newRent;
+
+                    // Market value delta based on NOI cap rate 4.5%
+
+                    const c = calcAsset(a);
+
+                    const mgmt = a.rent > 0 && a.mgmt > 0 ? (a.rent * (a.mgmt / 100)) : 0;
+
+                    const maint = (a.market || 0) * 1000 * (a.maint / 100) / 12; // Approximation
+
+                    const newNOI = a.rent - mgmt - maint;
+
+                    const deltaNOI = newNOI - (c.noi || 0);
+
+                    if (deltaNOI > 0) {
+
+                        const addVal = (deltaNOI * 12) / 0.045 / 1000;
+
+                        a.market = (a.market || 0) + addVal;
+
+                    }
+
+                    vPort.push(a);
+
+                } else {
+
+                    vPort.push(a);
+
+                }
+
+            });
+
+            cartItems.forEach(it => {
+
+                if (it.isBuyNew) {
+
+                    if (it.asset) {
+
+                        vPort.push(it.asset);
+
+                    } else {
+
+                        vPort.push({
+
+                            _id: 'v-new-' + Date.now(),
+
+                            name: it.name,
+
+                            type: 'nha-rieng',
+
+                            market: it.price,
+
+                            cost: it.price,
+
+                            debt: it.debtTy * 1000,
+
+                            autoDebt: it.debtTy * 1000,
+
+                            year: new Date().getFullYear(),
+
+                            month: new Date().getMonth() + 1,
+
+                            rate: 9, // estimated
+
+                            rent: it.cf + ((it.debtTy * 1000) * (9 / 100 / 12)), // Reverse engineer rent roughly
+
+                            mgmt: 0,
+
+                            maint: 0
+
+                        });
+
+                    }
+
+                }
+
+            });
+
+            return vPort;
+
+        }
 
         window._IS_VIRTUAL_MODE = false;
 
@@ -6407,122 +2793,7 @@ ${A.cf > B.cf && A.health > B.health ? ' Tổ hợp này CẢI THIỆN cả dòn
 
                 const html = `
 
-<style>#diag-asset-list-wrapper button, #diag-asset-list-wrapper .btn, #diag-asset-list-wrapper .btn-sm { display: none !important; }
-        /* Premium Asset Selector Tabs */
-        #sim-asset-list::-webkit-scrollbar { display: none; }
-        .sim-tab {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-3);
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-        .sim-tab:hover {
-            color: var(--text-1);
-            background: rgba(255,255,255,0.05);
-        }
-        .sim-tab.active {
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-
-    
-        /* Asset Stats Grid Premium */
-        .asset-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px 8px;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .asset-stat-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px 8px;
-        }
-        
-        @media (min-width: 640px) {
-            .asset-stat-group {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        /* The Holy Grail Hack: Make dangling odd-numbered last items span full width */
-        .asset-stat-group > .stat-item:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-            /* Optional: center the content of the spanned item to make it look intentional */
-            align-items: flex-start;
-        }
-        .stat-lbl {
-            font-size: 9px;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .stat-val {
-            font-family: var(--mono);
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--text-1);
-            white-space: nowrap;
-            /* Premium Glow Effect using a faint drop shadow */
-            filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.1));
-        }
-        .stat-unit {
-            font-family: var(--sans);
-            font-size: 9.5px;
-            color: var(--text-3);
-            font-weight: 500;
-        }
-        @media (max-width: 768px) {
-            .asset-stats-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .asset-stats-grid > .stat-item[style*="grid-column: span 2"] {
-                grid-column: span 1 !important;
-            }
-        }
-
-    
-        /* Matrix Compare Table */
-        .sim-matrix-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
-        }
-        .sim-matrix-table th {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            text-align: center;
-            border-bottom: 2px solid var(--bg-border);
-            font-weight: 600;
-            color: var(--text-2);
-        }
-        .sim-matrix-table td {
-            display: table-cell !important;
-            vertical-align: middle;
-            padding: 12px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-            transition: background 0.2s ease;
-        }
-        .sim-matrix-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-    </style>
+<style>#diag-asset-list-wrapper button, #diag-asset-list-wrapper .btn, #diag-asset-list-wrapper .btn-sm { display: none !important; }</style>
 
 <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:780px;margin:0 auto;color:#1C1C2E;line-height:1.5">
 
@@ -7122,170 +3393,6 @@ ${consultant} &nbsp; | &nbsp; ${dateStr}
 
         }
 
-        var PROFILES = {
-
-            ruler: {
-
-                icon: '👑', name: 'NHÀ CAI TRỊ', eng: 'The Ruler', color: 'var(--gold)',
-
-                desc: 'Tài sản đa dạng, đòn bẩy kiểm soát tốt. Pha 3 — Dòng tiền đang nuôi cả hệ thống.',
-
-                weakness: 'Sự trì trệ thế hệ kế cận, cấu trúc quản trị cũ lỗi thời.',
-
-                rx: 'Tiếp tục thâu tóm Pha 1 — Chính sách, Hạ Tầng để không ai thay thế đế chế. Consolidate & Expand.',
-
-            },
-
-            guardian: {
-
-                icon: '🏗️', name: 'NGƯỜI GIỮ KHO', eng: 'The Steward', color: 'var(--emerald)',
-
-                desc: 'Bảo toàn vốn tốt, ít rủi ro. Tiền đang "ngủ yên" — tăng trưởng chậm hơn tiềm năng.',
-
-                weakness: 'Lạm phát âm thầm ăn mòn sức mua. Thiếu tài sản tăng trưởng.',
-
-                rx: 'Chuyển 20–30% danh mục sang Pha 1 để tăng hệ số nhân vốn. Giữ Pha 3 làm lõi phòng thủ.',
-
-            },
-
-            predator: {
-
-                icon: '🏹', name: 'NGƯỜI THỢ SĂN', eng: 'The Predator', color: 'var(--blue,#3B82F6)',
-
-                desc: 'Cấu trúc tấn công. Đặt cược vào tăng trưởng Pha 1/2. Dòng tiền chưa phải ưu tiên.',
-
-                weakness: 'FOMO ngược — sợ bỏ lỡ kèo thập kỷ. Dễ vỡ nếu thị trường đứng yên > 18 tháng.',
-
-                rx: 'Cần ít nhất 1 tài sản Pha 3 tạo "máu" nuôi đòn bẩy. Cân bằng offense với defense.',
-
-            },
-
-            prey: {
-
-                icon: '🎲', name: 'KẺ CỜ BẠC', eng: 'The Prey', color: 'var(--red)',
-
-                desc: 'Cảnh báo nguy hiểm. Dòng tiền âm nặng, đòn bẩy cao — đang là "nhiên liệu" cho ngân hàng.',
-
-                weakness: 'Sự ngoan cố và hối tiếc quá khứ. Nguy cơ vỡ nợ kỹ thuật.',
-
-                rx: 'CẤP CỨU: Cắt ngay tài sản gánh lãi nặng nhất. Giải phóng dòng tiền — thoát khỏi bẫy trước khi quá muộn.',
-
-            },
-
-            sage: {
-
-                icon: '🦉', name: 'NHÀ THÔNG THÁI', eng: 'The Sage', color: '#A855F7',
-
-                desc: 'Danh mục đa pha hoàn chỉnh — có Pha 1 tăng trưởng, Pha 2 giá trị, Pha 3 dòng tiền. Cấu trúc hiếm thấy, nhưng chưa xây dựng được tài sản Pha 4 tích sản thế hệ.',
-
-                weakness: 'Danh mục vẫn đòi hỏi quản trị chủ động. Chưa có hệ thống tài sản tự sinh lời không cần sự hiện diện của chủ nhân.',
-
-                rx: 'Chuyển đổi 1–2 tài sản sang cơ cấu tích sản Pha 4: căn hộ dịch vụ dài hạn, nền đất sinh lời tự động, hoặc quỹ BDS lợi tức ổn định. Mục tiêu: hệ thống tự chạy.',
-
-            },
-
-            planter: {
-
-                icon: '🌱', name: 'NGƯỜI GIEO HẠT', eng: 'The Planter', color: '#10B981',
-
-                desc: 'Đã có Pha 2 tạo giá trị và Pha 3 dòng tiền — nền tảng vững chắc, thu nhập ổn định. Nhưng chưa có tài sản Pha 1 — chưa có hạt giống tăng trưởng đột phá theo hạ tầng, quy hoạch.',
-
-                weakness: 'Lạm phát âm thầm bào mòn sức mua dài hạn. Không có kèo thập kỷ — bỏ lỡ các làn sóng tăng trưởng đại trà.',
-
-                rx: 'Phân bổ 20–30% danh mục sang 1–2 tài sản Pha 1 có căn cứ quy hoạch rõ ràng. Dùng dòng tiền Pha 3 làm "nhiên liệu" nuôi kèo tăng trưởng.',
-
-            },
-
-        };
-
-        function classifyProfile(portfolio, calcs) {
-
-            const n = portfolio.length;
-
-            if (!n) return 'guardian'; // Chưa có tài sản → Người Giữ Kho (đang giữ tiền mặt)
-
-            const totalMarket = calcs.reduce((s, { a }) => s + (a.market || 0), 0);
-
-            const totalDebt = calcs.reduce((s, { a }) => s + (a.debt || 0), 0);
-
-            const totalCF = calcs.reduce((s, { c }) => s + c.cashflow, 0);
-
-            const avgLoan = calcs.reduce((s, { a }) => s + (a.loanpct || 0), 0) / n;
-
-            const ph1 = calcs.filter(({ c }) => c.phase === 1).length / n;
-
-            const ph2 = calcs.filter(({ c }) => c.phase === 2).length / n;
-
-            const ph3 = calcs.filter(({ c }) => c.phase === 3).length / n;
-
-            const debtR = totalMarket > 0 ? totalDebt / totalMarket : 0;
-
-            // Tính biến boolean đa pha (dùng xuyên suốt)
-
-            const hasPh1 = calcs.some(({ c }) => c.phase === 1);
-
-            const hasPh2 = calcs.some(({ c }) => c.phase === 2);
-
-            const hasPh3 = calcs.some(({ c }) => c.phase === 3);
-
-            // ── 0. Edge case: KHÔNG VAY / TIỀN MẶT ─────────────────────────────
-
-            // Người tiền mặt không bao giờ là Kẻ Cờ Bạc. Xét đa pha trước.
-
-            if (totalDebt < 0.1 && avgLoan < 5) {
-
-                if (hasPh1 && hasPh2 && hasPh3 && n >= 3) return 'sage';
-
-                if (!hasPh1 && hasPh2 && hasPh3) return 'planter';
-
-                if (!hasPh1 && hasPh2 && !hasPh3 && n >= 3) return 'planter'; // Ph2 nhiều, chưa có thu nhập Ph3 → Người Gieo Hạt
-
-                if (ph1 >= 0.5) return 'predator'; // Cash buyer đặt cược Ph1 → Người Thợ Săn
-
-                return (ph3 >= 0.4 && n >= 3) ? 'ruler' : 'guardian'; // Cần ≥3 TS Ph3 mới là Nhà Cai Trị
-
-            }
-
-            // ── 1. 🎲 KẺ CỜ BẠC: CF rất âm, đòn bẩy cao, không có Ph3 ────────
-
-            if (totalCF < -15 && avgLoan > 55 && ph3 < 0.2) return 'prey';
-
-            // ── 2. 🦉 NHÀ THÔNG THÁI: đủ cả 3 pha, đa dạng ──────────────────
-
-            // Ưu tiên trước Nhà Cai Trị — đa pha hoàn chỉnh quan trọng hơn chỉ mạnh Ph3
-
-            if (hasPh1 && hasPh2 && hasPh3 && n >= 3 && debtR < 0.65 && totalCF > -20) return 'sage';
-
-            // ── 3. 👑 NHÀ CAI TRỊ: có Ph1 tăng trưởng + Ph3 vững (≥40%) + nợ thấp ────
-
-            // Ruler phải có Ph1 — Nhà Cai Trị không chỉ thu tiền thuê, mà còn có đòn bẩy tăng trưởng
-
-            if (hasPh1 && ph3 >= 0.4 && debtR < 0.4 && totalCF > -10) return 'ruler';
-
-            // ── 4. 🌱 NGƯỜI GIEO HẠT: Ph2+Ph3, thiếu Ph1, nợ không quá cao (<70%) ──
-
-            if (!hasPh1 && hasPh2 && hasPh3 && n >= 2 && debtR < 0.7) return 'planter';
-
-            // ── 5. 🏹 NGƯỜI THỢ SĂN: Ph1+Ph2 nặng, đòn bẩy cao ──────────────
-
-            if ((ph1 + ph2) >= 0.6 && avgLoan > 40) return 'predator';
-
-            // ── 6. 🏗️ NGƯỜI GIỮ KHO: Ph3 nhiều, vay ít ───────────────────────
-
-            if (ph3 >= 0.35 || (ph3 > 0 && avgLoan < 35)) return 'guardian';
-
-            // ── 7. 🏹 Người Thợ Săn fallback: Ph1+Ph2 chiếm đa số ────────────
-
-            if ((ph1 + ph2) >= 0.5) return 'predator';
-
-            // ── 8. Default: Người Thợ Săn (đang trong thị trường nhưng chưa rõ chiến lược) ─
-
-            return avgLoan > 50 ? 'prey' : 'predator';
-
-        }
-
-        
-
         function renderDiagnosis(portfolio) {
 
             try {
@@ -7869,14 +3976,9 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
                 }
 
             } catch (e) {
+
                 console.error('Lỗi trong hàm renderDiagnosis:', e);
-                const dt = document.getElementById('diag-title');
-                if (dt) {
-                    dt.textContent = 'ERROR: ' + e.message;
-                    dt.style.color = 'red';
-                }
-                const ds = document.getElementById('diag-strengths');
-                if (ds) ds.innerHTML = '<div style="color:red">' + e.stack + '</div>';
+
             }
 
         }
@@ -8079,7 +4181,13 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
 
                 list.innerHTML = portfolio.map((a, i) => `
 
-<button class="sim-tab" id="sim-btn-${i}" onclick="selectSimAsset(${i})">${i + 1}. ${a.name}</button>`).join('');
+<button class="btn btn-secondary btn-sm" id="sim-btn-${i}"
+
+onclick="selectSimAsset(${i})" style="transition:all 0.2s">
+
+${i + 1}. ${a.name}
+
+</button>`).join('');
 
                 selectSimAsset(0);
 
@@ -8105,8 +4213,12 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
 
             SIM_ASSET_IDX = idx;
 
-                        document.querySelectorAll('#sim-asset-list .sim-tab').forEach((b, i) => {
-                b.classList.toggle('active', i === idx);
+            document.querySelectorAll('#sim-asset-list .btn').forEach((b, i) => {
+
+                b.classList.toggle('btn-primary', i === idx);
+
+                b.classList.toggle('btn-secondary', i !== idx);
+
             });
 
             const portfolio = window.SESSION_PORTFOLIO || PORTFOLIO;
@@ -8134,218 +4246,13 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
 
         }
 
-        
-        
-        function calcHealthScore(calcs) {
-            if(!calcs || calcs.length === 0) return null;
-            
-            const _totalMktW = calcs.reduce((s, { a }) => s + (a.market || 0), 0);
-            const _avgHr = _totalMktW > 0 ? calcs.reduce((s, { a, c }) => s + (a.market || 0) * (c.health || 0), 0) / _totalMktW : calcs.reduce((s, { c }) => s + (c.health || 0), 0) / calcs.length;
-            const _v1r = Math.max(0, Math.min(1, _avgHr / 100));
-            
-            const _cfr = calcs.reduce((s, { c }) => s + (c.cashflow || 0), 0);
-            const _yieldPct = _totalMktW > 0 ? (_cfr * 12) / (_totalMktW * 1000) * 100 : 0;
-            
-            const _avgDSCR = calcs.reduce((s, { c }) => s + (c.dscr !== null && c.dscr !== Infinity ? Math.min(c.dscr, 3) : 2.0), 0) / calcs.length;
-            const _dscrScore = Math.max(0, Math.min(1, _avgDSCR / 1.5));
-            const _yieldScore = Math.max(0, Math.min(1, (_yieldPct + 3) / 9));
-            const _v2r = 0.5 * _dscrScore + 0.5 * _yieldScore;
-            
-            const _avgLr = calcs.reduce((s, { a }) => s + (a.loanpct || 0), 0) / calcs.length;
-            const _v3r = Math.max(0, Math.min(1, 1 - _avgLr / 100));
-            
-            const avgYoY = calcs.reduce((s, { c }) => s + (c.yoy || 0), 0) / calcs.length;
-            const _gainHist = calcs.reduce((s, { c }) => {
-                const annGain = (c.years || 0) > 0 ? (c.gainPct || 0) / c.years : (c.yoy || 0);
-                const bench = c.phase === 1 ? 25 : c.phase === 2 ? 15 : c.phase === 3 ? 8 : 6;
-                return s + Math.max(0, Math.min(1, annGain / bench));
-            }, 0) / calcs.length;
-            const _v4r = Math.min(1, _gainHist * 0.5 + Math.max(0, avgYoY / 30) * 0.5);
-            
-            const _H = [1, 2, 3, 4].reduce((s, p) => {
-                const frac = calcs.filter(({ c }) => c.phase === p).length / calcs.length;
-                return s + frac * frac;
-            }, 0);
-            const _phaScore = _H > 0 ? Math.min(1, (1 / _H) / 4) : 0;
-            const uniqueTypes = new Set(calcs.map(({a}) => a.type)).size;
-            const _typeScore = Math.min(1, uniqueTypes / 3);
-            const _v5r = 0.6 * _phaScore + 0.4 * _typeScore;
-            
-            const _overall = (_v1r + _v2r + _v3r + _v4r + _v5r) / 5;
-            const _grd = _overall >= 0.75 ? { g: 'A', c: '#10B981', t: 'Danh mục MẠNH' } : _overall >= 0.55 ? { g: 'B', c: '#EAB308', t: 'Cần Tối Ưu' } : _overall >= 0.40 ? { g: 'C', c: '#F97316', t: 'Nguy Cơ Trung Bình' } : { g: 'D', c: '#EF4444', t: 'NGUY HIỂM — Cần Cấp Cứu' };
-            
-            return { v1: _v1r, v2: _v2r, v3: _v3r, v4: _v4r, v5: _v5r, overall: _overall, grd: _grd };
-        }
-
-        function cartItemToAsset(it) {
-            return {
-                id: it.id,
-                name: it.name,
-                type: it.type || 'Chung cư',
-                cost: it.price,
-                market: it.price,
-                rent: it.rent || 0,
-                noi: it.noi || 0,
-                loanpct: it.price > 0 ? (it.debtTy / it.price) * 100 : 0,
-                rate: it.rate || 10.5,
-                floatrate: it.floatrate || 10.5,
-                loanterm: it.loanterm || 20,
-                year: new Date().getFullYear(),
-                phase: it.phase || 3,
-                yoy: it.yoy || 8,
-                isBuyNew: true
-            };
-        }
-
-        function calcPortfolioMetrics(assets, cartItems = [], additionalCash = 0) {
-            // Build Unified Portfolio
-            const simPortfolio = [...assets];
-            
-            cartItems.forEach(it => {
-                if (it.isBuyNew) {
-                    simPortfolio.push(it.asset ? it.asset : cartItemToAsset(it));
-                }
-            });
-            
-            if (additionalCash > 0) {
-                simPortfolio.push({
-                    id: 'cash',
-                    name: 'Tiền Mặt',
-                    type: 'Khác',
-                    cost: additionalCash,
-                    market: additionalCash,
-                    loanpct: 0,
-                    rent: 0,
-                    noi: 0,
-                    phase: 1, 
-                    yoy: 5, 
-                    isCash: true
-                });
-            }
-            
-            const calcs = simPortfolio.map(a => ({ a, c: calcAsset(a) }));
-            
-            let totalEq = 0, totalMarket = 0, totalDebt = 0, totalCF = 0, totalNOI = 0, totalDebtService = 0, totalCapitalGain = 0;
-            
-            calcs.forEach(({a, c}) => {
-                totalEq += (c.equity || 0);
-                totalMarket += (a.market || 0);
-                totalDebt += ((c.autoDebt || 0) / 1000);
-                totalCF += (c.cashflow || 0);
-                totalNOI += (a.noi || 0);
-                if(c.dscr !== null && c.dscr !== Infinity) {
-                    totalDebtService += (a.noi || 0) / c.dscr;
-                }
-                totalCapitalGain += Math.max(0, (a.market || 0) - (a.cost || 0));
-            });
-            
-            const ltv = totalMarket > 0 ? (totalDebt / totalMarket) * 100 : 0;
-            const dscr = totalDebtService > 0 ? totalNOI / totalDebtService : (totalNOI > 0 ? 999 : null);
-            const roe = totalEq > 0 ? ((totalCF * 12) + (totalCapitalGain * 1000)) / (totalEq * 1000) * 100 : 0;
-            
-            const health = calcHealthScore(calcs);
-            
-            let pCfg = null;
-            if (typeof classifyProfile === 'function' && typeof PROFILES !== 'undefined') {
-                const profKey = classifyProfile(simPortfolio, calcs);
-                pCfg = PROFILES[profKey];
-            }
-            
-            const rows = [
-                { label: 'Tổng Vốn Đã Đổ', val: `${totalEq.toFixed(2)} Tỷ <span style="font-size:9.5px;color:var(--text-3);display:block">Gồm Tiền mặt + Giá trị Mua</span>`, color: 'var(--text-1)' },
-                { label: 'Tiền Mặt Cầm Về / NAV', val: `${(totalMarket - totalDebt).toFixed(2)} Tỷ <span style="font-size:9.5px;color:${ltv < 50 ? 'var(--emerald)' : 'var(--red)'};display:block">LTV: ${ltv.toFixed(1)}% | Nợ: ${totalDebt.toFixed(1)} Tỷ</span>`, color: 'var(--gold)' },
-                { label: 'Cashflow Ròng / Tháng', val: `${totalCF >= 0 ? '+' : ''}${totalCF.toFixed(1)} Tr <span style="font-size:9.5px;color:${(dscr >= 1 || dscr === null) ? 'var(--emerald)' : 'var(--red)'};display:block">DSCR: ${dscr !== null ? dscr.toFixed(2) : '∞'}</span>`, color: totalCF >= 0 ? 'var(--emerald)' : 'var(--red)' },
-                { label: 'Biên Lợi Nhuận (ROE/CAGR)', val: `${roe.toFixed(1)}% <span style="font-size:9.5px;color:var(--text-3);display:block">Ước tính ROE Danh mục</span>`, color: roe >= 15 ? 'var(--emerald)' : 'var(--yellow)' },
-                { label: 'DSCR', val: `${dscr !== null ? dscr.toFixed(2) : '∞'} <span style="font-size:9.5px;color:var(--text-3);display:block">Hệ số an toàn</span>`, color: (dscr >= 1 || dscr === null) ? 'var(--emerald)' : 'var(--red)' },
-                { label: 'LTV (%)', val: `${ltv.toFixed(1)}% <span style="font-size:9.5px;color:var(--text-3);display:block">Biên độ đòn bẩy</span>`, color: ltv < 50 ? 'var(--emerald)' : (ltv < 70 ? 'var(--yellow)' : 'var(--red)') }
-            ];
-            
-            return {
-                rows: rows,
-                summary: { totalMkt: totalMarket, totalEq: totalEq, totalDebt: totalDebt, totalCF: totalCF },
-                health: health,
-                profile: pCfg,
-                fullMetrics: {
-                    rows: rows,
-                    summary: { totalMkt: totalMarket, totalEq: totalEq, totalDebt: totalDebt, totalCF: totalCF },
-                    health: health
-                }
-            };
-        }
-
-        function renderDashboardHTML(data) {
-            if (!data) return '';
-            const s = data.summary || { totalMkt: 0, totalEq: 0, totalDebt: 0, totalCF: 0 };
-            const h = data.health || {
-                grd: { c: '#6B7280', t: 'Chưa có tài sản', g: 'N/A' },
-                overall: 0, v1: 0, v2: 0, v3: 0, v4: 0, v5: 0
-            };
-            
-            return `
-            <div style="background:var(--bg-card);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:16px;box-shadow:var(--shadow-1);">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <div style="font-size:12px;font-weight:700;color:var(--text-1);text-transform:uppercase;letter-spacing:0.05em;">Tóm Tắt Danh Mục</div>
-                    ${data.profile ? `<div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:20px;font-size:10.5px;color:var(--text-1);font-weight:600"><span style="font-size:14px">${data.profile.icon}</span> ${data.profile.name}</div>` : ''}
-                </div>
-                
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);border-radius:8px;padding:10px;text-align:center">
-                        <div style="font-size:9px;color:var(--text-3);margin-bottom:4px">TỔNG GIÁ TRỊ</div>
-                        <div style="font-size:14px;font-weight:700;color:var(--gold);font-family:var(--mono)">${s.totalMkt.toFixed(1)} Tỷ</div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);border-radius:8px;padding:10px;text-align:center">
-                        <div style="font-size:9px;color:var(--text-3);margin-bottom:4px">VỐN TỰ CÓ</div>
-                        <div style="font-size:14px;font-weight:700;color:var(--text-1);font-family:var(--mono)">${s.totalEq.toFixed(1)} Tỷ</div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);border-radius:8px;padding:10px;text-align:center">
-                        <div style="font-size:9px;color:var(--text-3);margin-bottom:4px">TỔNG DƯ NỢ</div>
-                        <div style="font-size:14px;font-weight:700;color:${s.totalDebt>0?'var(--yellow)':'var(--emerald)'};font-family:var(--mono)">${s.totalDebt.toFixed(1)} Tỷ</div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);border-radius:8px;padding:10px;text-align:center">
-                        <div style="font-size:9px;color:var(--text-3);margin-bottom:4px">DÒNG TIỀN/THÁNG</div>
-                        <div style="font-size:14px;font-weight:700;color:${s.totalCF>=0?'var(--emerald)':'var(--red)'};font-family:var(--mono)">${s.totalCF>=0?'+':''}${s.totalCF.toFixed(1)} Tr</div>
-                    </div>
-                </div>
-                
-                <div style="border-top:1px dashed rgba(255,255,255,0.05);padding-top:16px;margin-bottom:12px;">
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                        <div style="font-size:32px;font-weight:900;color:${h.grd.c}">${h.grd.g}</div>
-                        <div>
-                            <div style="font-size:12px;font-weight:700;color:${h.grd.c}">${h.grd.t}</div>
-                            <div style="font-size:10px;color:var(--text-3)">Điểm: ${(h.overall*100).toFixed(0)}/100</div>
-                        </div>
-                    </div>
-                    
-                    ${[
-                        {n:'Sức Khỏe', v:h.v1, c:'var(--emerald)'},
-                        {n:'Dòng Tiền', v:h.v2, c:'#3B82F6'},
-                        {n:'An Toàn Nợ', v:h.v3, c:'var(--yellow)'},
-                        {n:'Tăng Vốn', v:h.v4, c:'var(--red)'},
-                        {n:'Đa Dạng Pha', v:h.v5, c:'#A855F7'}
-                    ].map(sc => `
-                        <div style="margin-bottom:6px">
-                            <div style="display:flex;justify-content:space-between;font-size:9.5px;margin-bottom:2px">
-                                <span style="color:${sc.c};font-weight:600">${sc.n}</span>
-                                <span style="color:var(--text-3)">${(sc.v*100).toFixed(0)}</span>
-                            </div>
-                            <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px">
-                                <div style="height:100%;width:${(sc.v*100).toFixed(0)}%;background:${sc.c};border-radius:2px"></div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>`;
-        }
-
         function renderScenarios() {
 
             const portfolio = window.SESSION_PORTFOLIO || PORTFOLIO;
 
             if (!portfolio.length) return;
 
-            if (typeof SIM_ASSET_IDX === 'undefined') window.SIM_ASSET_IDX = 0;
-            const a = portfolio[SIM_ASSET_IDX] || portfolio[0];
-            if (!a) return;
+            const a = portfolio[SIM_ASSET_IDX];
 
             const c = calcAsset(a);
 
@@ -8354,25 +4261,25 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
                     id: 'combo-plan', icon: '⚔️', title: 'KỊCH BẢN: BÁN & MUA THÊM',
                     desc: 'Mô phỏng tác động kết hợp của việc bán các tài sản đã tick [Bán Ngay] và mua thêm các tài sản trong [Túi Chiến Lược].',
                     color: 'var(--gold)',
-                    customHTML: (sc, a) => `
+                    customHTML: `
                         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px; margin-bottom:12px">
                             <div style="font-size:12px;color:var(--text-1);font-weight:700;margin-bottom:8px">1. TÀI SẢN BÁN RA:</div>
                             ${Object.keys(window._SIM_SELL_FLAGS || {}).filter(k => window._SIM_SELL_FLAGS[k]).length === 0 
                                 ? '<div style="font-size:11px;color:var(--text-3);padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05)">Chưa tick bán tài sản nào.</div>'
                                 : Object.keys(window._SIM_SELL_FLAGS).filter(k => window._SIM_SELL_FLAGS[k]).map(k => {
-                                      const p = window.SESSION_PORTFOLIO || PORTFOLIO;
+                                      const p = window.SESSION_PORTFOLIO || window.PORTFOLIO;
                                       const a = p[k];
-                                      return '<div style="font-size:11px;color:var(--red);display:flex;justify-content:space-between;padding-bottom:4px;margin-bottom:4px"><span>' + (a ? a.name : 'Tài sản') + '</span><span>Bán Ngay</span></div>';
+                                      return '<div style="font-size:11px;color:var(--red);display:flex;justify-content:space-between;padding-bottom:4px;margin-bottom:4px"><span>' + a.name + '</span><span>Bán Ngay</span></div>';
                                   }).join('')
                             }
                             
                             <div style="font-size:12px;color:var(--text-1);font-weight:700;margin-top:12px;margin-bottom:8px">2. TÀI SẢN MUA THÊM:</div>
-                            ${Object.values(window._STRATEGY_CART || {}).filter(it => it.isBuyNew).length === 0 
-                                ? '<div style="font-size:11px;color:var(--text-3)">Chưa có tài sản mua mới trong Túi Chiến Lược.</div>'
-                                : Object.values(window._STRATEGY_CART).filter(it => it.isBuyNew).map(it => 
+                            ${Object.keys(window._STRATEGY_CART || {}).length === 0 
+                                ? '<div style="font-size:11px;color:var(--text-3)">Túi Chiến Lược đang trống.</div>'
+                                : Object.values(window._STRATEGY_CART).map(it => 
                                       '<div style="font-size:11px;color:var(--emerald);display:flex;justify-content:space-between;padding-bottom:4px;margin-bottom:4px">' +
-                                      '<span>' + (it.name || 'Tài sản mới') + '</span>' +
-                                      '<div style="display:flex;align-items:center;gap:8px"><span>' + (it.price || it.capNeeded || it.market || 0).toFixed(2) + ' Tỷ</span><button onclick="removeSimCartItem(\'' + (it.id || it.name) + '\')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px">×</button></div>' +
+                                      '<span>' + it.name + '</span>' +
+                                      '<div style="display:flex;align-items:center;gap:8px"><span>' + (it.price).toFixed(2) + ' Tỷ</span><button onclick="removeSimCartItem(\'' + it.id + '\')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px">×</button></div>' +
                                       '</div>'
                                   ).join('')
                             }
@@ -8380,7 +4287,7 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
                     `,
                     inputs: [],
                     calc: (inputs) => {
-                        const portfolio = window.SESSION_PORTFOLIO || PORTFOLIO;
+                        const portfolio = window.SESSION_PORTFOLIO || window.PORTFOLIO;
                         let totalSellProc = 0;
                         let totalSellDebt = 0;
                         let totalSellCF = 0;
@@ -8413,12 +4320,10 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
                         let totalBuyPrice = 0;
                         
                         cartItems.forEach(it => {
-                            if (it.isBuyNew) {
-                                totalBuyCapNeeded += it.capNeeded || 0;
-                                totalBuyDebt += it.debtTy || 0;
-                                totalBuyCF += (it.cf || 0); 
-                                totalBuyPrice += it.price || 0;
-                            }
+                            totalBuyCapNeeded += it.capNeeded || 0;
+                            totalBuyDebt += it.debtTy || 0;
+                            totalBuyCF += (it.cf || 0); 
+                            totalBuyPrice += it.price || 0;
                         });
 
                         // Net impacts
@@ -8437,11 +4342,11 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
                         const cfText = netCF > 0 ? '+' + netCF.toFixed(1) + ' Tr' : netCF.toFixed(1) + ' Tr';
                         const cfColor = netCF > 0 ? 'var(--emerald)' : 'var(--red)';
 
-                        const keptAssets = portfolio.filter((_, idx) => !(window._SIM_SELL_FLAGS && window._SIM_SELL_FLAGS[idx]));
-                        const additionalCash = Math.max(0, totalSellProc - totalBuyCapNeeded);
-                        
-                        const metrics = calcPortfolioMetrics(keptAssets, cartItems, additionalCash);
-                        return metrics.rows;
+                        return [
+                            { label: capLabel, rawVal: netCapNeeded, val: `<span style="font-size:18px;font-weight:700;color:${capColor}">${capText}</span><span style="font-size:9.5px;color:var(--text-3);display:block">Tiền thu từ bán - Tiền vốn để mua</span>`, color: capColor },
+                            { label: 'Biến Động Dư Nợ', rawVal: netDebt, val: `<span style="font-size:18px;font-weight:700;color:${debtColor}">${debtText}</span><span style="font-size:9.5px;color:var(--text-3);display:block">Vay thêm mới - Trả nợ cũ</span>`, color: debtColor },
+                            { label: 'Biến Động Dòng Tiền Ròng', rawVal: netCF, val: `<span style="font-size:18px;font-weight:700;color:${cfColor}">${cfText}</span><span style="font-size:9.5px;color:var(--text-3);display:block">CF từ TS mới - CF từ TS đã bán</span>`, color: cfColor }
+                        ];
                     }
                 }
             ];
@@ -8464,7 +4369,7 @@ ${c.deliveryNote ? `<div style="font-size:11px;color:var(--gold);margin-bottom:6
 
 <div style="font-size:11px;color:var(--text-2);margin-bottom:12px">${sc.desc}</div>
 
-${typeof sc.customHTML === 'function' ? sc.customHTML(sc, a) : (sc.customHTML || '')}
+${sc.customHTML || ''}
 
 ${(sc.inputs || []).map(inp => {
 
@@ -8542,42 +4447,9 @@ ${(sc.inputs || []).map(inp => {
 
                 });
 
-                let rows = [];
-                let fullMetrics = null;
-                
-                // Hack: if it's our first scenario, we know it uses the new logic internally. Let's just call calcPortfolioMetrics directly for it
-                if (sc.id === 'combo-plan') {
-                    const portfolio = window.SESSION_PORTFOLIO || PORTFOLIO;
-                    const keptAssets = portfolio.filter((_, idx) => !(window._SIM_SELL_FLAGS && window._SIM_SELL_FLAGS[idx]));
-                    const cartItems = Object.values(window._STRATEGY_CART || {});
-                    
-                    let totalSellProc = 0, totalSellDebt = 0;
-                    Object.keys(window._SIM_SELL_FLAGS || {}).forEach(k => {
-                        if (window._SIM_SELL_FLAGS[k]) {
-                            const a = portfolio[k];
-                            const c = calcAsset(a);
-                            const sellPrice = a.market;
-                            const feePct = 4;
-                            const penPct = (a.year && (new Date().getFullYear() - a.year <= 2)) ? 2 : 0;
-                            const debtTy = (c.autoDebt || 0) / 1000;
-                            const taxFee = sellPrice * (feePct / 100);
-                            const penFee = debtTy * (penPct / 100);
-                            totalSellProc += (sellPrice - debtTy - taxFee - penFee);
-                            totalSellDebt += debtTy;
-                        }
-                    });
-                    
-                    let totalBuyCapNeeded = 0;
-                    cartItems.forEach(it => { if(it.isBuyNew) totalBuyCapNeeded += it.capNeeded || 0; });
-                    const additionalCash = Math.max(0, totalSellProc - totalBuyCapNeeded);
-                    
-                    fullMetrics = calcPortfolioMetrics(keptAssets, cartItems, additionalCash);
-                    rows = fullMetrics.rows;
-                } else {
-                    rows = sc.calc(inputs);
-                }
+                const rows = sc.calc(inputs);
 
-                results.push({ sc, rows, inputs, fullMetrics });
+                results.push({ sc, rows, inputs });
 
                 document.getElementById('result-' + sc.id).innerHTML = rows.map(r =>
 
@@ -8587,7 +4459,7 @@ ${(sc.inputs || []).map(inp => {
 
 <span style="font-family:var(--mono);font-size:12px;font-weight:600;color:${r.color}">${r.val}</span>
 
-</div>`).join('') ;
+</div>`).join('') + `<button class="btn btn-primary btn-sm" style="width:100%;margin-top:12px;background:rgba(255,255,255,0.05);color:${sc.color};border:1px solid ${sc.color}44" onclick="saveToCart('${sc.id}')">📍 Lưu Kịch Bản Này</button>`;
 
             });
 
@@ -8605,7 +4477,7 @@ ${(sc.inputs || []).map(inp => {
 
             const rec = document.getElementById('sim-rec');
 
-            compare.style.display = 'block'; // Đã khôi phục hiển thị
+            compare.style.display = 'none'; // Đã ẩn theo yêu cầu
 
             const a = window._SIM_ASSET;
 
@@ -8615,16 +4487,27 @@ ${(sc.inputs || []).map(inp => {
 
             const ltv = a.market > 0 ? ((c.autoDebt / 1000) / a.market) * 100 : 0;
 
-            
+            rec.textContent = `🏠 ${a.name}`;
 
-            const portfolio = window.SESSION_PORTFOLIO || PORTFOLIO || [];
-            const currentMetrics = calcPortfolioMetrics(portfolio);
-            const currentRows = currentMetrics.rows;
-            rec.textContent = `📋 TOÀN BỘ DANH MỤC`;
+            const currentRows = [
+
+                { label: 'Tổng Vốn Đã Đổ', rawVal: (() => { const _eq = a.cost * (1 - (a.loanpct || 0) / 100); const _goc = Math.max(0, a.cost * (a.loanpct || 0) / 100 - (c.autoDebt / 1000)); const _lai = c.interestPaid || 0; return _eq + _goc + _lai; })(), val: (() => { const _eq = a.cost * (1 - (a.loanpct || 0) / 100); const _goc = Math.max(0, a.cost * (a.loanpct || 0) / 100 - (c.autoDebt / 1000)); const _lai = c.interestPaid || 0; const _s = _eq + _goc + _lai; return `${_s.toFixed(2)} Tỷ <span style="font-size:9.5px;color:var(--text-3);display:block">VTC + Gốc Đã Trả + Lãi Đã Đóng</span>`; })(), color: 'var(--text-1)' },
+
+                { label: 'Tiền Mặt Cầm Về / NAV', rawVal: a.market - (c.autoDebt / 1000), val: `${(a.market - (c.autoDebt / 1000)).toFixed(2)} Tỷ <span style="font-size:9.5px;color:${ltv < 50 ? 'var(--emerald)' : 'var(--red)'};display:block">LTV hiện tại: ${ltv.toFixed(1)}% | Nợ ${(c.autoDebt / 1000).toFixed(1)} Tỷ</span>`, color: 'var(--gold)' },
+
+                { label: 'Cashflow Ròng / Tháng', rawVal: c.cashflow, val: `${c.cashflow >= 0 ? '+' : ''}${c.cashflow.toFixed(1)} Tr <span style="font-size:9.5px;color:${c.dscr >= 1 ? 'var(--emerald)' : 'var(--red)'};display:block">Hệ số trả nợ DSCR: ${c.dscr !== null ? c.dscr.toFixed(2) : '∞'}</span>`, color: c.cashflow >= 0 ? 'var(--emerald)' : 'var(--red)' },
+
+                { label: 'Biên Lợi Nhuận (ROE/CAGR)', rawVal: c.roeAnnual, val: `${c.roeAnnual > -999 ? c.roeAnnual.toFixed(1) : '?'}% / ${c.cagr > -999 ? c.cagr.toFixed(1) : '?'}% <span style="font-size:9.5px;color:var(--text-3);display:block">ROE / CAGR Trung Bình</span>`, color: c.roeAnnual >= 15 ? 'var(--emerald)' : 'var(--yellow)' },
+
+                { label: 'DSCR', rawVal: c.dscr !== null ? c.dscr : 999, val: `${c.dscr !== null ? c.dscr.toFixed(2) : '∞'} <span style="font-size:9.5px;color:var(--text-3);display:block">Hệ số an toàn</span>`, color: c.dscr >= 1 || c.dscr === null ? 'var(--emerald)' : 'var(--red)' },
+
+                { label: 'LTV (%)', rawVal: ltv, val: `${ltv.toFixed(1)}% <span style="font-size:9.5px;color:var(--text-3);display:block">Biên độ đòn bẩy</span>`, color: ltv < 50 ? 'var(--emerald)' : ltv < 70 ? 'var(--yellow)' : 'var(--red)' }
+
+            ];
 
             const extendedResults = [
 
-                { sc: { id: 'current', title: 'HIỆN TẠI', icon: '📌', color: 'var(--text-1)' }, rows: currentRows, fullMetrics: currentMetrics },
+                { sc: { id: 'current', title: 'HIỆN TẠI', icon: '📌', color: 'var(--text-1)' }, rows: currentRows },
 
                 ...results
 
@@ -8632,27 +4515,59 @@ ${(sc.inputs || []).map(inp => {
 
             const allLabels = ['Tổng Vốn Đã Đổ', 'Tiền Mặt Cầm Về / NAV', 'Cashflow Ròng / Tháng', 'Biên Lợi Nhuận (ROE/CAGR)', 'DSCR', 'LTV (%)'];
 
-            const curDash = renderDashboardHTML(currentMetrics);
-            const simDash = results[0] ? renderDashboardHTML(results[0].fullMetrics) : '';
-            
-            let dashboardHtml = '';
-            if (simDash) {
-                dashboardHtml = `
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
-                        <div>
-                            <div style="font-size:10px;color:var(--text-2);margin-bottom:8px;text-align:center;letter-spacing:0.05em">HIỆN TẠI</div>
-                            ${curDash}
-                        </div>
-                        <div>
-                            <div style="font-size:10px;color:var(--gold);margin-bottom:8px;text-align:center;letter-spacing:0.05em">KỊCH BẢN BÁN & MUA</div>
-                            ${simDash}
-                        </div>
-                    </div>
-                `;
-            }
-
             body.innerHTML = `
-${dashboardHtml}`;
+
+<div style="overflow-x:auto">
+
+<table class="mkt-table" style="min-width:600px;font-size:11.5px">
+
+<thead><tr>
+
+<th style="text-align:left;width:150px">Hạng mục so sánh</th>
+
+${extendedResults.map(({ sc }) => `<th style="color:${sc.color};text-align:center">${sc.icon}<br>${sc.title}</th>`).join('')}
+
+</tr></thead>
+
+<tbody>
+
+${allLabels.map(label => `
+
+<tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+
+<td style="color:var(--text-3);padding:10px">${label}</td>
+
+${extendedResults.map(({ rows }) => {
+
+                const match = rows.find(r => r.label === label);
+
+                return `<td style="color:${match ? match.color : 'rgba(255,255,255,0.05)'};text-align:center;font-weight:${match ? '600' : '400'};font-family:var(--mono)">${match ? match.val : '-'}</td>`;
+
+            }).join('')}
+
+</tr>`).join('')}
+
+<tr style="border-top:2px solid var(--bg-border)">
+
+  <td style="color:var(--text-3);padding:10px;font-size:10px">📍 Lưu kịch bản</td>
+
+  <td style="text-align:center;padding:8px">—</td>
+
+  ${results.map(r => `<td style="text-align:center;padding:8px"><button class="btn btn-sm" style="font-size:10px;border:1px solid ${r.sc.color}88;color:${r.sc.color};background:${r.sc.color}15;width:100%;transition:all 0.15s ease;cursor:pointer;font-weight:600" onmousedown="this.style.transform='scale(0.93)';this.style.opacity='0.7';this.style.background='${r.sc.color}35'" onmouseup="this.style.transform='scale(1)';this.style.opacity='1';this.style.background='${r.sc.color}15'" onmouseleave="this.style.transform='scale(1)';this.style.opacity='1';this.style.background='${r.sc.color}15'" onclick="saveToCart('${r.sc.id}')">📍 Lưu Kịch Bản ${r.sc.title.split('.')[0].trim()}</button></td>`).join('')}
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div style="margin-top:12px;padding:12px;background:var(--bg-hover);border-radius:var(--r-sm);font-size:12px;color:var(--text-2)">
+
+💡 <strong style="color:var(--text-1)">Hướng dẫn:</strong> So sánh từng cột <strong>Kịch Bản</strong> với cột <strong>HIỆN TẠI (📌)</strong> để đưa ra quyết định. &nbsp; <button class="btn btn-secondary btn-sm" style="font-size:10px" onclick="document.getElementById('sim-asset-list').scrollIntoView({behavior:'smooth',block:'center'})">🔄 Đổi Tài Sản ↑</button>
+
+</div>`;
 
             // Auto recommendation logic
 
@@ -8810,7 +4725,7 @@ ${dashboardHtml}`;
 
         function restoreSession() {
 
-            renderAssetList();
+            loadPortfolio();
 
         }
 
@@ -9112,328 +5027,8 @@ ${dashboardHtml}`;
                 if (el) el.addEventListener('change', function() { suggestMarketPrice(false); });
             });
         });
-    </script>
-
-    <style>
-        /* Strategy Cart UI */
-
-        #cart-fab {
-
-            position: fixed;
-
-            bottom: 24px;
-
-            right: 24px;
-
-            background: var(--gold);
-
-            color: #000;
-
-            border-radius: 30px;
-
-            padding: 12px 20px;
-
-            font-weight: 700;
-
-            font-size: 13px;
-
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-
-            cursor: pointer;
-
-            z-index: 9999;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            transition: transform 0.2s;
-
-            border: 1px solid rgba(255, 255, 255, 0.2);
-
-        }
-
-
-
-        #cart-fab:hover {
-
-            transform: scale(1.05);
-
-        }
-
-
-
-        #cart-modal {
-
-            position: fixed;
-
-            top: 0;
-
-            right: -400px;
-
-            width: 380px;
-
-            height: 100%;
-
-            background: var(--bg-card);
-
-            box-shadow: -4px 0 24px rgba(0, 0, 0, 0.8);
-
-            z-index: 10000;
-
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-            display: flex;
-
-            flex-direction: column;
-
-            border-left: 1px solid var(--bg-border);
-
-        }
-
-
-
-        #cart-modal.open {
-
-            right: 0;
-
-        }
-
-
-
-        .cart-header {
-
-            padding: 16px 20px;
-
-            border-bottom: 1px solid var(--bg-border);
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            background: rgba(0, 0, 0, 0.2);
-
-        }
-
-
-
-        .cart-body {
-
-            flex: 1;
-
-            overflow-y: auto;
-
-            padding: 20px;
-
-            min-height: 0;
-
-        }
-
-
-
-        .cart-footer {
-
-            padding: 20px;
-
-            border-top: 1px solid var(--bg-border);
-
-            background: rgba(0, 0, 0, 0.3);
-
-        }
-
-
-
-        #cart-overlay {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            background: rgba(0, 0, 0, 0.6);
-
-            z-index: 9998;
-
-            display: none;
-
-            backdrop-filter: blur(3px);
-
-        }
-
-
-
-        #cart-overlay.open {
-
-            display: block;
-
-        }
-
-
-
-        @media (max-width: 600px) {
-
-            #cart-modal {
-
-                width: 100%;
-
-                right: -100%;
-
-            }
-
-
-
-            #cart-fab {
-
-                bottom: 16px;
-
-                right: 12px;
-
-                padding: 10px 14px;
-
-                font-size: 11px;
-
-                border-radius: 50px;
-
-            }
-
-
-
-            #app {
-
-                padding-bottom: 70px;
-
-            }
-
-        }
-    
-        /* Premium Asset Selector Tabs */
-        #sim-asset-list::-webkit-scrollbar { display: none; }
-        .sim-tab {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-3);
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-        .sim-tab:hover {
-            color: var(--text-1);
-            background: rgba(255,255,255,0.05);
-        }
-        .sim-tab.active {
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-
-    
-        /* Asset Stats Grid Premium */
-        .asset-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px 8px;
-        }
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .asset-stat-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px 8px;
-        }
-        
-        @media (min-width: 640px) {
-            .asset-stat-group {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        /* The Holy Grail Hack: Make dangling odd-numbered last items span full width */
-        .asset-stat-group > .stat-item:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-            /* Optional: center the content of the spanned item to make it look intentional */
-            align-items: flex-start;
-        }
-        .stat-lbl {
-            font-size: 9px;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .stat-val {
-            font-family: var(--mono);
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--text-1);
-            white-space: nowrap;
-            /* Premium Glow Effect using a faint drop shadow */
-            filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.1));
-        }
-        .stat-unit {
-            font-family: var(--sans);
-            font-size: 9.5px;
-            color: var(--text-3);
-            font-weight: 500;
-        }
-        @media (max-width: 768px) {
-            .asset-stats-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .asset-stats-grid > .stat-item[style*="grid-column: span 2"] {
-                grid-column: span 1 !important;
-            }
-        }
-
-    
-        /* Matrix Compare Table */
-        .sim-matrix-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 12px;
-        }
-        .sim-matrix-table th {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            text-align: center;
-            border-bottom: 2px solid var(--bg-border);
-            font-weight: 600;
-            color: var(--text-2);
-        }
-        .sim-matrix-table td {
-            display: table-cell !important;
-            vertical-align: middle;
-            padding: 12px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-            transition: background 0.2s ease;
-        }
-        .sim-matrix-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-    </style>
-
     
 
-    <script>
 
                 try {
             const savedCart = localStorage.getItem('aa_strategy_cart');
@@ -9456,7 +5051,7 @@ ${dashboardHtml}`;
 
             if (document.getElementById('cart-modal').classList.contains('open')) {
 
-                
+                renderCartModal();
 
             }
 
@@ -9485,24 +5080,22 @@ ${dashboardHtml}`;
             };
 
             saveStrategyCart();
-            if (typeof renderScenarios === 'function') renderScenarios();
 
-            
+            renderCartModal();
 
-            
+            const fab = document.getElementById('cart-fab');
 
-            
+            fab.style.transform = 'scale(1.15)';
 
-            
+            setTimeout(() => fab.style.transform = 'scale(1)', 300);
 
         }
 
         function removeCartItem(assetName) {
 
             delete window._STRATEGY_CART[assetName]; saveStrategyCart();
-            if (typeof renderScenarios === 'function') renderScenarios();
 
-            
+            renderCartModal();
 
         }
 
@@ -9524,33 +5117,33 @@ ${dashboardHtml}`;
 
             };
 
-            const nameEl = document.getElementById('new-cn-name');
+            const nameEl = document.getElementById('cn-name');
 
             if (nameEl) nameEl.value = a.name;
 
-            setInp('new-cn-type', a.type || 'chung-cu');
+            setInp('cn-type', a.type || 'chung-cu');
 
-            setInp('new-cn-district', a.district || '');
+            setInp('cn-district', a.district || '');
 
-            setInp('new-cn-goal', a.goal || 'tang-gia');
+            setInp('cn-goal', a.goal || 'tang-gia');
 
-            setInp('new-cn-price', a.cost);
+            setInp('cn-price', a.cost);
 
-            setInp('new-cn-area', a.area || 0);
+            setInp('cn-area', a.area || 0);
 
-            setInp('new-cn-loanpct', a.loanpct);
+            setInp('cn-loanpct', a.loanpct);
 
-            setInp('new-cn-loanterm', a.loanterm);
+            setInp('cn-loanterm', a.loanterm);
 
-            setInp('new-cn-prefmonths', a.prefmonths);
+            setInp('cn-prefmonths', a.prefmonths);
 
-            setInp('new-cn-rate', a.rate);
+            setInp('cn-rate', a.rate);
 
-            setInp('new-cn-grace', a.grace || 0);
+            setInp('cn-grace', a.grace || 0);
 
-            setInp('new-cn-floatrate', a.floatrate || 10.5);
+            setInp('cn-floatrate', a.floatrate || 10.5);
 
-            setInp('new-cn-noi', a.rent || 0);
+            setInp('cn-noi', a.rent || 0);
 
             document.getElementById('cart-buy-new').style.display = 'block';
 
@@ -9562,7 +5155,7 @@ ${dashboardHtml}`;
 
         function fillHotDeal() {
 
-            const v = document.getElementById('new-cn-hot-deals').value;
+            const v = document.getElementById('cn-hot-deals').value;
 
             const setInp = (id, val) => {
 
@@ -9580,195 +5173,195 @@ ${dashboardHtml}`;
 
             if (v === 'imperia-skypark') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Hoài Đức';
+                document.getElementById('cn-district').value = 'Hoài Đức';
 
-                document.getElementById('new-cn-name').value = 'Imperia Sky Park 2PN';
+                document.getElementById('cn-name').value = 'Imperia Sky Park 2PN';
 
-                setInp('new-cn-price', 5.59); setInp('new-cn-area', 70);
+                setInp('cn-price', 5.59); setInp('cn-area', 70);
 
-                setInp('new-cn-loanpct', 70);
+                setInp('cn-loanpct', 70);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'mipec-tohuu') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Nam Từ Liêm';
+                document.getElementById('cn-district').value = 'Nam Từ Liêm';
 
-                document.getElementById('new-cn-name').value = 'ICONA MIPEC Tố Hữu 2PN';
+                document.getElementById('cn-name').value = 'ICONA MIPEC Tố Hữu 2PN';
 
-                setInp('new-cn-price', 9.6); setInp('new-cn-area', 80);
+                setInp('cn-price', 9.6); setInp('cn-area', 80);
 
-                setInp('new-cn-loanpct', 70);
+                setInp('cn-loanpct', 70);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'vanla-hadong') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Hà Đông';
+                document.getElementById('cn-district').value = 'Hà Đông';
 
-                document.getElementById('new-cn-name').value = 'Vista Văn La 2PN';
+                document.getElementById('cn-name').value = 'Vista Văn La 2PN';
 
-                setInp('new-cn-price', 6.65); setInp('new-cn-area', 70);
+                setInp('cn-price', 6.65); setInp('cn-area', 70);
 
-                setInp('new-cn-loanpct', 70);
+                setInp('cn-loanpct', 70);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'revia-hoangmai') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Hoàng Mai';
+                document.getElementById('cn-district').value = 'Hoàng Mai';
 
-                document.getElementById('new-cn-name').value = 'Rivea Hoàng Mai 2PN';
+                document.getElementById('cn-name').value = 'Rivea Hoàng Mai 2PN';
 
-                setInp('new-cn-price', 8.85); setInp('new-cn-area', 80);
+                setInp('cn-price', 8.85); setInp('cn-area', 80);
 
-                setInp('new-cn-loanpct', 70);
+                setInp('cn-loanpct', 70);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'parkland-ocp3') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Văn Giang (HY)';
+                document.getElementById('cn-district').value = 'Văn Giang (HY)';
 
-                document.getElementById('new-cn-name').value = 'ParkLand OCP3 2PN';
+                document.getElementById('cn-name').value = 'ParkLand OCP3 2PN';
 
-                setInp('new-cn-price', 4.59); setInp('new-cn-area', 60);
+                setInp('cn-price', 4.59); setInp('cn-area', 60);
 
-                setInp('new-cn-loanpct', 50);
+                setInp('cn-loanpct', 50);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'imperia-halong') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = 'Văn Giang (HY)';
+                document.getElementById('cn-district').value = 'Văn Giang (HY)';
 
-                document.getElementById('new-cn-name').value = 'Imperia Hạ Long 2PN';
+                document.getElementById('cn-name').value = 'Imperia Hạ Long 2PN';
 
-                setInp('new-cn-price', 5.13); setInp('new-cn-area', 70);
+                setInp('cn-price', 5.13); setInp('cn-area', 70);
 
-                setInp('new-cn-loanpct', 50);
+                setInp('cn-loanpct', 50);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 24);
+                setInp('cn-prefmonths', 24);
 
-                setInp('new-cn-grace', 24);
+                setInp('cn-grace', 24);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'langvan') {
 
-                document.getElementById('new-cn-type').value = 'nha-pho';
+                document.getElementById('cn-type').value = 'nha-pho';
 
-                document.getElementById('new-cn-district').value = 'Văn Giang (HY)';
+                document.getElementById('cn-district').value = 'Văn Giang (HY)';
 
-                document.getElementById('new-cn-name').value = 'Nhà Phố Làng Vân';
+                document.getElementById('cn-name').value = 'Nhà Phố Làng Vân';
 
-                setInp('new-cn-price', 7.94); setInp('new-cn-area', 100);
+                setInp('cn-price', 7.94); setInp('cn-area', 100);
 
-                setInp('new-cn-loanpct', 0);
+                setInp('cn-loanpct', 0);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 0);
+                setInp('cn-prefmonths', 0);
 
-                setInp('new-cn-grace', 0);
+                setInp('cn-grace', 0);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             } else if (v === 'meyhomes-pq') {
 
-                document.getElementById('new-cn-type').value = 'chung-cu';
+                document.getElementById('cn-type').value = 'chung-cu';
 
-                document.getElementById('new-cn-district').value = '';
+                document.getElementById('cn-district').value = '';
 
-                document.getElementById('new-cn-name').value = 'Meyhomes Phú Quốc 2PN';
+                document.getElementById('cn-name').value = 'Meyhomes Phú Quốc 2PN';
 
-                setInp('new-cn-price', 4.96); setInp('new-cn-area', 53.64);
+                setInp('cn-price', 4.96); setInp('cn-area', 53.64);
 
-                setInp('new-cn-loanpct', 70);
+                setInp('cn-loanpct', 70);
 
-                setInp('new-cn-loanterm', 25);
+                setInp('cn-loanterm', 25);
 
-                setInp('new-cn-prefmonths', 48);
+                setInp('cn-prefmonths', 48);
 
-                setInp('new-cn-grace', 48);
+                setInp('cn-grace', 48);
 
-                setInp('new-cn-rate', 0);
+                setInp('cn-rate', 0);
 
-                setInp('new-cn-floatrate', 10.5);
+                setInp('cn-floatrate', 10.5);
 
-                setInp('new-cn-noi', 0);
+                setInp('cn-noi', 0);
 
             }
 
@@ -9777,7 +5370,6 @@ ${dashboardHtml}`;
         function removeSimCartItem(id) {
             delete window._STRATEGY_CART[id];
             saveStrategyCart();
-            if (typeof renderScenarios === 'function') renderScenarios();
             renderScenarios();
             runAllScenarios();
         }
@@ -9787,29 +5379,29 @@ ${dashboardHtml}`;
 
             window._EDITING_CART_ID = null; // reset
 
-            const assetName = (document.getElementById('new-cn-name')?.value || '').trim() || ('Tài Sản Mới #' + (Date.now() % 1000));
+            const assetName = (document.getElementById('cn-name')?.value || '').trim() || ('Tài Sản Mới #' + (Date.now() % 1000));
 
-            const price = parseFloat(document.getElementById('new-cn-price')?.value) || 0; const area = parseFloat(document.getElementById('new-cn-area')?.value) || 0;
+            const price = parseFloat(document.getElementById('cn-price')?.value) || 0; const area = parseFloat(document.getElementById('cn-area')?.value) || 0;
 
-            const loanpct = parseFloat(document.getElementById('new-cn-loanpct')?.value) || 0;
+            const loanpct = parseFloat(document.getElementById('cn-loanpct')?.value) || 0;
 
-            const loanterm = parseFloat(document.getElementById('new-cn-loanterm')?.value) || 20;
+            const loanterm = parseFloat(document.getElementById('cn-loanterm')?.value) || 20;
 
-            const prefmonths = parseFloat(document.getElementById('new-cn-prefmonths')?.value) || 0;
+            const prefmonths = parseFloat(document.getElementById('cn-prefmonths')?.value) || 0;
 
-            const rate = parseFloat(document.getElementById('new-cn-rate')?.value) || 0;
+            const rate = parseFloat(document.getElementById('cn-rate')?.value) || 0;
 
-            const grace = parseFloat(document.getElementById('new-cn-grace')?.value) || 0;
+            const grace = parseFloat(document.getElementById('cn-grace')?.value) || 0;
 
-            const floatrate = parseFloat(document.getElementById('new-cn-floatrate')?.value) || 10.5;
+            const floatrate = parseFloat(document.getElementById('cn-floatrate')?.value) || 10.5;
 
-            const noi = parseFloat(document.getElementById('new-cn-noi')?.value) || 0;
+            const noi = parseFloat(document.getElementById('cn-noi')?.value) || 0;
 
-            const type = document.getElementById('new-cn-type')?.value || 'chung-cu';
+            const type = document.getElementById('cn-type')?.value || 'chung-cu';
 
-            const district = document.getElementById('new-cn-district')?.value || '';
+            const district = document.getElementById('cn-district')?.value || '';
 
-            const goal = document.getElementById('new-cn-goal')?.value || 'tang-gia';
+            const goal = document.getElementById('cn-goal')?.value || 'tang-gia';
 
             const aNew = {
 
@@ -9882,12 +5474,11 @@ ${dashboardHtml}`;
             };
 
             saveStrategyCart();
-            if (typeof renderScenarios === 'function') renderScenarios();
             renderScenarios(); // Re-render to show added item in the combo plan card
             runAllScenarios(); // Re-calculate
             
             // Show toast or highlight
-            const nameEl = document.getElementById('new-cn-name');
+            const nameEl = document.getElementById('cn-name');
             if (nameEl) nameEl.value = '';
 
             }
@@ -10090,18 +5681,11 @@ ${dashboardHtml}`;
 
         }
 
-    </script>
+    
 
-    <script>
 
             window.MARKET_DATA = {"updated": "08/06/2026 20:38", "date_range": "2026-05", "num_days": 1, "method": "realtime_sync", "has_delta": true, "has_delta_gia": true, "districts": [{"name": "Nam Từ Liêm", "gia": 89.4, "gia_cc": 87.2, "heat": 8217.0, "cycle": 70, "views_tin": 4.5, "delta": 0.5, "delta_tin": 0.5, "delta_gia": 2.1, "yoy": 21.0, "cat_lo": 25.33, "tin": 1826.0, "views": 8217.0, "potential": 50.0}, {"name": "Văn Giang", "gia": 65.1, "gia_cc": 73.9, "heat": 5200.0, "cycle": 50, "views_tin": 5.0, "delta": 0.5, "delta_tin": 0.5, "delta_gia": 0.0, "yoy": 0.2, "cat_lo": 17.14, "tin": 1040.0, "views": 5200.0, "potential": 50.0}, {"name": "Hoài Đức", "gia": 68.8, "gia_cc": 64.3, "heat": 3582.0, "cycle": 70, "views_tin": 9.0, "delta": 0.9, "delta_tin": 0.9, "delta_gia": 2.6, "yoy": 25.6, "cat_lo": 23.08, "tin": 398.0, "views": 3582.0, "potential": 50.0}, {"name": "Tây Hồ", "gia": 122.6, "gia_cc": 112.7, "heat": 3177.0, "cycle": 70, "views_tin": 3.8, "delta": 0.4, "delta_tin": 0.4, "delta_gia": 1.7, "yoy": 17.3, "cat_lo": 6.67, "tin": 836.0, "views": 3177.0, "potential": 50.0}, {"name": "Thanh Trì", "gia": 69.9, "gia_cc": 66.5, "heat": 3050.0, "cycle": 70, "views_tin": 10.2, "delta": 1.0, "delta_tin": 1.0, "delta_gia": 2.9, "yoy": 29.0, "cat_lo": 13.33, "tin": 299.0, "views": 3050.0, "potential": 50.0}, {"name": "Cầu Giấy", "gia": 104.6, "gia_cc": 100.4, "heat": 2852.0, "cycle": 70, "views_tin": 2.2, "delta": 0.2, "delta_tin": 0.2, "delta_gia": 2.2, "yoy": 22.3, "cat_lo": 27.33, "tin": 1281.0, "views": 2852.0, "potential": 50.0}, {"name": "Đông Anh", "gia": 95.6, "gia_cc": 93.9, "heat": 2200.0, "cycle": 85, "views_tin": 14.1, "delta": 1.4, "delta_tin": 1.4, "delta_gia": 6.5, "yoy": 64.7, "cat_lo": 20.0, "tin": 156.0, "views": 2200.0, "potential": 50.0}, {"name": "Gia Lâm", "gia": 68.2, "gia_cc": 72.5, "heat": 2131.0, "cycle": 70, "views_tin": 3.2, "delta": 0.3, "delta_tin": 0.3, "delta_gia": 1.2, "yoy": 11.9, "cat_lo": 40.67, "tin": 666.0, "views": 2131.0, "potential": 50.0}, {"name": "Thanh Xuân", "gia": 105.6, "gia_cc": 92.7, "heat": 1972.0, "cycle": 85, "views_tin": 1.7, "delta": 0.2, "delta_tin": 0.2, "delta_gia": 3.0, "yoy": 30.1, "cat_lo": 20.67, "tin": 1185.0, "views": 1972.0, "potential": 50.0}, {"name": "Đống Đa", "gia": 98.5, "gia_cc": 106.7, "heat": 1937.0, "cycle": 50, "views_tin": 5.2, "delta": 0.5, "delta_tin": 0.5, "delta_gia": -0.4, "yoy": -3.6, "cat_lo": 22.0, "tin": 371.0, "views": 1937.0, "potential": 50.0}, {"name": "Hoàng Mai", "gia": 86.6, "gia_cc": 72.4, "heat": 1492.0, "cycle": 85, "views_tin": 1.2, "delta": 0.1, "delta_tin": 0.1, "delta_gia": 3.5, "yoy": 35.3, "cat_lo": 24.0, "tin": 1294.0, "views": 1492.0, "potential": 50.0}, {"name": "Ba Đình", "gia": 144.8, "gia_cc": 152.7, "heat": 1394.0, "cycle": 70, "views_tin": 5.2, "delta": 0.5, "delta_tin": 0.5, "delta_gia": 2.0, "yoy": 20.4, "cat_lo": 6.21, "tin": 268.0, "views": 1394.0, "potential": 50.0}, {"name": "Hai Bà Trưng", "gia": 109.8, "gia_cc": 107.3, "heat": 1222.0, "cycle": 70, "views_tin": 3.4, "delta": 0.3, "delta_tin": 0.3, "delta_gia": 1.8, "yoy": 18.2, "cat_lo": 42.67, "tin": 356.0, "views": 1222.0, "potential": 50.0}, {"name": "Bắc Từ Liêm", "gia": 98.6, "gia_cc": 94.0, "heat": 1188.0, "cycle": 70, "views_tin": 1.5, "delta": 0.2, "delta_tin": 0.2, "delta_gia": 3.0, "yoy": 30.0, "cat_lo": 18.67, "tin": 813.0, "views": 1188.0, "potential": 50.0}, {"name": "Long Biên", "gia": 83.5, "gia_cc": 72.6, "heat": 1148.0, "cycle": 85, "views_tin": 1.7, "delta": 0.2, "delta_tin": 0.2, "delta_gia": 3.1, "yoy": 30.6, "cat_lo": 11.11, "tin": 675.0, "views": 1148.0, "potential": 50.0}, {"name": "Hà Đông", "gia": 72.9, "gia_cc": 64.8, "heat": 1110.0, "cycle": 70, "views_tin": 0.7, "delta": 0.1, "delta_tin": 0.1, "delta_gia": 2.6, "yoy": 26.2, "cat_lo": 16.0, "tin": 1586.0, "views": 1110.0, "potential": 50.0}, {"name": "Đan Phượng", "gia": 55.1, "gia_cc": 58.0, "heat": 190.0, "cycle": 70, "views_tin": 2.8, "delta": 0.3, "delta_tin": 0.3, "delta_gia": 2.0, "yoy": 20.1, "cat_lo": 37.04, "tin": 68.0, "views": 190.0, "potential": 50.0}]};
             window.MARKET_HISTORY = {"chung-cu": {"Ba Đình": {"T3/21": 56.7, "T4/21": 60.9, "T5/21": 59.6, "T6/21": 58.7, "T7/21": 62.7, "T8/21": 71.0, "T9/21": 68.8, "T10/21": 68.2, "T11/21": 71.7, "T12/21": 74.8, "T1/22": 70.7, "T2/22": 73.3, "T3/22": 72.0, "T4/22": 75.0, "T5/22": 77.3, "T6/22": 78.9, "T7/22": 73.6, "T8/22": 83.8, "T9/22": 81.4, "T10/22": 87.0, "T11/22": 87.4, "T12/22": 93.1, "T1/23": 89.8, "T2/23": 89.9, "T3/23": 85.6, "T4/23": 82.3, "T5/23": 79.2, "T6/23": 79.8, "T7/23": 75.4, "T8/23": 76.4, "T9/23": 81.0, "T10/23": 85.8, "T11/23": 84.0, "T12/23": 85.7, "T1/24": 91.0, "T2/24": 85.5, "T3/24": 90.1, "T4/24": 91.4, "T5/24": 86.6, "T6/24": 99.3, "T7/24": 93.8, "T8/24": 113.3, "T9/24": 114.7, "T10/24": 117.6, "T11/24": 120.9, "T12/24": 129.6, "T1/25": 126.9, "T2/25": 129.9, "T3/25": 125.0, "T4/25": 126.6, "T5/25": 125.3, "T6/25": 123.8, "T7/25": 129.8, "T8/25": 135.3, "T9/25": 152.7, "T10/25": 150.8, "T11/25": 164.5, "T12/25": 159.1, "T1/26": 165.7, "T2/26": 178.4, "T3/26": 179.6, "T4/26": 192.0, "T5/26": 150.8}, "Bắc Từ Liêm": {"T3/21": 32.4, "T4/21": 33.0, "T5/21": 33.4, "T6/21": 34.0, "T7/21": 33.2, "T8/21": 33.1, "T9/21": 33.5, "T10/21": 34.4, "T11/21": 35.9, "T12/21": 36.9, "T1/22": 36.4, "T2/22": 37.3, "T3/22": 38.3, "T4/22": 39.0, "T5/22": 40.4, "T6/22": 39.8, "T7/22": 41.5, "T8/22": 42.0, "T9/22": 42.3, "T10/22": 44.7, "T11/22": 44.1, "T12/22": 44.0, "T1/23": 43.7, "T2/23": 43.8, "T3/23": 43.8, "T4/23": 44.4, "T5/23": 44.7, "T6/23": 46.8, "T7/23": 47.7, "T8/23": 48.4, "T9/23": 46.2, "T10/23": 47.1, "T11/23": 50.3, "T12/23": 50.6, "T1/24": 51.1, "T2/24": 51.4, "T3/24": 55.1, "T4/24": 58.5, "T5/24": 58.7, "T6/24": 61.1, "T7/24": 64.4, "T8/24": 66.8, "T9/24": 68.7, "T10/24": 71.2, "T11/24": 75.5, "T12/24": 76.6, "T1/25": 73.6, "T2/25": 74.1, "T3/25": 73.7, "T4/25": 76.6, "T5/25": 79.9, "T6/25": 82.9, "T7/25": 89.5, "T8/25": 90.7, "T9/25": 94.0, "T10/25": 98.4, "T11/25": 101.2, "T12/25": 104.5, "T1/26": 104.2, "T2/26": 103.6, "T3/26": 105.8, "T4/26": 105.2, "T5/26": 103.9}, "Cầu Giấy": {"T3/21": 39.7, "T4/21": 39.4, "T5/21": 40.7, "T6/21": 38.8, "T7/21": 39.9, "T8/21": 44.5, "T9/21": 41.7, "T10/21": 41.3, "T11/21": 41.5, "T12/21": 41.7, "T1/22": 43.9, "T2/22": 40.8, "T3/22": 42.0, "T4/22": 42.9, "T5/22": 44.3, "T6/22": 43.3, "T7/22": 43.4, "T8/22": 45.2, "T9/22": 44.8, "T10/22": 46.8, "T11/22": 47.5, "T12/22": 44.9, "T1/23": 45.8, "T2/23": 45.9, "T3/23": 45.8, "T4/23": 46.6, "T5/23": 47.7, "T6/23": 47.7, "T7/23": 47.3, "T8/23": 49.0, "T9/23": 51.0, "T10/23": 51.1, "T11/23": 52.1, "T12/23": 52.4, "T1/24": 53.8, "T2/24": 55.8, "T3/24": 57.9, "T4/24": 59.3, "T5/24": 61.9, "T6/24": 63.8, "T7/24": 63.9, "T8/24": 66.4, "T9/24": 69.9, "T10/24": 71.5, "T11/24": 75.8, "T12/24": 75.6, "T1/25": 75.9, "T2/25": 77.4, "T3/25": 77.8, "T4/25": 81.3, "T5/25": 82.2, "T6/25": 85.1, "T7/25": 88.7, "T8/25": 103.6, "T9/25": 100.4, "T10/25": 108.4, "T11/25": 109.3, "T12/25": 112.8, "T1/26": 109.9, "T2/26": 112.2, "T3/26": 110.5, "T4/26": 111.7, "T5/26": 100.5}, "Đan Phượng": {"T3/21": 18.0, "T4/21": 19.0, "T5/21": 17.9, "T6/21": 19.0, "T7/21": 20.0, "T8/21": 19.0, "T9/21": 18.7, "T10/21": 19.8, "T11/21": 19.3, "T12/21": 21.0, "T1/22": 21.0, "T2/22": 20.7, "T3/22": 22.7, "T4/22": 23.5, "T5/22": 22.8, "T6/22": 20.3, "T7/22": 22.8, "T8/22": 22.6, "T9/22": 23.4, "T10/22": 25.0, "T11/22": 24.5, "T12/22": 24.2, "T1/23": 25.9, "T2/23": 24.3, "T3/23": 23.2, "T4/23": 24.2, "T5/23": 24.2, "T6/23": 26.4, "T7/23": 25.8, "T8/23": 25.0, "T9/23": 25.0, "T10/23": 27.8, "T11/23": 28.6, "T12/23": 29.9, "T1/24": 30.2, "T2/24": 30.4, "T3/24": 30.4, "T4/24": 32.3, "T5/24": 33.6, "T6/24": 33.8, "T7/24": 34.5, "T8/24": 39.4, "T9/24": 43.0, "T10/24": 43.6, "T11/24": 43.9, "T12/24": 45.3, "T1/25": 44.4, "T2/25": 44.5, "T3/25": 46.0, "T4/25": 48.1, "T5/25": 47.3, "T6/25": 49.1, "T7/25": 50.9, "T8/25": 50.9, "T9/25": 58.0, "T10/25": 59.7, "T11/25": 66.1, "T12/25": 66.6, "T1/26": 67.6, "T2/26": 68.5, "T3/26": 67.8, "T4/26": 62.8, "T5/26": 56.8}, "Đông Anh": {"T3/21": 21.4, "T4/21": 20.7, "T5/21": 22.1, "T6/21": 23.1, "T7/21": 24.9, "T8/21": 22.3, "T9/21": 22.1, "T10/21": 21.8, "T11/21": 23.0, "T12/21": 23.2, "T1/22": 24.7, "T2/22": 22.5, "T3/22": 25.9, "T4/22": 26.5, "T5/22": 26.7, "T6/22": 27.1, "T7/22": 26.0, "T8/22": 26.1, "T9/22": 25.7, "T10/22": 25.2, "T11/22": 26.1, "T12/22": 26.1, "T1/23": 25.1, "T2/23": 26.7, "T3/23": 28.8, "T4/23": 27.5, "T5/23": 28.9, "T6/23": 26.4, "T7/23": 26.7, "T8/23": 26.5, "T9/23": 26.8, "T10/23": 26.7, "T11/23": 28.4, "T12/23": 28.9, "T1/24": 28.7, "T2/24": 31.9, "T3/24": 34.4, "T4/24": 38.2, "T5/24": 38.7, "T6/24": 39.0, "T7/24": 39.0, "T8/24": 42.1, "T9/24": 50.3, "T10/24": 88.9, "T11/24": 53.7, "T12/24": 54.6, "T1/25": 88.1, "T2/25": 83.6, "T3/25": 54.3, "T4/25": 53.7, "T5/25": 50.7, "T6/25": 51.6, "T7/25": 100.5, "T8/25": 102.3, "T9/25": 93.9, "T10/25": 87.3, "T11/25": 98.7, "T12/25": 111.1, "T1/26": 121.1, "T2/26": 121.9, "T3/26": 121.2, "T4/26": 131.1, "T5/26": 83.5}, "Đống Đa": {"T3/21": 42.2, "T4/21": 41.9, "T5/21": 44.5, "T6/21": 46.5, "T7/21": 48.4, "T8/21": 62.1, "T9/21": 50.1, "T10/21": 49.0, "T11/21": 53.5, "T12/21": 50.3, "T1/22": 47.4, "T2/22": 50.1, "T3/22": 56.3, "T4/22": 55.8, "T5/22": 49.7, "T6/22": 55.3, "T7/22": 51.6, "T8/22": 51.1, "T9/22": 66.5, "T10/22": 72.4, "T11/22": 68.4, "T12/22": 62.9, "T1/23": 65.9, "T2/23": 52.9, "T3/23": 51.9, "T4/23": 53.6, "T5/23": 52.8, "T6/23": 63.4, "T7/23": 54.1, "T8/23": 53.0, "T9/23": 54.1, "T10/23": 56.9, "T11/23": 55.9, "T12/23": 67.7, "T1/24": 72.7, "T2/24": 71.0, "T3/24": 70.2, "T4/24": 66.1, "T5/24": 68.1, "T6/24": 69.2, "T7/24": 78.3, "T8/24": 82.1, "T9/24": 77.2, "T10/24": 78.9, "T11/24": 86.5, "T12/24": 91.9, "T1/25": 92.8, "T2/25": 92.0, "T3/25": 98.4, "T4/25": 96.6, "T5/25": 96.5, "T6/25": 96.1, "T7/25": 98.8, "T8/25": 109.1, "T9/25": 106.7, "T10/25": 111.4, "T11/25": 111.4, "T12/25": 119.2, "T1/26": 115.9, "T2/26": 116.9, "T3/26": 117.1, "T4/26": 118.9, "T5/26": 93.0}, "Gia Lâm": {"T3/21": 27.7, "T4/21": 29.9, "T5/21": 30.0, "T6/21": 29.3, "T7/21": 30.3, "T8/21": 31.5, "T9/21": 30.1, "T10/21": 29.9, "T11/21": 31.9, "T12/21": 32.9, "T1/22": 34.3, "T2/22": 32.8, "T3/22": 33.2, "T4/22": 36.2, "T5/22": 34.1, "T6/22": 32.3, "T7/22": 31.2, "T8/22": 33.5, "T9/22": 33.2, "T10/22": 33.7, "T11/22": 33.0, "T12/22": 32.3, "T1/23": 33.1, "T2/23": 33.6, "T3/23": 35.1, "T4/23": 33.9, "T5/23": 33.8, "T6/23": 33.9, "T7/23": 34.1, "T8/23": 36.6, "T9/23": 49.3, "T10/23": 37.2, "T11/23": 36.8, "T12/23": 38.3, "T1/24": 39.0, "T2/24": 39.3, "T3/24": 44.3, "T4/24": 46.9, "T5/24": 47.9, "T6/24": 47.6, "T7/24": 48.7, "T8/24": 52.3, "T9/24": 54.1, "T10/24": 57.1, "T11/24": 57.5, "T12/24": 56.3, "T1/25": 55.9, "T2/25": 56.4, "T3/25": 56.6, "T4/25": 58.8, "T5/25": 60.3, "T6/25": 61.7, "T7/25": 63.5, "T8/25": 67.2, "T9/25": 72.5, "T10/25": 78.9, "T11/25": 76.2, "T12/25": 74.2, "T1/26": 75.2, "T2/26": 75.4, "T3/26": 73.8, "T4/26": 73.4, "T5/26": 67.5}, "Hà Đông": {"T3/21": 21.9, "T4/21": 22.9, "T5/21": 22.8, "T6/21": 23.2, "T7/21": 23.5, "T8/21": 26.2, "T9/21": 24.1, "T10/21": 23.6, "T11/21": 24.0, "T12/21": 24.6, "T1/22": 24.7, "T2/22": 24.9, "T3/22": 25.5, "T4/22": 26.0, "T5/22": 27.9, "T6/22": 28.7, "T7/22": 29.2, "T8/22": 30.2, "T9/22": 30.0, "T10/22": 31.0, "T11/22": 31.5, "T12/22": 30.5, "T1/23": 31.0, "T2/23": 30.2, "T3/23": 31.1, "T4/23": 30.6, "T5/23": 31.1, "T6/23": 31.2, "T7/23": 30.5, "T8/23": 31.4, "T9/23": 31.4, "T10/23": 32.4, "T11/23": 34.0, "T12/23": 34.9, "T1/24": 36.1, "T2/24": 37.6, "T3/24": 39.7, "T4/24": 41.5, "T5/24": 41.9, "T6/24": 42.3, "T7/24": 42.7, "T8/24": 43.9, "T9/24": 47.1, "T10/24": 51.5, "T11/24": 53.0, "T12/24": 53.4, "T1/25": 56.1, "T2/25": 53.8, "T3/25": 57.6, "T4/25": 59.6, "T5/25": 60.4, "T6/25": 62.9, "T7/25": 61.1, "T8/25": 61.2, "T9/25": 64.8, "T10/25": 70.4, "T11/25": 74.3, "T12/25": 76.1, "T1/26": 77.2, "T2/26": 78.3, "T3/26": 77.1, "T4/26": 77.5, "T5/26": 76.2}, "Hai Bà Trưng": {"T3/21": 43.9, "T4/21": 43.6, "T5/21": 42.9, "T6/21": 44.7, "T7/21": 44.3, "T8/21": 45.0, "T9/21": 44.8, "T10/21": 45.6, "T11/21": 46.4, "T12/21": 48.1, "T1/22": 49.5, "T2/22": 49.6, "T3/22": 51.6, "T4/22": 52.5, "T5/22": 51.7, "T6/22": 51.6, "T7/22": 53.4, "T8/22": 53.2, "T9/22": 53.8, "T10/22": 54.4, "T11/22": 54.7, "T12/22": 55.5, "T1/23": 54.9, "T2/23": 54.6, "T3/23": 54.1, "T4/23": 54.9, "T5/23": 53.6, "T6/23": 54.8, "T7/23": 54.2, "T8/23": 54.3, "T9/23": 54.4, "T10/23": 56.9, "T11/23": 59.0, "T12/23": 59.9, "T1/24": 64.3, "T2/24": 63.7, "T3/24": 67.4, "T4/24": 68.3, "T5/24": 70.6, "T6/24": 73.6, "T7/24": 75.8, "T8/24": 78.0, "T9/24": 81.3, "T10/24": 85.0, "T11/24": 89.5, "T12/24": 85.4, "T1/25": 89.9, "T2/25": 88.3, "T3/25": 83.5, "T4/25": 85.3, "T5/25": 87.5, "T6/25": 85.7, "T7/25": 89.7, "T8/25": 101.6, "T9/25": 107.3, "T10/25": 110.1, "T11/25": 113.8, "T12/25": 116.9, "T1/26": 110.8, "T2/26": 114.6, "T3/26": 112.2, "T4/26": 113.3, "T5/26": 103.4}, "Hoài Đức": {"T3/21": 20.4, "T4/21": 20.5, "T5/21": 20.4, "T6/21": 19.8, "T7/21": 19.9, "T8/21": 18.3, "T9/21": 20.2, "T10/21": 21.0, "T11/21": 22.2, "T12/21": 21.2, "T1/22": 22.3, "T2/22": 20.3, "T3/22": 22.7, "T4/22": 23.2, "T5/22": 23.8, "T6/22": 24.2, "T7/22": 26.3, "T8/22": 26.2, "T9/22": 24.9, "T10/22": 25.6, "T11/22": 29.1, "T12/22": 32.1, "T1/23": 26.8, "T2/23": 27.4, "T3/23": 31.5, "T4/23": 35.5, "T5/23": 36.1, "T6/23": 36.5, "T7/23": 30.5, "T8/23": 33.1, "T9/23": 38.3, "T10/23": 40.6, "T11/23": 41.0, "T12/23": 42.0, "T1/24": 42.0, "T2/24": 42.7, "T3/24": 39.5, "T4/24": 43.5, "T5/24": 49.7, "T6/24": 51.0, "T7/24": 52.1, "T8/24": 54.1, "T9/24": 51.2, "T10/24": 52.6, "T11/24": 53.4, "T12/24": 52.9, "T1/25": 55.4, "T2/25": 53.4, "T3/25": 53.9, "T4/25": 55.9, "T5/25": 57.1, "T6/25": 57.4, "T7/25": 59.8, "T8/25": 61.1, "T9/25": 64.3, "T10/25": 70.4, "T11/25": 69.4, "T12/25": 72.7, "T1/26": 76.1, "T2/26": 83.3, "T3/26": 80.0, "T4/26": 75.9, "T5/26": 71.7}, "Hoàn Kiếm": {"T7/24": 409.4, "T8/24": 393.5, "T9/24": 455.5, "T10/24": 286.5, "T11/24": 489.3, "T12/24": 451.5, "T1/25": 162.7, "T2/25": 592.5, "T3/25": 249.7, "T4/25": 560.9, "T5/25": 550.2, "T6/25": 524.2, "T7/25": 503.4, "T8/25": 593.5, "T9/25": 513.1, "T10/25": 648.5, "T11/25": 762.6, "T12/25": 686.4, "T1/26": 588.4, "T2/26": 424.3, "T3/26": 473.1}, "Hoàng Mai": {"T3/21": 26.4, "T4/21": 25.6, "T5/21": 26.1, "T6/21": 26.8, "T7/21": 26.9, "T8/21": 29.1, "T9/21": 27.8, "T10/21": 27.7, "T11/21": 27.4, "T12/21": 27.2, "T1/22": 28.2, "T2/22": 28.7, "T3/22": 29.1, "T4/22": 30.2, "T5/22": 31.9, "T6/22": 32.5, "T7/22": 35.5, "T8/22": 34.4, "T9/22": 34.8, "T10/22": 34.1, "T11/22": 33.8, "T12/22": 35.2, "T1/23": 34.8, "T2/23": 33.8, "T3/23": 34.4, "T4/23": 34.7, "T5/23": 35.4, "T6/23": 35.1, "T7/23": 35.2, "T8/23": 34.9, "T9/23": 36.1, "T10/23": 35.3, "T11/23": 36.3, "T12/23": 39.3, "T1/24": 40.2, "T2/24": 40.7, "T3/24": 43.0, "T4/24": 45.0, "T5/24": 45.3, "T6/24": 45.0, "T7/24": 47.0, "T8/24": 49.4, "T9/24": 54.0, "T10/24": 56.3, "T11/24": 58.9, "T12/24": 58.7, "T1/25": 57.6, "T2/25": 59.0, "T3/25": 60.7, "T4/25": 62.1, "T5/25": 62.9, "T6/25": 67.4, "T7/25": 68.3, "T8/25": 71.0, "T9/25": 72.4, "T10/25": 80.7, "T11/25": 83.8, "T12/25": 87.3, "T1/26": 87.3, "T2/26": 88.5, "T3/26": 87.3, "T4/26": 88.5, "T5/26": 85.1}, "Long Biên": {"T3/21": 29.7, "T4/21": 31.1, "T5/21": 32.0, "T6/21": 31.2, "T7/21": 30.4, "T8/21": 31.0, "T9/21": 32.3, "T10/21": 31.2, "T11/21": 32.9, "T12/21": 34.6, "T1/22": 35.0, "T2/22": 34.7, "T3/22": 34.4, "T4/22": 34.7, "T5/22": 36.7, "T6/22": 38.1, "T7/22": 38.6, "T8/22": 39.0, "T9/22": 39.1, "T10/22": 39.1, "T11/22": 40.6, "T12/22": 37.7, "T1/23": 38.2, "T2/23": 36.7, "T3/23": 37.5, "T4/23": 37.7, "T5/23": 38.0, "T6/23": 37.6, "T7/23": 37.8, "T8/23": 37.7, "T9/23": 37.2, "T10/23": 37.9, "T11/23": 38.5, "T12/23": 39.2, "T1/24": 40.9, "T2/24": 44.0, "T3/24": 46.4, "T4/24": 46.6, "T5/24": 49.3, "T6/24": 48.5, "T7/24": 49.5, "T8/24": 54.1, "T9/24": 54.0, "T10/24": 55.2, "T11/24": 59.9, "T12/24": 60.4, "T1/25": 62.3, "T2/25": 59.5, "T3/25": 62.4, "T4/25": 63.7, "T5/25": 66.6, "T6/25": 67.8, "T7/25": 72.7, "T8/25": 74.4, "T9/25": 72.6, "T10/25": 77.1, "T11/25": 81.8, "T12/25": 86.9, "T1/26": 88.6, "T2/26": 88.7, "T3/26": 89.2, "T4/26": 87.7, "T5/26": 87.0}, "Mê Linh": {}, "Nam Từ Liêm": {"T3/21": 35.0, "T4/21": 35.7, "T5/21": 34.2, "T6/21": 35.2, "T7/21": 34.7, "T8/21": 38.4, "T9/21": 36.6, "T10/21": 37.2, "T11/21": 37.2, "T12/21": 37.2, "T1/22": 37.4, "T2/22": 38.9, "T3/22": 39.1, "T4/22": 39.5, "T5/22": 40.4, "T6/22": 42.6, "T7/22": 41.7, "T8/22": 42.5, "T9/22": 42.3, "T10/22": 43.6, "T11/22": 44.3, "T12/22": 43.5, "T1/23": 42.6, "T2/23": 43.5, "T3/23": 43.2, "T4/23": 42.8, "T5/23": 43.5, "T6/23": 43.6, "T7/23": 43.9, "T8/23": 45.8, "T9/23": 45.9, "T10/23": 47.8, "T11/23": 48.6, "T12/23": 49.3, "T1/24": 49.7, "T2/24": 53.4, "T3/24": 55.5, "T4/24": 56.5, "T5/24": 56.7, "T6/24": 58.9, "T7/24": 60.0, "T8/24": 62.9, "T9/24": 63.8, "T10/24": 66.7, "T11/24": 68.5, "T12/24": 68.6, "T1/25": 69.9, "T2/25": 70.2, "T3/25": 70.9, "T4/25": 72.3, "T5/25": 74.4, "T6/25": 79.1, "T7/25": 80.4, "T8/25": 83.2, "T9/25": 87.2, "T10/25": 91.6, "T11/25": 95.9, "T12/25": 96.3, "T1/26": 95.5, "T2/26": 94.8, "T3/26": 95.7, "T4/26": 97.0, "T5/26": 90.0}, "Sóc Sơn": {}, "Tây Hồ": {"T3/21": 49.0, "T4/21": 47.2, "T5/21": 47.0, "T6/21": 48.2, "T7/21": 47.1, "T8/21": 44.2, "T9/21": 45.3, "T10/21": 46.5, "T11/21": 45.1, "T12/21": 45.0, "T1/22": 43.3, "T2/22": 46.4, "T3/22": 47.3, "T4/22": 47.1, "T5/22": 44.3, "T6/22": 44.0, "T7/22": 46.9, "T8/22": 49.6, "T9/22": 53.8, "T10/22": 60.4, "T11/22": 62.7, "T12/22": 57.4, "T1/23": 54.9, "T2/23": 60.6, "T3/23": 62.6, "T4/23": 55.3, "T5/23": 56.5, "T6/23": 56.8, "T7/23": 56.8, "T8/23": 58.0, "T9/23": 59.8, "T10/23": 63.4, "T11/23": 62.8, "T12/23": 63.6, "T1/24": 62.5, "T2/24": 64.7, "T3/24": 71.9, "T4/24": 74.0, "T5/24": 74.3, "T6/24": 76.6, "T7/24": 81.3, "T8/24": 91.5, "T9/24": 85.3, "T10/24": 87.9, "T11/24": 92.8, "T12/24": 93.9, "T1/25": 98.5, "T2/25": 98.5, "T3/25": 97.4, "T4/25": 98.7, "T5/25": 99.4, "T6/25": 101.8, "T7/25": 104.3, "T8/25": 109.2, "T9/25": 112.7, "T10/25": 118.8, "T11/25": 125.6, "T12/25": 142.7, "T1/26": 157.8, "T2/26": 157.1, "T3/26": 149.8, "T4/26": 145.1, "T5/26": 116.6}, "Thạch Thất": {}, "Thanh Trì": {"T3/21": 25.1, "T4/21": 24.8, "T5/21": 25.7, "T6/21": 26.4, "T7/21": 27.8, "T8/21": 34.5, "T9/21": 26.1, "T10/21": 25.9, "T11/21": 27.8, "T12/21": 27.1, "T1/22": 28.3, "T2/22": 26.6, "T3/22": 27.5, "T4/22": 26.7, "T5/22": 27.9, "T6/22": 28.4, "T7/22": 27.6, "T8/22": 27.1, "T9/22": 26.6, "T10/22": 28.3, "T11/22": 28.2, "T12/22": 28.3, "T1/23": 31.4, "T2/23": 28.0, "T3/23": 28.5, "T4/23": 27.7, "T5/23": 28.9, "T6/23": 27.7, "T7/23": 28.4, "T8/23": 27.9, "T9/23": 27.9, "T10/23": 29.6, "T11/23": 29.9, "T12/23": 31.5, "T1/24": 33.0, "T2/24": 33.9, "T3/24": 37.8, "T4/24": 41.6, "T5/24": 41.9, "T6/24": 42.1, "T7/24": 43.0, "T8/24": 45.3, "T9/24": 46.6, "T10/24": 51.0, "T11/24": 51.1, "T12/24": 52.0, "T1/25": 52.7, "T2/25": 52.4, "T3/25": 54.3, "T4/25": 53.9, "T5/25": 55.2, "T6/25": 56.0, "T7/25": 59.3, "T8/25": 62.2, "T9/25": 66.5, "T10/25": 72.1, "T11/25": 73.7, "T12/25": 74.4, "T1/26": 75.8, "T2/26": 76.5, "T3/26": 74.8, "T4/26": 74.3, "T5/26": 71.2}, "Thanh Xuân": {"T3/21": 36.8, "T4/21": 37.8, "T5/21": 37.5, "T6/21": 37.9, "T7/21": 37.9, "T8/21": 39.4, "T9/21": 39.4, "T10/21": 39.5, "T11/21": 39.6, "T12/21": 39.8, "T1/22": 39.5, "T2/22": 40.1, "T3/22": 42.0, "T4/22": 43.6, "T5/22": 43.4, "T6/22": 44.2, "T7/22": 44.8, "T8/22": 45.7, "T9/22": 46.6, "T10/22": 47.4, "T11/22": 47.2, "T12/22": 46.5, "T1/23": 45.7, "T2/23": 46.8, "T3/23": 47.8, "T4/23": 49.9, "T5/23": 49.1, "T6/23": 48.9, "T7/23": 48.8, "T8/23": 49.9, "T9/23": 49.6, "T10/23": 50.4, "T11/23": 52.1, "T12/23": 54.0, "T1/24": 54.3, "T2/24": 56.1, "T3/24": 59.2, "T4/24": 61.9, "T5/24": 61.9, "T6/24": 64.3, "T7/24": 64.7, "T8/24": 67.7, "T9/24": 69.6, "T10/24": 73.0, "T11/24": 76.0, "T12/24": 78.0, "T1/25": 79.1, "T2/25": 80.8, "T3/25": 82.7, "T4/25": 82.4, "T5/25": 85.0, "T6/25": 86.7, "T7/25": 88.9, "T8/25": 91.7, "T9/25": 92.7, "T10/25": 98.0, "T11/25": 104.3, "T12/25": 104.8, "T1/26": 105.7, "T2/26": 107.0, "T3/26": 108.6, "T4/26": 111.2, "T5/26": 110.6}, "Văn Giang": {"T3/21": 28.1, "T4/21": 29.8, "T5/21": 30.4, "T6/21": 30.3, "T7/21": 35.9, "T8/21": 38.8, "T9/21": 39.4, "T10/21": 37.2, "T11/21": 37.6, "T12/21": 38.0, "T1/22": 39.4, "T2/22": 37.8, "T3/22": 39.9, "T4/22": 38.0, "T5/22": 38.1, "T6/22": 39.0, "T7/22": 38.5, "T8/22": 39.7, "T9/22": 40.2, "T10/22": 39.5, "T11/22": 38.7, "T12/22": 37.9, "T1/23": 37.9, "T2/23": 38.5, "T3/23": 38.8, "T4/23": 37.6, "T5/23": 36.6, "T6/23": 36.9, "T7/23": 37.5, "T8/23": 37.5, "T9/23": 37.8, "T10/23": 38.3, "T11/23": 39.2, "T12/23": 40.0, "T1/24": 39.7, "T2/24": 41.8, "T3/24": 42.9, "T4/24": 47.8, "T5/24": 47.3, "T6/24": 47.3, "T7/24": 48.1, "T8/24": 53.1, "T9/24": 54.5, "T10/24": 58.0, "T11/24": 57.9, "T12/24": 58.6, "T1/25": 56.2, "T2/25": 59.0, "T3/25": 59.7, "T4/25": 61.2, "T5/25": 63.4, "T6/25": 63.4, "T7/25": 64.3, "T8/25": 67.4, "T9/25": 73.9, "T10/25": 74.4, "T11/25": 73.4, "T12/25": 71.6, "T1/26": 71.9, "T2/26": 73.1, "T3/26": 72.2, "T4/26": 70.8, "T5/26": 63.5}, "Từ Sơn": {}}, "nha-rieng": {"Đông Anh": {"T3/21": 45.3, "T4/21": 44.9, "T5/21": 50.2, "T6/21": 47.6, "T7/21": 46.8, "T8/21": 64.1, "T9/21": 44.8, "T10/21": 48.9, "T11/21": 52.1, "T12/21": 56.1, "T1/22": 61.7, "T2/22": 51.8, "T3/22": 55.5, "T4/22": 56.0, "T5/22": 57.9, "T6/22": 54.7, "T7/22": 55.4, "T8/22": 53.1, "T9/22": 56.2, "T10/22": 55.7, "T11/22": 62.4, "T12/22": 65.0, "T1/23": 65.8, "T2/23": 58.4, "T3/23": 58.6, "T4/23": 61.5, "T5/23": 58.4, "T6/23": 59.4, "T7/23": 60.8, "T8/23": 58.7, "T9/23": 58.1, "T10/23": 61.1, "T11/23": 60.0, "T12/23": 57.3, "T1/24": 59.1, "T2/24": 57.1, "T3/24": 65.1, "T4/24": 67.9, "T5/24": 76.3, "T6/24": 75.9, "T7/24": 77.0, "T8/24": 77.2, "T9/24": 83.2, "T10/24": 85.2, "T11/24": 91.8, "T12/24": 87.4, "T1/25": 95.0, "T2/25": 89.8, "T3/25": 93.3, "T4/25": 98.7, "T5/25": 103.7, "T6/25": 99.0, "T7/25": 100.6, "T8/25": 104.8, "T9/25": 101.9, "T10/25": 107.4, "T11/25": 109.8, "T12/25": 119.2, "T1/26": 108.3, "T2/26": 109.5, "T3/26": 110.5}, "Gia Lâm": {"T3/21": 58.1, "T4/21": 55.4, "T5/21": 57.5, "T6/21": 55.8, "T7/21": 57.2, "T8/21": 62.8, "T9/21": 61.4, "T10/21": 59.8, "T11/21": 60.4, "T12/21": 59.6, "T1/22": 65.0, "T2/22": 71.6, "T3/22": 64.1, "T4/22": 86.7, "T5/22": 72.9, "T6/22": 69.3, "T7/22": 67.0, "T8/22": 75.6, "T9/22": 78.3, "T10/22": 74.2, "T11/22": 77.8, "T12/22": 73.2, "T1/23": 80.6, "T2/23": 78.0, "T3/23": 70.7, "T4/23": 75.8, "T5/23": 70.3, "T6/23": 81.9, "T7/23": 69.3, "T8/23": 72.4, "T9/23": 75.7, "T10/23": 72.3, "T11/23": 78.3, "T12/23": 74.8, "T1/24": 78.6, "T2/24": 72.7, "T3/24": 78.9, "T4/24": 82.7, "T5/24": 77.4, "T6/24": 79.8, "T7/24": 84.2, "T8/24": 90.4, "T9/24": 102.9, "T10/24": 95.7, "T11/24": 104.3, "T12/24": 103.9, "T1/25": 114.2, "T2/25": 101.3, "T3/25": 113.3, "T4/25": 119.6, "T5/25": 121.7, "T6/25": 127.1, "T7/25": 125.6, "T8/25": 127.1, "T9/25": 134.4, "T10/25": 132.9, "T11/25": 139.0, "T12/25": 145.7, "T1/26": 145.5, "T2/26": 139.3, "T3/26": 143.1}, "Long Biên": {"T3/21": 84.4, "T4/21": 88.0, "T5/21": 88.3, "T6/21": 90.7, "T7/21": 89.8, "T8/21": 94.1, "T9/21": 91.2, "T10/21": 93.4, "T11/21": 96.5, "T12/21": 99.6, "T1/22": 99.9, "T2/22": 104.4, "T3/22": 105.4, "T4/22": 107.2, "T5/22": 110.4, "T6/22": 111.2, "T7/22": 111.2, "T8/22": 111.4, "T9/22": 110.8, "T10/22": 116.0, "T11/22": 111.3, "T12/22": 110.8, "T1/23": 110.9, "T2/23": 114.5, "T3/23": 113.0, "T4/23": 116.0, "T5/23": 111.2, "T6/23": 112.7, "T7/23": 113.7, "T8/23": 112.8, "T9/23": 114.5, "T10/23": 115.0, "T11/23": 113.8, "T12/23": 116.5, "T1/24": 119.5, "T2/24": 124.7, "T3/24": 129.4, "T4/24": 142.7, "T5/24": 146.3, "T6/24": 151.7, "T7/24": 155.7, "T8/24": 162.8, "T9/24": 170.2, "T10/24": 176.7, "T11/24": 180.8, "T12/24": 181.7, "T1/25": 186.2, "T2/25": 189.6, "T3/25": 195.1, "T4/25": 198.5, "T5/25": 204.3, "T6/25": 210.7, "T7/25": 212.9, "T8/25": 217.1, "T9/25": 219.7, "T10/25": 229.8, "T11/25": 235.4, "T12/25": 240.5, "T1/26": 243.9, "T2/26": 255.1, "T3/26": 254.2}, "Sóc Sơn": {"T3/21": 15.4, "T4/21": 19.9, "T5/21": 19.9, "T6/21": 19.9, "T7/21": 19.0, "T8/21": 19.0, "T9/21": 19.0, "T10/21": 20.7, "T11/21": 20.7, "T12/21": 20.7, "T1/22": 25.3, "T2/22": 25.3, "T3/22": 25.3, "T4/22": 26.1, "T5/22": 26.1, "T6/22": 26.1, "T7/22": 27.0, "T8/22": 27.0, "T9/22": 27.0, "T10/22": 29.5, "T11/22": 29.5, "T12/22": 29.5, "T1/23": 23.0, "T2/23": 23.0, "T3/23": 23.0, "T4/23": 23.4, "T5/23": 23.4, "T6/23": 23.4, "T7/23": 23.3, "T8/23": 23.3, "T9/23": 23.3, "T10/23": 37.0, "T11/23": 37.0, "T12/23": 37.0, "T1/24": 25.0, "T2/24": 25.0, "T3/24": 25.0, "T4/24": 20.2, "T5/24": 20.2, "T6/24": 20.2, "T7/24": 32.7, "T8/24": 32.7, "T9/24": 32.7, "T10/24": 36.5, "T11/24": 36.5, "T12/24": 36.5, "T1/25": 37.1, "T2/25": 37.1, "T3/25": 37.1, "T4/25": 45.7, "T5/25": 45.7, "T6/25": 45.7, "T7/25": 43.7, "T8/25": 43.7, "T9/25": 43.7, "T10/25": 51.8, "T11/25": 51.8, "T12/25": 51.8, "T1/26": 44.1, "T2/26": 44.1, "T3/26": 44.1}, "Hoàn Kiếm": {"T3/21": 208.6, "T4/21": 289.9, "T5/21": 254.1, "T6/21": 256.2, "T7/21": 232.9, "T8/21": 268.6, "T9/21": 237.8, "T10/21": 268.9, "T11/21": 238.2, "T12/21": 234.2, "T1/22": 246.7, "T2/22": 228.5, "T3/22": 212.1, "T4/22": 275.3, "T5/22": 291.4, "T6/22": 278.1, "T7/22": 239.9, "T8/22": 253.1, "T9/22": 283.0, "T10/22": 266.6, "T11/22": 275.6, "T12/22": 229.5, "T1/23": 254.0, "T2/23": 264.3, "T3/23": 225.1, "T4/23": 229.8, "T5/23": 228.5, "T6/23": 241.9, "T7/23": 246.7, "T8/23": 256.3, "T9/23": 267.5, "T10/23": 229.9, "T11/23": 230.0, "T12/23": 237.3, "T1/24": 240.6, "T2/24": 265.6, "T3/24": 268.2, "T4/24": 272.2, "T5/24": 289.7, "T6/24": 281.5, "T7/24": 243.4, "T8/24": 271.3, "T9/24": 294.1, "T10/24": 263.9, "T11/24": 264.0, "T12/24": 278.0, "T1/25": 289.4, "T2/25": 291.2, "T3/25": 296.8, "T4/25": 322.6, "T5/25": 323.0, "T6/25": 358.3, "T7/25": 337.6, "T8/25": 366.0, "T9/25": 388.8, "T10/25": 381.5, "T11/25": 384.3, "T12/25": 364.5, "T1/26": 415.1, "T2/26": 369.4, "T3/26": 430.0}, "Hai Bà Trưng": {"T3/21": 107.4, "T4/21": 114.0, "T5/21": 115.9, "T6/21": 113.1, "T7/21": 111.5, "T8/21": 115.0, "T9/21": 110.2, "T10/21": 114.4, "T11/21": 118.5, "T12/21": 122.8, "T1/22": 122.8, "T2/22": 127.9, "T3/22": 131.8, "T4/22": 135.3, "T5/22": 132.8, "T6/22": 139.1, "T7/22": 137.0, "T8/22": 139.4, "T9/22": 146.7, "T10/22": 139.6, "T11/22": 135.6, "T12/22": 135.3, "T1/23": 138.0, "T2/23": 137.4, "T3/23": 140.3, "T4/23": 141.9, "T5/23": 138.3, "T6/23": 138.7, "T7/23": 142.0, "T8/23": 144.0, "T9/23": 146.9, "T10/23": 145.1, "T11/23": 149.6, "T12/23": 152.6, "T1/24": 151.4, "T2/24": 158.2, "T3/24": 169.6, "T4/24": 169.8, "T5/24": 175.4, "T6/24": 178.6, "T7/24": 185.5, "T8/24": 184.2, "T9/24": 189.9, "T10/24": 195.2, "T11/24": 208.1, "T12/24": 211.4, "T1/25": 212.8, "T2/25": 219.7, "T3/25": 221.7, "T4/25": 232.9, "T5/25": 232.3, "T6/25": 230.3, "T7/25": 238.5, "T8/25": 238.1, "T9/25": 243.0, "T10/25": 256.8, "T11/25": 255.3, "T12/25": 271.5, "T1/26": 267.9, "T2/26": 274.3, "T3/26": 271.5}, "Hoàng Mai": {"T3/21": 92.2, "T4/21": 93.2, "T5/21": 93.7, "T6/21": 93.1, "T7/21": 92.6, "T8/21": 91.9, "T9/21": 94.5, "T10/21": 96.6, "T11/21": 101.0, "T12/21": 101.7, "T1/22": 102.5, "T2/22": 107.0, "T3/22": 107.6, "T4/22": 109.7, "T5/22": 112.0, "T6/22": 115.5, "T7/22": 113.3, "T8/22": 116.7, "T9/22": 113.9, "T10/22": 116.6, "T11/22": 115.2, "T12/22": 109.5, "T1/23": 111.4, "T2/23": 114.7, "T3/23": 115.9, "T4/23": 114.6, "T5/23": 117.4, "T6/23": 117.6, "T7/23": 116.3, "T8/23": 115.4, "T9/23": 113.3, "T10/23": 120.0, "T11/23": 119.8, "T12/23": 120.8, "T1/24": 122.8, "T2/24": 130.1, "T3/24": 138.8, "T4/24": 146.9, "T5/24": 150.7, "T6/24": 155.9, "T7/24": 153.9, "T8/24": 161.0, "T9/24": 167.7, "T10/24": 176.6, "T11/24": 183.4, "T12/24": 188.4, "T1/25": 186.8, "T2/25": 192.2, "T3/25": 196.6, "T4/25": 204.6, "T5/25": 208.1, "T6/25": 208.8, "T7/25": 214.2, "T8/25": 218.5, "T9/25": 229.6, "T10/25": 237.1, "T11/25": 239.2, "T12/25": 245.5, "T1/26": 246.7, "T2/26": 248.8, "T3/26": 257.3}, "Đống Đa": {"T3/21": 140.9, "T4/21": 149.3, "T5/21": 151.1, "T6/21": 145.7, "T7/21": 145.9, "T8/21": 147.8, "T9/21": 148.6, "T10/21": 154.9, "T11/21": 154.0, "T12/21": 155.6, "T1/22": 158.0, "T2/22": 159.3, "T3/22": 161.1, "T4/22": 167.9, "T5/22": 168.5, "T6/22": 169.9, "T7/22": 168.3, "T8/22": 166.4, "T9/22": 169.8, "T10/22": 167.5, "T11/22": 168.6, "T12/22": 165.9, "T1/23": 174.1, "T2/23": 175.2, "T3/23": 175.4, "T4/23": 181.6, "T5/23": 177.4, "T6/23": 172.7, "T7/23": 177.5, "T8/23": 179.6, "T9/23": 190.3, "T10/23": 195.9, "T11/23": 191.3, "T12/23": 180.1, "T1/24": 179.6, "T2/24": 190.1, "T3/24": 201.5, "T4/24": 211.5, "T5/24": 218.6, "T6/24": 216.5, "T7/24": 221.1, "T8/24": 222.5, "T9/24": 224.2, "T10/24": 230.2, "T11/24": 242.9, "T12/24": 247.7, "T1/25": 245.8, "T2/25": 267.7, "T3/25": 269.7, "T4/25": 278.5, "T5/25": 276.8, "T6/25": 271.6, "T7/25": 287.6, "T8/25": 293.7, "T9/25": 299.2, "T10/25": 300.5, "T11/25": 294.8, "T12/25": 291.8, "T1/26": 281.4, "T2/26": 296.4, "T3/26": 295.3}, "Thanh Xuân": {"T3/21": 114.9, "T4/21": 116.2, "T5/21": 118.2, "T6/21": 119.7, "T7/21": 121.8, "T8/21": 122.6, "T9/21": 120.8, "T10/21": 121.2, "T11/21": 126.0, "T12/21": 125.4, "T1/22": 127.3, "T2/22": 133.3, "T3/22": 133.1, "T4/22": 138.5, "T5/22": 143.8, "T6/22": 141.2, "T7/22": 140.2, "T8/22": 139.8, "T9/22": 151.4, "T10/22": 149.2, "T11/22": 144.8, "T12/22": 141.1, "T1/23": 146.3, "T2/23": 148.5, "T3/23": 150.5, "T4/23": 149.1, "T5/23": 151.8, "T6/23": 152.1, "T7/23": 152.2, "T8/23": 153.4, "T9/23": 146.9, "T10/23": 151.8, "T11/23": 158.1, "T12/23": 155.1, "T1/24": 160.3, "T2/24": 166.6, "T3/24": 171.3, "T4/24": 184.2, "T5/24": 185.9, "T6/24": 192.5, "T7/24": 194.7, "T8/24": 201.8, "T9/24": 210.2, "T10/24": 212.1, "T11/24": 222.1, "T12/24": 223.4, "T1/25": 227.2, "T2/25": 237.9, "T3/25": 245.8, "T4/25": 250.3, "T5/25": 263.3, "T6/25": 260.3, "T7/25": 265.5, "T8/25": 273.8, "T9/25": 278.6, "T10/25": 283.9, "T11/25": 282.8, "T12/25": 291.7, "T1/26": 302.3, "T2/26": 313.0, "T3/26": 292.3}, "Hà Đông": {"T3/21": 76.6, "T4/21": 80.1, "T5/21": 80.7, "T6/21": 82.2, "T7/21": 86.4, "T8/21": 91.6, "T9/21": 86.9, "T10/21": 84.6, "T11/21": 86.1, "T12/21": 86.6, "T1/22": 88.9, "T2/22": 84.7, "T3/22": 92.3, "T4/22": 100.5, "T5/22": 98.2, "T6/22": 97.0, "T7/22": 101.0, "T8/22": 100.8, "T9/22": 101.1, "T10/22": 104.9, "T11/22": 103.1, "T12/22": 102.8, "T1/23": 94.6, "T2/23": 96.8, "T3/23": 101.7, "T4/23": 100.6, "T5/23": 104.2, "T6/23": 105.0, "T7/23": 105.1, "T8/23": 106.8, "T9/23": 111.5, "T10/23": 114.1, "T11/23": 114.5, "T12/23": 120.0, "T1/24": 120.2, "T2/24": 118.8, "T3/24": 137.1, "T4/24": 143.3, "T5/24": 150.4, "T6/24": 157.3, "T7/24": 156.3, "T8/24": 165.7, "T9/24": 171.7, "T10/24": 179.6, "T11/24": 187.1, "T12/24": 183.1, "T1/25": 184.3, "T2/25": 192.0, "T3/25": 191.2, "T4/25": 196.2, "T5/25": 201.6, "T6/25": 202.1, "T7/25": 207.1, "T8/25": 206.0, "T9/25": 209.5, "T10/25": 219.3, "T11/25": 221.9, "T12/25": 223.8, "T1/26": 226.7, "T2/26": 237.1, "T3/26": 233.7}, "Thanh Trì": {"T3/21": 69.3, "T4/21": 71.2, "T5/21": 73.9, "T6/21": 76.9, "T7/21": 76.2, "T8/21": 81.1, "T9/21": 73.3, "T10/21": 76.3, "T11/21": 76.4, "T12/21": 79.1, "T1/22": 78.9, "T2/22": 77.7, "T3/22": 80.3, "T4/22": 82.8, "T5/22": 88.2, "T6/22": 87.0, "T7/22": 89.2, "T8/22": 90.4, "T9/22": 89.3, "T10/22": 88.8, "T11/22": 91.1, "T12/22": 89.5, "T1/23": 96.1, "T2/23": 89.1, "T3/23": 95.7, "T4/23": 94.4, "T5/23": 95.3, "T6/23": 98.8, "T7/23": 91.9, "T8/23": 99.4, "T9/23": 91.1, "T10/23": 88.5, "T11/23": 90.1, "T12/23": 90.7, "T1/24": 96.2, "T2/24": 88.6, "T3/24": 107.6, "T4/24": 112.6, "T5/24": 117.0, "T6/24": 118.5, "T7/24": 119.9, "T8/24": 122.0, "T9/24": 128.5, "T10/24": 132.6, "T11/24": 142.6, "T12/24": 143.0, "T1/25": 145.3, "T2/25": 155.6, "T3/25": 152.8, "T4/25": 154.7, "T5/25": 151.4, "T6/25": 151.4, "T7/25": 155.0, "T8/25": 149.0, "T9/25": 158.6, "T10/25": 167.1, "T11/25": 176.2, "T12/25": 173.2, "T1/26": 174.8, "T2/26": 180.7, "T3/26": 187.6}, "Tây Hồ": {"T3/21": 128.1, "T4/21": 135.6, "T5/21": 141.4, "T6/21": 140.9, "T7/21": 140.0, "T8/21": 143.5, "T9/21": 138.8, "T10/21": 134.5, "T11/21": 134.8, "T12/21": 146.4, "T1/22": 142.9, "T2/22": 153.4, "T3/22": 160.1, "T4/22": 169.4, "T5/22": 176.9, "T6/22": 165.3, "T7/22": 161.1, "T8/22": 172.8, "T9/22": 172.8, "T10/22": 170.1, "T11/22": 167.0, "T12/22": 159.7, "T1/23": 168.5, "T2/23": 162.1, "T3/23": 163.8, "T4/23": 164.0, "T5/23": 165.4, "T6/23": 164.7, "T7/23": 161.7, "T8/23": 165.5, "T9/23": 164.1, "T10/23": 173.5, "T11/23": 178.4, "T12/23": 169.6, "T1/24": 177.3, "T2/24": 189.4, "T3/24": 195.8, "T4/24": 200.0, "T5/24": 203.5, "T6/24": 206.0, "T7/24": 205.9, "T8/24": 210.9, "T9/24": 221.6, "T10/24": 235.0, "T11/24": 246.9, "T12/24": 236.6, "T1/25": 244.1, "T2/25": 257.5, "T3/25": 261.3, "T4/25": 267.5, "T5/25": 265.9, "T6/25": 274.0, "T7/25": 272.2, "T8/25": 270.5, "T9/25": 286.8, "T10/25": 292.1, "T11/25": 293.4, "T12/25": 293.2, "T1/26": 307.3, "T2/26": 327.6, "T3/26": 318.1}, "Bắc Từ Liêm": {"T3/21": 86.7, "T4/21": 89.0, "T5/21": 89.3, "T6/21": 88.0, "T7/21": 89.6, "T8/21": 89.9, "T9/21": 86.8, "T10/21": 90.4, "T11/21": 95.6, "T12/21": 96.4, "T1/22": 97.6, "T2/22": 99.9, "T3/22": 104.0, "T4/22": 107.2, "T5/22": 108.2, "T6/22": 105.3, "T7/22": 108.1, "T8/22": 108.6, "T9/22": 112.1, "T10/22": 111.9, "T11/22": 112.9, "T12/22": 111.3, "T1/23": 113.1, "T2/23": 106.8, "T3/23": 106.2, "T4/23": 104.5, "T5/23": 109.7, "T6/23": 110.3, "T7/23": 113.2, "T8/23": 114.0, "T9/23": 111.8, "T10/23": 115.9, "T11/23": 115.1, "T12/23": 119.8, "T1/24": 125.0, "T2/24": 131.1, "T3/24": 134.8, "T4/24": 148.1, "T5/24": 149.8, "T6/24": 154.1, "T7/24": 151.2, "T8/24": 163.0, "T9/24": 162.4, "T10/24": 171.5, "T11/24": 177.9, "T12/24": 183.5, "T1/25": 188.0, "T2/25": 189.4, "T3/25": 197.0, "T4/25": 202.4, "T5/25": 201.6, "T6/25": 203.6, "T7/25": 205.0, "T8/25": 206.2, "T9/25": 215.5, "T10/25": 221.3, "T11/25": 233.0, "T12/25": 235.1, "T1/26": 236.6, "T2/26": 240.5, "T3/26": 240.9}, "Nam Từ Liêm": {"T3/21": 103.6, "T4/21": 100.1, "T5/21": 101.0, "T6/21": 101.0, "T7/21": 106.3, "T8/21": 108.2, "T9/21": 105.9, "T10/21": 101.9, "T11/21": 109.7, "T12/21": 110.6, "T1/22": 109.9, "T2/22": 115.1, "T3/22": 115.0, "T4/22": 119.6, "T5/22": 118.9, "T6/22": 119.2, "T7/22": 122.3, "T8/22": 122.7, "T9/22": 122.5, "T10/22": 130.3, "T11/22": 124.7, "T12/22": 121.1, "T1/23": 120.6, "T2/23": 121.4, "T3/23": 127.1, "T4/23": 126.6, "T5/23": 127.4, "T6/23": 127.3, "T7/23": 129.7, "T8/23": 129.9, "T9/23": 128.4, "T10/23": 130.2, "T11/23": 133.0, "T12/23": 131.7, "T1/24": 136.2, "T2/24": 137.1, "T3/24": 145.2, "T4/24": 165.1, "T5/24": 173.7, "T6/24": 179.3, "T7/24": 174.9, "T8/24": 177.9, "T9/24": 181.5, "T10/24": 195.2, "T11/24": 198.6, "T12/24": 208.1, "T1/25": 208.6, "T2/25": 208.5, "T3/25": 208.1, "T4/25": 210.6, "T5/25": 210.2, "T6/25": 208.5, "T7/25": 212.7, "T8/25": 220.7, "T9/25": 225.5, "T10/25": 232.6, "T11/25": 241.7, "T12/25": 245.6, "T1/26": 249.0, "T2/26": 262.2, "T3/26": 257.5}, "Hoài Đức": {"T3/21": 54.1, "T4/21": 56.6, "T5/21": 55.4, "T6/21": 55.3, "T7/21": 59.8, "T8/21": 56.0, "T9/21": 55.0, "T10/21": 58.6, "T11/21": 61.8, "T12/21": 62.8, "T1/22": 64.2, "T2/22": 65.2, "T3/22": 66.5, "T4/22": 66.2, "T5/22": 70.1, "T6/22": 71.4, "T7/22": 71.0, "T8/22": 70.3, "T9/22": 72.2, "T10/22": 74.3, "T11/22": 74.6, "T12/22": 73.7, "T1/23": 72.0, "T2/23": 73.5, "T3/23": 74.9, "T4/23": 71.6, "T5/23": 73.5, "T6/23": 71.6, "T7/23": 73.5, "T8/23": 73.8, "T9/23": 74.2, "T10/23": 76.1, "T11/23": 79.1, "T12/23": 83.9, "T1/24": 84.8, "T2/24": 78.8, "T3/24": 87.1, "T4/24": 95.2, "T5/24": 96.4, "T6/24": 99.7, "T7/24": 105.8, "T8/24": 108.1, "T9/24": 115.2, "T10/24": 118.6, "T11/24": 126.6, "T12/24": 131.3, "T1/25": 125.7, "T2/25": 125.2, "T3/25": 128.9, "T4/25": 129.8, "T5/25": 130.2, "T6/25": 133.7, "T7/25": 137.9, "T8/25": 139.7, "T9/25": 145.9, "T10/25": 148.9, "T11/25": 150.2, "T12/25": 160.1, "T1/26": 160.5, "T2/26": 169.5, "T3/26": 155.8}, "Đan Phượng": {"T3/21": 51.3, "T4/21": 36.2, "T5/21": 36.2, "T6/21": 36.2, "T7/21": 34.1, "T8/21": 34.1, "T9/21": 34.1, "T10/21": 45.1, "T11/21": 45.1, "T12/21": 45.1, "T1/22": 60.0, "T2/22": 60.0, "T3/22": 60.0, "T4/22": 71.5, "T5/22": 71.5, "T6/22": 71.5, "T7/22": 65.1, "T8/22": 65.1, "T9/22": 65.1, "T10/22": 66.1, "T11/22": 66.1, "T12/22": 66.1, "T1/23": 53.1, "T2/23": 53.1, "T3/23": 53.1, "T4/23": 53.1, "T5/23": 53.1, "T6/23": 53.1, "T7/23": 65.4, "T8/23": 65.4, "T9/23": 65.4, "T10/23": 60.4, "T11/23": 60.4, "T12/23": 60.4, "T1/24": 74.7, "T2/24": 74.7, "T3/24": 74.7, "T4/24": 82.7, "T5/24": 82.7, "T6/24": 82.7, "T7/24": 82.1, "T8/24": 82.1, "T9/24": 82.1, "T10/24": 114.7, "T11/24": 114.7, "T12/24": 114.7, "T1/25": 109.9, "T2/25": 109.9, "T3/25": 109.9, "T4/25": 117.9, "T5/25": 117.9, "T6/25": 117.9, "T7/25": 134.8, "T8/25": 134.8, "T9/25": 134.8, "T10/25": 141.4, "T11/25": 141.4, "T12/25": 141.4, "T1/26": 138.8, "T2/26": 138.8, "T3/26": 138.8}, "Ba Đình": {"T3/21": 148.0, "T4/21": 145.5, "T5/21": 144.5, "T6/21": 142.0, "T7/21": 148.3, "T8/21": 156.7, "T9/21": 149.7, "T10/21": 148.7, "T11/21": 146.3, "T12/21": 150.4, "T1/22": 161.2, "T2/22": 161.0, "T3/22": 162.9, "T4/22": 161.6, "T5/22": 163.8, "T6/22": 155.7, "T7/22": 161.7, "T8/22": 163.3, "T9/22": 171.1, "T10/22": 169.4, "T11/22": 170.6, "T12/22": 160.4, "T1/23": 166.6, "T2/23": 164.0, "T3/23": 163.9, "T4/23": 161.6, "T5/23": 172.7, "T6/23": 168.4, "T7/23": 174.6, "T8/23": 175.8, "T9/23": 181.6, "T10/23": 180.3, "T11/23": 175.4, "T12/23": 171.5, "T1/24": 180.4, "T2/24": 191.3, "T3/24": 196.6, "T4/24": 209.1, "T5/24": 215.4, "T6/24": 210.5, "T7/24": 220.7, "T8/24": 222.7, "T9/24": 228.7, "T10/24": 234.3, "T11/24": 244.8, "T12/24": 242.7, "T1/25": 236.9, "T2/25": 249.1, "T3/25": 251.5, "T4/25": 265.7, "T5/25": 267.5, "T6/25": 273.4, "T7/25": 272.7, "T8/25": 279.2, "T9/25": 285.9, "T10/25": 284.8, "T11/25": 289.4, "T12/25": 300.2, "T1/26": 312.3, "T2/26": 319.1, "T3/26": 311.0}, "Văn Giang": {"T3/21": 18.5, "T4/21": 22.5, "T5/21": 22.5, "T6/21": 22.5, "T7/21": 22.5, "T8/21": 22.5, "T9/21": 22.5, "T10/21": 48.9, "T11/21": 48.9, "T12/21": 48.9, "T1/22": 48.9, "T2/22": 48.9, "T3/22": 48.9, "T4/22": 69.6, "T5/22": 69.6, "T6/22": 69.6, "T7/22": 69.6, "T8/22": 69.6, "T9/22": 69.6, "T10/22": 69.6, "T11/22": 69.6, "T12/22": 69.6, "T1/23": 69.6, "T2/23": 69.6, "T3/23": 69.6, "T4/23": 69.6, "T5/23": 69.6, "T6/23": 69.6, "T7/23": 69.6, "T8/23": 69.6, "T9/23": 69.6, "T10/23": 46.7, "T11/23": 46.7, "T12/23": 46.7, "T1/24": 40.9, "T2/24": 40.9, "T3/24": 40.9, "T4/24": 37.7, "T5/24": 37.7, "T6/24": 37.7, "T7/24": 63.9, "T8/24": 63.9, "T9/24": 63.9, "T10/24": 63.9, "T11/24": 63.9, "T12/24": 63.9, "T1/25": 43.2, "T2/25": 43.2, "T3/25": 43.2, "T4/25": 98.7, "T5/25": 98.7, "T6/25": 98.7, "T7/25": 75.6, "T8/25": 75.6, "T9/25": 75.6, "T10/25": 69.4, "T11/25": 69.4, "T12/25": 69.4, "T1/26": 87.9, "T2/26": 87.9, "T3/26": 87.9}, "Từ Sơn": {"T3/21": 37.6, "T4/21": 38.9, "T5/21": 38.9, "T6/21": 38.9, "T7/21": 25.6, "T8/21": 25.6, "T9/21": 25.6, "T10/21": 31.6, "T11/21": 31.6, "T12/21": 31.6, "T1/22": 52.7, "T2/22": 52.7, "T3/22": 52.7, "T4/22": 40.3, "T5/22": 40.3, "T6/22": 40.3, "T7/22": 37.7, "T8/22": 37.7, "T9/22": 37.7, "T10/22": 33.8, "T11/22": 33.8, "T12/22": 33.8, "T1/23": 43.2, "T2/23": 43.2, "T3/23": 43.2, "T4/23": 37.0, "T5/23": 37.0, "T6/23": 37.0, "T7/23": 34.6, "T8/23": 34.6, "T9/23": 34.6, "T10/23": 23.9, "T11/23": 23.9, "T12/23": 23.9, "T1/24": 36.1, "T2/24": 36.1, "T3/24": 36.1, "T4/24": 39.0, "T5/24": 39.0, "T6/24": 39.0, "T7/24": 41.1, "T8/24": 41.1, "T9/24": 41.1, "T10/24": 33.5, "T11/24": 33.5, "T12/24": 33.5, "T1/25": 46.0, "T2/25": 46.0, "T3/25": 46.0, "T4/25": 57.5, "T5/25": 57.5, "T6/25": 57.5, "T7/25": 69.2, "T8/25": 69.2, "T9/25": 69.2, "T10/25": 52.3, "T11/25": 52.3, "T12/25": 52.3, "T1/26": 58.3, "T2/26": 58.3, "T3/26": 58.3}, "Thạch Thất": {"T3/21": 11.6, "T4/21": 32.4, "T5/21": 32.4, "T6/21": 32.4, "T7/21": 12.9, "T8/21": 12.9, "T9/21": 12.9, "T10/21": 18.2, "T11/21": 18.2, "T12/21": 18.2, "T1/22": 18.2, "T2/22": 18.2, "T3/22": 18.2, "T4/22": 22.1, "T5/22": 22.1, "T6/22": 22.1, "T7/22": 31.7, "T8/22": 31.7, "T9/22": 31.7, "T10/22": 49.8, "T11/22": 49.8, "T12/22": 49.8, "T1/23": 62.6, "T2/23": 62.6, "T3/23": 62.6, "T4/23": 36.3, "T5/23": 36.3, "T6/23": 36.3, "T7/23": 56.5, "T8/23": 56.5, "T9/23": 56.5, "T10/23": 31.1, "T11/23": 31.1, "T12/23": 31.1, "T1/24": 35.2, "T2/24": 35.2, "T3/24": 35.2, "T4/24": 42.5, "T5/24": 42.5, "T6/24": 42.5, "T7/24": 55.3, "T8/24": 55.3, "T9/24": 55.3, "T10/24": 58.0, "T11/24": 58.0, "T12/24": 58.0, "T1/25": 60.2, "T2/25": 60.2, "T3/25": 60.2, "T4/25": 54.7, "T5/25": 54.7, "T6/25": 54.7, "T7/25": 88.1, "T8/25": 88.1, "T9/25": 88.1, "T10/25": 80.8, "T11/25": 80.8, "T12/25": 80.8, "T1/26": 51.0, "T2/26": 51.0, "T3/26": 51.0}, "Cầu Giấy": {"T3/21": 149.9, "T4/21": 146.6, "T5/21": 153.7, "T6/21": 153.5, "T7/21": 152.1, "T8/21": 154.3, "T9/21": 156.6, "T10/21": 151.1, "T11/21": 158.4, "T12/21": 166.9, "T1/22": 166.7, "T2/22": 173.3, "T3/22": 178.3, "T4/22": 179.9, "T5/22": 179.1, "T6/22": 179.8, "T7/22": 181.5, "T8/22": 189.2, "T9/22": 192.2, "T10/22": 189.9, "T11/22": 184.4, "T12/22": 176.1, "T1/23": 191.7, "T2/23": 189.2, "T3/23": 185.3, "T4/23": 189.7, "T5/23": 186.1, "T6/23": 180.3, "T7/23": 179.3, "T8/23": 181.2, "T9/23": 186.4, "T10/23": 195.1, "T11/23": 205.4, "T12/23": 198.4, "T1/24": 201.5, "T2/24": 210.1, "T3/24": 217.9, "T4/24": 226.6, "T5/24": 234.3, "T6/24": 232.7, "T7/24": 237.4, "T8/24": 241.8, "T9/24": 245.3, "T10/24": 253.4, "T11/24": 269.4, "T12/24": 269.6, "T1/25": 273.2, "T2/25": 277.5, "T3/25": 282.7, "T4/25": 294.6, "T5/25": 297.4, "T6/25": 300.6, "T7/25": 304.7, "T8/25": 307.7, "T9/25": 314.4, "T10/25": 319.7, "T11/25": 319.9, "T12/25": 330.2, "T1/26": 330.9, "T2/26": 339.8, "T3/26": 342.5}, "Mê Linh": {"T3/21": 23.6, "T4/21": 25.1, "T5/21": 25.1, "T6/21": 25.1, "T7/21": 26.2, "T8/21": 26.2, "T9/21": 26.2, "T10/21": 29.3, "T11/21": 29.3, "T12/21": 29.3, "T1/22": 26.1, "T2/22": 26.1, "T3/22": 26.1, "T4/22": 36.8, "T5/22": 36.8, "T6/22": 36.8, "T7/22": 40.2, "T8/22": 40.2, "T9/22": 40.2, "T10/22": 36.2, "T11/22": 36.2, "T12/22": 36.2, "T1/23": 43.5, "T2/23": 43.5, "T3/23": 43.5, "T4/23": 44.9, "T5/23": 44.9, "T6/23": 44.9, "T7/23": 36.0, "T8/23": 36.0, "T9/23": 36.0, "T10/23": 45.1, "T11/23": 45.1, "T12/23": 45.1, "T1/24": 44.8, "T2/24": 44.8, "T3/24": 44.8, "T4/24": 41.4, "T5/24": 41.4, "T6/24": 41.4, "T7/24": 44.4, "T8/24": 44.4, "T9/24": 44.4, "T10/24": 53.7, "T11/24": 53.7, "T12/24": 53.7, "T1/25": 58.5, "T2/25": 58.5, "T3/25": 58.5, "T4/25": 59.1, "T5/25": 59.1, "T6/25": 59.1, "T7/25": 61.0, "T8/25": 61.0, "T9/25": 61.0, "T10/25": 62.4, "T11/25": 62.4, "T12/25": 62.4, "T1/26": 70.7, "T2/26": 70.7, "T3/26": 70.7}}};
 
 
-    </script>
-
-</body>
-
-
-
-</html>
+    

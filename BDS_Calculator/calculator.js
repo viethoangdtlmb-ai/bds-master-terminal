@@ -256,10 +256,10 @@ document.getElementById('toggleHiddenRate').addEventListener('click', () => {
     const icon = document.getElementById('toggleIcon');
     if (section.classList.contains('open')) {
         section.classList.remove('open');
-        icon.textContent = '▼ MỞ RA';
+        icon.style.transform = 'rotate(0deg)';
     } else {
         section.classList.add('open');
-        icon.textContent = '▲ ĐÓNG LẠI';
+        icon.style.transform = 'rotate(180deg)';
     }
 });
 

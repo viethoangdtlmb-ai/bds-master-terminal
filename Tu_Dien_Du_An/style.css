@@ -1,3 +1,31 @@
+
+.search-box-container {
+    padding-right: 30px !important;
+}
+
+.close-sidebar-btn {
+    display: flex;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 10px;
+}
+
+.close-sidebar-btn:hover {
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
 :root {
     --bg-main: #f8fafc;
     --bg-sidebar: #ffffff;
@@ -159,7 +187,7 @@ body {
 
 .search-box-container {
     padding: 16px 20px;
-    background: white;
+    background: #0f172a;
     border-bottom: 1px solid #e2e8f0;
     z-index: 2;
     position: relative;
@@ -819,4 +847,106 @@ blockquote {
 .leaflet-container {
     font-family: 'Inter', sans-serif;
 }
+
+
+
+
+/* Responsive Mobile & Iframe SuperApp Overlay */
+
+
+@media (max-width: 900px) {
+    .layout-container {
+        position: relative;
+    }
+    
+    .sidebar {
+        position: absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 2000;
+        width: 100%;
+        max-width: 400px;
+        transition: transform 0.3s ease;
+        margin-left: 0 !important;
+        border-right: none;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.15);
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+    }
+
+    #toggleSidebarBtn {
+        z-index: 2001 !important; /* Ensure it stays above everything if needed, but sidebar is 2000 so it can overlap. Actually, sidebar covering it is fine if we have close btn. */
+    }
+
+    .search-box-container {
+        padding-right: 50px !important;
+    }
+
+
+    /* Map Controls adjusting */
+    #mapControls {
+        top: auto !important;
+        bottom: 20px !important;
+        right: 10px !important;
+        left: 10px !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        background: rgba(255,255,255,0.95) !important;
+        padding: 6px !important;
+        gap: 5px !important;
+        align-items: center;
+    }
+
+    #mapControls > div {
+        width: auto !important;
+        justify-content: flex-start;
+        gap: 5px !important;
+        min-width: 0; /* Cho phép co lại nhỏ hơn nội dung */
+    }
+    
+    #mapControls > div:first-child {
+        flex: 0 1 auto; /* Thay vì 0 0 auto, cho phép co lại nếu hết chỗ */
+    }
+    
+    #mapControls > div:last-child {
+        flex: 1 1 auto;
+        min-width: 50px;
+    }
+
+    #opacitySlider {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+
+    .map-control-btn {
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+
+    #planningDistrict {
+        max-width: 110px;
+        text-overflow: ellipsis;
+    }
+
+
+    .map-control-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .leaflet-control-layers {
+        margin-bottom: 90px !important; /* Push up above mapControls */
+    }
+
+    #opacityLabel {
+        display: none !important;
+    }
+}
+
 

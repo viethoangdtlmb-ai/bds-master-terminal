@@ -42,22 +42,29 @@ h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; text-align: cen
 
 /* ===== SLIDERS ===== */
 .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
-.sl-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+.sl-row { display: flex; align-items: center; gap: 15px; margin-bottom: 24px; position: relative; }
 .sl-label { font-size: 13.5px; color: var(--color-text-secondary); width: 240px; min-width: 240px; flex-shrink: 0; }
-.sl-val { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; width: 140px; min-width: 140px; flex-shrink: 0; padding-left: 15px; }
+.sl-val { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; width: 140px; min-width: 140px; flex-shrink: 0; padding-left: 15px; position: relative; }
 .sl-input {
-    width: 65px; padding: 4px 6px; border: 1px solid var(--color-border-secondary);
-    border-radius: 4px; background: var(--color-background-primary);
+    width: 65px; padding: 6px; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; background: rgba(255,255,255,0.05);
     color: var(--color-primary); font-family: var(--font-sans);
     font-size: 14px; font-weight: 600; text-align: center;
-    margin-right: 6px; outline: none; transition: border-color 0.2s;
+    margin-right: 6px; outline: none; transition: all 0.3s;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
+.sl-input:focus { border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
 .sl-input:focus { border-color: var(--color-primary); }
 .sl-input::-webkit-outer-spin-button, .sl-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .sl-input[type=number] { -moz-appearance: textfield; }
 .sl-unit { font-size: 14px; font-weight: 600; color: var(--color-primary); white-space: nowrap; }
-#priceUnitInfo { flex-basis: 100%; font-size: 11.5px; color: var(--color-text-secondary); font-weight: 500; margin-top: 4px; }
+.sl-slider-wrap { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; justify-content: center; }
+.sl-slider-wrap input[type=range] { width: 100%; margin: 0; }
+#priceUnitInfo { position: absolute; top: 100%; left: 0; font-size: 11px; color: var(--color-text-secondary); font-weight: 500; margin-top: 4px; white-space: nowrap; }
+
+/* Khôi phục Slider gốc dùng accent-color */
 input[type=range] { flex: 1; accent-color: var(--color-primary); cursor: pointer; }
+
 
 /* ===== METRICS ===== */
 .big-metric { border-radius: 12px; padding: 20px; text-align: center; border: 1px solid var(--color-border-tertiary); }
@@ -89,13 +96,40 @@ tr:last-child td { border-bottom: none; }
   h1 { font-size: 1.25rem; line-height: 1.4; }
   .g3 { grid-template-columns: 1fr; gap: 10px; }
   .card { padding: 16px; }
-  .sl-row { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border-tertiary); }
+  .sl-row { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 26px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border-tertiary); position: relative; }
   .sl-row:last-child { border-bottom: none; }
-  .sl-label { min-width: 100%; font-size: 13px; font-weight: 500; }
-  .sl-val { text-align: left; font-size: 15px; }
-  input[type=range] { width: 100%; height: 30px; }
+  .sl-label { min-width: 100%; font-size: 13px; font-weight: 500; margin-bottom: 0px; }
+  .sl-val { width: 90px; min-width: 90px; flex-shrink: 0; text-align: left; font-size: 15px; padding-left: 0; justify-content: flex-start; position: relative; }
+  input[type=range] { flex: 1; min-width: 0; height: 30px; }
+  .sl-slider-wrap input[type=range] { height: 30px; }
   .big-val { font-size: 22px; }
   table { font-size: 13px; }
   td, th { padding: 12px 10px; }
   .t-lbl { width: 55%; }
 }
+
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Units */
+.unit-mobile { display: inline; }
+.unit-desktop { display: none; }
+@media (min-width: 600px) {
+    .unit-mobile { display: none; }
+    .unit-desktop { display: inline; }
+}
+
+
